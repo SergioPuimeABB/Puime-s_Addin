@@ -1,4 +1,4 @@
-# Puime's_Addin
+# Puime's Addin
 An ABB RobotStudio Add-in with some useful tools. ||Beta version|| - Still in progress -
 
 * **Copy position**. Gets parts, targets or workobjects position and orientation.
