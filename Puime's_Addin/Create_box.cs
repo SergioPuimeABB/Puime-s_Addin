@@ -385,23 +385,44 @@ namespace Puime_s_Addin
                 myFace4.Visible = true;
                 myFace5.Visible = true;
 
-                // Make the the face yellow.
+                //// Make the the face yellow.
                 //myFace0.Color = Color.Yellow; // z +
-                myFace1.Color = Color.Blue; // z -
-                myFace2.Color = Color.Red; // y -
-                myFace3.Color = Color.Green; // x -
-                myFace4.Color = Color.Black; // y +
-                myFace5.Color = Color.White; // x +
+                //myFace1.Color = Color.Blue; // z -
+                //myFace2.Color = Color.Red; // y -
+                //myFace3.Color = Color.Green; // x -
+                //myFace4.Color = Color.Black; // y +
+                //myFace5.Color = Color.White; // x +
 
-                var fileName = @"E:\_RobotStudio\SDK\Practicas\Puime's_Addin\Puime's_Addin\Resources\BT_paste.png";
-                Texture box_texture = new Texture();
                 //
-                // da error en la ruta.
-                //
-                box_texture.FileName = @"E:\_RobotStudio\SDK\Practicas\Puime's_Addin\Puime's_Addin\Resources\BT_paste.png";
-                Material box_material = new Material();
-                box_material.BaseTexture = box_texture;
-                //myFace0.SetMaterial(box_material);
+                //Set the material for each face of the box
+                Bitmap bmp0 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\tapa.jpg");
+                Bitmap bmp1 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\tapa2.jpg");
+                Bitmap bmp2 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\lado_largo2.jpg");
+                Bitmap bmp3 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\lado_corto3.jpg");
+                Bitmap bmp4 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\lado_largo3.jpg");
+                Bitmap bmp5 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\lado_corto2.jpg");
+                Texture texture0 = new Texture(bmp0);
+                Texture texture1 = new Texture(bmp1);
+                Texture texture2 = new Texture(bmp2);
+                Texture texture3 = new Texture(bmp3);
+                Texture texture4 = new Texture(bmp4);
+                Texture texture5 = new Texture(bmp5);
+                Material material0 = new Material(texture0);
+                Material material1 = new Material(texture1);
+                Material material2 = new Material(texture2);
+                material2.TextureMatrix = new Matrix4(new Vector3(0,0,0), new Vector3(0, 0, 0));
+                //material2.TextureSize = new SizeF(Convert.ToSingle (size.x), Convert.ToSingle(size.y));
+                
+                Material material3 = new Material(texture3);
+                Material material4 = new Material(texture4);
+                Material material5 = new Material(texture5);
+                myFace0.SetMaterial(material0);
+                myFace1.SetMaterial(material1);
+                myFace2.SetMaterial(material2);
+                myFace2.ReverseNormal();
+                myFace3.SetMaterial(material3);
+                myFace4.SetMaterial(material4);
+                myFace5.SetMaterial(material5);
 
             }
 
