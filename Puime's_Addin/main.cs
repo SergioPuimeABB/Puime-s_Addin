@@ -160,8 +160,20 @@ namespace Puime_s_Addin
         // The event handler for the "Create ABB box" button.
         static void btn4_clicked(object sender, EventArgs e)
         {
-            Create_box.create_box();
+
+            //int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 90;
+            //ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
+            //tw_CreateBox.Caption = "Create ABB Box";
+            //tw_CreateBox.PreferredSize = new Size(tw_width, 330);
+            //UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
+            //tw_CreateBox.Control.Controls.Add(Create_box2);
+
+            //Create_box.create_box();
             //Create_box.AddCustomControl();
+
+
+            //            new Create_box2().Show();
+            new Create_box2();
         }
 
 

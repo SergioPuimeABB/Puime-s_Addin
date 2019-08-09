@@ -72,6 +72,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create_box.cs" />
+    <Compile Include="Create_box2.cs" />
+    <Compile Include="Create_box2.Designer.cs">
+      <DependentUpon>Create_box2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Hide_CS.cs" />
     <Compile Include="Copy_Position.cs" />
     <Compile Include="main.cs" />
@@ -90,6 +94,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Create_box2.resx">
+      <DependentUpon>Create_box2.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
