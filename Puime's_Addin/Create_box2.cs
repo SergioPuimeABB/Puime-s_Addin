@@ -27,9 +27,17 @@ namespace Puime_s_Addin
             //UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
             UIEnvironment.Windows.AddDocked(this, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
 
-
         }
 
-        
+        private void btn_clear_clicked(object sender, EventArgs e)
+        {
+            //UIEnvironment.Windows["Create ABB Box"].Close();
+            this.Close();
+            new Create_box2();
+        }
+        private void btn_close_clicked(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

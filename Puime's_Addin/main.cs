@@ -13,7 +13,7 @@ namespace Puime_s_Addin
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2019.07.30  15:00 ", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2019.08.12  15:00 ", "Puime's Add-in"));
 
             //AddMenusAndButtons(); //Botones 
             // ==============================
@@ -172,7 +172,17 @@ namespace Puime_s_Addin
             //Create_box.AddCustomControl();
 
 
-            //            new Create_box2().Show();
+            //
+            // Looks if the "Create ABB Box" window is active, if it's active, closes it.
+            //
+            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create ABB Box"]))
+            {
+                UIEnvironment.Windows["Create ABB Box"].Close();
+            }
+
+            string windows_count = UIEnvironment.Windows.ToString();
+            Logger.AddMessage(new LogMessage(windows_count.ToString(), "Puime's Add-in"));
+
             new Create_box2();
         }
 

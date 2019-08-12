@@ -55,8 +55,9 @@ namespace Puime_s_Addin
             this.height_textbox = new NumericTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pb_createBox)).BeginInit();
             //this.SuspendLayout();
+
             // 
-            // pb_createBox
+            // picture_box_createBox
             // 
             this.pb_createBox.Location = new System.Drawing.Point(8, 8);
             this.pb_createBox.Name = "pb_createBox";
@@ -78,9 +79,8 @@ namespace Puime_s_Addin
             this.lb_reference.Text = "Reference";
             //tw_CreateBox.Control.Controls.Add(lb_reference);
 
-
             // 
-            // cb_reference
+            // combo_box_reference
             // 
             //int cb_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 10; // the ObjectBrowser width less the position of the cb_reference
             //                                                                               // more a margin of 10, to obtain the width size of the cb_reference
@@ -116,7 +116,7 @@ namespace Puime_s_Addin
             this.pos_control.ReadOnly = false;
             this.pos_control.RefCoordSys = null;
             this.pos_control.ShowLabel = true;
-            this.pos_control.Size = new Size(55, 105);
+            this.pos_control.Size = new Size(177, 34);
             this.pos_control.TabIndex = 4;
             this.pos_control.Text = "positionControl1";
             this.pos_control.VerticalLayout = false;
@@ -141,7 +141,7 @@ namespace Puime_s_Addin
             this.orientation_control.ReadOnly = false;
             //orientation_control.RefCoordSys = null;
             this.orientation_control.ShowLabel = true;
-            this.orientation_control.Size = new Size(34, pc_width);
+            this.orientation_control.Size = new Size(177, 34);
             this.orientation_control.TabIndex = 6;
             this.orientation_control.Text = "positionControl1";
             this.orientation_control.VerticalLayout = false;
@@ -163,7 +163,7 @@ namespace Puime_s_Addin
             this.length_textbox.Quantity = ABB.Robotics.RobotStudio.BuiltinQuantity.None;
             this.length_textbox.ReadOnly = false;
             this.length_textbox.ShowLabel = true;
-            this.length_textbox.Size = new Size(34, pc_width);
+            this.length_textbox.Size = new Size(177, 34);
             this.length_textbox.StepSize = 1D;
             this.length_textbox.TabIndex = 10;
             this.length_textbox.Text = "numericTextBox1";
@@ -189,7 +189,7 @@ namespace Puime_s_Addin
             this.width_textbox.Quantity = ABB.Robotics.RobotStudio.BuiltinQuantity.None;
             this.width_textbox.ReadOnly = false;
             this.width_textbox.ShowLabel = true;
-            this.width_textbox.Size = new Size(34, pc_width);
+            this.width_textbox.Size = new Size(177, 34);
             this.width_textbox.StepSize = 1D;
             this.width_textbox.TabIndex = 11;
             this.width_textbox.Text = "numericTextBox2";
@@ -215,7 +215,7 @@ namespace Puime_s_Addin
             this.height_textbox.Quantity = ABB.Robotics.RobotStudio.BuiltinQuantity.None;
             this.height_textbox.ReadOnly = false;
             this.height_textbox.ShowLabel = true;
-            this.height_textbox.Size = new Size(34, pc_width);
+            this.height_textbox.Size = new Size(177, 34);
             this.height_textbox.StepSize = 1D;
             this.height_textbox.TabIndex = 6;
             this.height_textbox.Text = "numericTextBox3";
@@ -231,7 +231,8 @@ namespace Puime_s_Addin
             this.btn_clear.Text = "Clear";
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new Size(53, 25);
-            this.btn_clear.Location = new Point(pc_width - 165, 290);
+            //this.btn_clear.Location = new Point(pc_width - 165, 290);
+            this.btn_clear.Location = new Point(12, 295);
             this.btn_clear.Anchor = AnchorStyles.Right | AnchorStyles.Top;
             this.btn_clear.Click += new EventHandler(btn_clear_clicked);
             this.btn_clear.TextAlign = ContentAlignment.MiddleCenter;
@@ -247,7 +248,8 @@ namespace Puime_s_Addin
             this.btn_create.Text = "Create";
             this.btn_create.Name = "btn_create";
             this.btn_create.Size = new Size(53, 25);
-            this.btn_create.Location = new Point(pc_width - 105, 290);
+            //this.btn_create.Location = new Point(pc_width - 105, 290);
+            this.btn_create.Location = new Point(72, 295);
             this.btn_create.Anchor = AnchorStyles.Right | AnchorStyles.Top;
             this.btn_create.TextAlign = ContentAlignment.MiddleCenter;
             this.btn_create.FlatStyle = FlatStyle.Flat;
@@ -268,7 +270,8 @@ namespace Puime_s_Addin
             this.btn_close.Text = "Close";
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new Size(53, 25);
-            this.btn_close.Location = new Point(pc_width - 45, 290);
+            //this.btn_close.Location = new Point(pc_width - 45, 290);
+            this.btn_close.Location = new Point(132, 295);
             this.btn_close.Anchor = AnchorStyles.Right | AnchorStyles.Top;
             //btn1.Image = Properties.Resources.BT_box;
             //btn1.ImageAlign = ContentAlignment.MiddleLeft;
@@ -277,7 +280,7 @@ namespace Puime_s_Addin
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.TabIndex = 9;
             //tw_CreateBox.Control.Controls.Add(btn_close);
-            //btn_close.Click += new EventHandler(btn_close_clicked);
+            btn_close.Click += new EventHandler(btn_close_clicked);
 
 
 
@@ -325,18 +328,7 @@ namespace Puime_s_Addin
         private NumericTextBox width_textbox;
         private NumericTextBox height_textbox;
 
-        private static void btn_clear_clicked(object sender, EventArgs e)
-        {
-            //UIEnvironment.Windows["Create_ABB_Box"].Close();
-            //Create_box.create_box();
-            //cb_reference.SelectedIndex = 0;
-            //pos_control.ResetText();
-            //orientation_control.ResetText();
-            //length_textbox.ResetText();
-            //width_textbox.ResetText();
-            //height_textbox.ResetText();
-            
-        }
+        
 
     }
 }
