@@ -1,4 +1,7 @@
-﻿using ABB.Robotics.RobotStudio.Environment;
+﻿using ABB.Robotics.Math;
+using ABB.Robotics.RobotStudio;
+using ABB.Robotics.RobotStudio.Environment;
+using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using System;
 using System.Drawing;
@@ -6,7 +9,8 @@ using System.Windows.Forms;
 
 namespace Puime_s_Addin
 {
-    partial class Create_box2
+
+    partial class Create_box
     {
         /// <summary>
         /// Required designer variable.
@@ -63,7 +67,7 @@ namespace Puime_s_Addin
             this.pb_createBox.Name = "pb_createBox";
             this.pb_createBox.Size = new System.Drawing.Size(65, 65);
             this.pb_createBox.BorderStyle = BorderStyle.FixedSingle;
-            this.pb_createBox.Image = Properties.Resources.BT_box;
+            this.pb_createBox.Image = Properties.Resources.BT_box_tw;
             this.pb_createBox.TabIndex = 0;
             this.pb_createBox.TabStop = false;
             //tw_CreateBox.Control.Controls.Add(pb_createBox);
@@ -169,9 +173,9 @@ namespace Puime_s_Addin
             this.length_textbox.Text = "numericTextBox1";
             this.length_textbox.UserEdited = false;
             this.length_textbox.Value = 0D;
-            //length_textbox.ValueChanged += new EventHandler(size_TextChanged);
+            this.length_textbox.ValueChanged += new EventHandler(size_TextChanged);
             //tw_CreateBox.Control.Controls.Add(length_textbox);
-            
+
             //
             // numericTextBox - Width
             // 
@@ -195,7 +199,7 @@ namespace Puime_s_Addin
             this.width_textbox.Text = "numericTextBox2";
             this.width_textbox.UserEdited = false;
             this.width_textbox.Value = 0D;
-            //width_textbox.TextChanged += new EventHandler(size_TextChanged);
+            this.width_textbox.TextChanged += new EventHandler(size_TextChanged);
             //tw_CreateBox.Control.Controls.Add(width_textbox);
             
             //
@@ -221,7 +225,7 @@ namespace Puime_s_Addin
             this.height_textbox.Text = "numericTextBox3";
             this.height_textbox.UserEdited = false;
             this.height_textbox.Value = 0D;
-            //height_textbox.ValueChanged += new EventHandler(size_TextChanged);
+            this.height_textbox.ValueChanged += new EventHandler(size_TextChanged);
             //tw_CreateBox.Control.Controls.Add(height_textbox);
 
             //
@@ -261,7 +265,7 @@ namespace Puime_s_Addin
             //    btn_create.Enabled = false;
             btn_create.Enabled = false;
             //tw_CreateBox.Control.Controls.Add(btn_create);
-            //btn_create.Click += new EventHandler(btn_create_clicked);
+            this.btn_create.Click += new EventHandler(btn_create_clicked);
             
             //
             // Button Close
@@ -306,11 +310,7 @@ namespace Puime_s_Addin
             ((System.ComponentModel.ISupportInitialize)(this.pb_createBox)).EndInit();
             //this.ResumeLayout(false);
             //this.PerformLayout();
-
-
             
-
-
 
         }
 
@@ -327,6 +327,7 @@ namespace Puime_s_Addin
         private NumericTextBox length_textbox;
         private NumericTextBox width_textbox;
         private NumericTextBox height_textbox;
+        
 
         
 

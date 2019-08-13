@@ -115,7 +115,7 @@ namespace Puime_s_Addin
                 btn4.Size = new Size(145, 40);
                 btn4.Location = new Point(5, 156);
                 btn4.Click += new EventHandler(btn4_clicked);
-                btn4.Image = Properties.Resources.BT_box;
+                btn4.Image = Properties.Resources.BT_box_but;
                 btn4.ImageAlign = ContentAlignment.MiddleLeft;
                 btn4.TextAlign = ContentAlignment.MiddleRight;
                 btn4.FlatStyle = FlatStyle.Flat;
@@ -168,22 +168,26 @@ namespace Puime_s_Addin
             //UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
             //tw_CreateBox.Control.Controls.Add(Create_box2);
 
-            //Create_box.create_box();
-            //Create_box.AddCustomControl();
-
-
             //
             // Looks if the "Create ABB Box" window is active, if it's active, closes it.
             //
-            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create ABB Box"]))
+
+            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_ABB_Box"]))
             {
-                UIEnvironment.Windows["Create ABB Box"].Close();
+                UIEnvironment.Windows["Create_ABB_Box"].Close();
             }
 
-            string windows_count = UIEnvironment.Windows.ToString();
-            Logger.AddMessage(new LogMessage(windows_count.ToString(), "Puime's Add-in"));
+            //Create_box.create_box();
+            
+            
+            //Create_box.AddCustomControl();
+            
 
-            new Create_box2();
+            //string windows_count = UIEnvironment.Windows.ToString();
+            //Logger.AddMessage(new LogMessage(windows_count.ToString(), "Puime's Add-in"));
+
+            new Create_box();
+
         }
 
 

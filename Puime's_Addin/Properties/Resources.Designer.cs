@@ -73,6 +73,26 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BT_box_but {
+            get {
+                object obj = ResourceManager.GetObject("BT_box_but", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BT_box_tw {
+            get {
+                object obj = ResourceManager.GetObject("BT_box_tw", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BT_copy {
             get {
                 object obj = ResourceManager.GetObject("BT_copy", resourceCulture);
