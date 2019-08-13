@@ -13,7 +13,7 @@ namespace Puime_s_Addin
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2019.08.12  15:00 ", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2019.08.13  15:00 ", "Puime's Add-in"));
 
             //AddMenusAndButtons(); //Botones 
             // ==============================
