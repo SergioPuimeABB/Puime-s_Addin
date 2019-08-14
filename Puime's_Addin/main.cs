@@ -122,6 +122,37 @@ namespace Puime_s_Addin
                 tw.Control.Controls.Add(btn4);
 
 
+                // Create a separator button.
+                Button btn4_2 = new Button();
+                btn4_2.Size = new Size(145, 2);
+                btn4_2.Location = new Point(5, 205);
+                btn4_2.FlatStyle = FlatStyle.Flat;
+                btn4_2.Enabled = false;
+                btn4_2.ForeColor = Color.Gray;
+                tw.Control.Controls.Add(btn4_2);
+
+
+                // Button "ABB Raiser"
+                Button btn5 = new Button();
+                btn5.Text = "ABB Raiser";
+                btn5.Size = new Size(145, 40);
+                btn5.Location = new Point(5, 217);
+                btn5.Click += new EventHandler(btn5_clicked);
+                //btn4.Image = Properties.Resources.BT_box_but;
+                //btn4.ImageAlign = ContentAlignment.MiddleLeft;
+                btn5.TextAlign = ContentAlignment.MiddleRight;
+                btn5.FlatStyle = FlatStyle.Flat;
+                tw.Control.Controls.Add(btn5);
+
+
+                // Label Current version
+                Label lbl_version = new Label();
+                lbl_version.Text = "V. Alpha 0.1";
+                lbl_version.Location = new Point(90, 500);
+                tw.Control.Controls.Add(lbl_version);
+                
+
+
             }
             catch (Exception execption)
             {
@@ -190,6 +221,12 @@ namespace Puime_s_Addin
 
         }
 
+
+        // The event handler for the "ABB Raiser" button.
+        static void btn5_clicked(object sender, EventArgs e)
+        {
+            Create_Raiser.Create_ABB_Raiser();
+        }
 
 
 

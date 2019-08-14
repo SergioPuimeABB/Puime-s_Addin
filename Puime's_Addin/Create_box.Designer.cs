@@ -98,7 +98,7 @@ namespace Puime_s_Addin
             //tw_CreateBox.Control.Controls.Add(cb_reference);
             cb_reference.Items.Add("World");
             //        buttonComboBox.SelectionChanged += new EventHandler(btnComboBox_SelectionChanged);
-            cb_reference.Items.Add("UCS");
+            //cb_reference.Items.Add("UCS");
             cb_reference.SelectedIndex = 0;
             
             // 
