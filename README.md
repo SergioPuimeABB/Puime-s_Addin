@@ -26,3 +26,4 @@ An ABB RobotStudio Add-in with some useful tools. ||Alpha version|| - Still in p
 # To Do List.
 
 * **ABB Raiser**. Creates an ABB raiser for each Robot in the station. Scans for Robots in the station and it's position, then asigns the appropiate raiser for the Robot model and it's height.
+* **Create ABB Box**. Change the undo message
