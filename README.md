@@ -6,3 +6,4 @@ An ABB RobotStudio Add-in with some useful tools. ||Beta version|| - Still in pr
 * **Make floor**. Makes a floor (box from -10 to 0 in Z) with the dimension of the entire station plus one meter. Hides all station targets and paths.
 * **Make ABB Box**. Makes a standard box with cardboard texture and the ABB logo, stickers, and shipping logos. (Still in progress).
  
+ 
