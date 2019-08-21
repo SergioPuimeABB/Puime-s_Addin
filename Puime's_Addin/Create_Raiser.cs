@@ -31,6 +31,12 @@ namespace Puime_s_Addin
 
                 //foreach (Mechanism item in stn.GraphicComponents)
 
+                //List<Raiser_constructor> StationRaisers = new List<Raiser_constructor>();
+                var StationRaisers = new List<Raiser_constructor>();
+
+                //Raiser_constructor newRaiser = new Raiser_constructor();
+                //var newRaiser = new Raiser_constructor();
+
                 foreach (GraphicComponent item in stn.GraphicComponents)
                 {
                     bool mec = item.TypeDisplayName == "Mechanism";
@@ -47,16 +53,21 @@ namespace Puime_s_Addin
                             switch (robot_model)
                             {
                                 case "IRB52": case "IRB1600": case "IRB1600ID": case "IRB2600": case "IRB2600ID": case "IRB4600":
+
+                                    StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeA", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z*1000));
+                                    
                                     Logger.AddMessage(new LogMessage("___________  " + name + " ---> Type A.", "Puime's Add-in"));
                                     break;
 
                                 case "IRB2400":
                                     Logger.AddMessage(new LogMessage("___________  " + name + " ---> Type B.", "Puime's Add-in"));
-                                    Raiser(name, null, item.Transform.X*1000, item.Transform.Y*1000, item.Transform.Z*1000);
+
+                                    StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeB", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000));
                                     break;
                                     
                                 case "IRB6400R": case "IRB6620": case "IRB6640": case "IRB6650S": case "IRB6660": case "IRB6700":
                                 case "IRB7600": case "IRB660": case "IRB760": case "IRB460":
+                                    StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeC", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000));
                                     Logger.AddMessage(new LogMessage("___________  " + name + " ---> Type C.", "Puime's Add-in"));
                                     break;
 
@@ -65,19 +76,24 @@ namespace Puime_s_Addin
                                     MessageBox.Show(name + " - Not supported Robot model.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     break;
                             }
-
-                            //var xpos = item.Transform.X * 1000;
-                            //var ypos = item.Transform.Y * 1000;
-                            //var zpos = item.Transform.Z * 1000;
-                            //Logger.AddMessage(new LogMessage("___________  " + name + "--->" + robot_model, "Puime's Add-in"));
-                            //Logger.AddMessage(new LogMessage(xpos.ToString(), "Puime's Add-in"));
-                            //Logger.AddMessage(new LogMessage(ypos.ToString(), "Puime's Add-in"));
-                            //Logger.AddMessage(new LogMessage(zpos.ToString(), "Puime's Add-in"));
                         }
                     } 
                     
                 }
+              
 
+                Logger.AddMessage(new LogMessage(" ---- COUNT ---- : " + StationRaisers.Count.ToString(), "Puime's Add-in"));
+
+                foreach (var item in StationRaisers)
+                {
+                    Logger.AddMessage(new LogMessage(" ---------------------------------------", "Puime's Add-in"));
+                    Logger.AddMessage(new LogMessage(" ---- list ---- NAME : " + item.Name, "Puime's Add-in"));
+                    Logger.AddMessage(new LogMessage(" ---- list ---- TYPE : " + item.Type, "Puime's Add-in"));
+                    Logger.AddMessage(new LogMessage(" ---- list ---- XPOS : " + item.Xpos, "Puime's Add-in"));
+                    Logger.AddMessage(new LogMessage(" ---- list ---- YPOS : " + item.Ypos, "Puime's Add-in"));
+                    Logger.AddMessage(new LogMessage(" ---- list ---- HEIGHT: " + item.Zpos, "Puime's Add-in"));
+                    Raiser(item.Name, item.Type, item.Xpos, item.Ypos, item.Zpos);
+                }
 
 
                     //RsTask myTask = stn.ActiveTask;
@@ -122,50 +138,68 @@ namespace Puime_s_Addin
         {
             if (height < 300)
             {
-            MessageBox.Show(name + " - Not supported Robot position or height. Minium position must be 300mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(name + " - Not supported Robot position. Minium position must be 300mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             else
             {
-                try
+                switch (type)
                 {
-                    Station station = Project.ActiveProject as Station;
-                    //
-                    // Create a part to contain the bodies.
-                    Part p = new Part();
-                    p.Name = "ABB_Box";
-                    station.GraphicComponents.Add(p);
+                    case "TypeA":
+                        if (height>1600)
+                        {
+                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 1600mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+
+                        bool b = Convert.ToBoolean(height);
+                        if (height=300 || height = 300 || height = 300 || height = 300 || height = 300 || height = 300 || height = 300)
+                        {
+
+                        }
+                        Station station = Project.ActiveProject as Station;
+                        //
+                        // Create a part to contain the bodies.
+                        Part p = new Part();
+                        p.Name = "ABB_Raiser_" + name;
+                        station.GraphicComponents.Add(p);
+
+                        //
+                        // Create a Cylinder.
+                        Vector3 vect_position = new Vector3(0, 0, 0); //Creates the cylinder in the 0,0,0 to transfor the position later.
+                        Vector3 vect_orientation = new Vector3(0, 0, 0);
+                        Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
+                        Body b1 = Body.CreateSolidCylinder(matrix_origo, 0.33, height / 1000);
+                        b1.Name = "Raiser";
+                        p.Bodies.Add(b1);
+
+                        //
+                        // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
+                        p.Transform.X = xpos / 1000;
+                        p.Transform.Y = ypos / 1000;
+                        p.Transform.Z = 0;
+                        break;
+
+                    case "TypeB":
+                        if (height > 1600)
+                        {
+                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 1600mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+                        break;
+
+                    case "TypeC":
+                        if (height > 2000)
+                        {
+                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 2000mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
                     
-                    //
-                    // Create a solid box.
-                    Vector3 vect_position = new Vector3(0, 0, 0);
-                    Vector3 vect_orientation = new Vector3(0,0,0);
-                    Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
-                    //Vector3 size = new Vector3(length_textbox.Value / 1000, width_textbox.Value / 1000, height_textbox.Value / 1000);
-
-                    //Body b1 = Body.CreateSolidBox(matrix_origo, size);
-                    Body b1 = Body.CreateSolidCylinder(matrix_origo, 330, height);
-                    b1.Name = "Box";
-                    p.Bodies.Add(b1);
-
-                    // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
-                    p.Transform.X = xpos;
-                    p.Transform.X = ypos;
-                    p.Transform.Z = 0;
-                }
-
-
-                catch
-                {
-                    Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
-                    throw;
-                }
-                finally
-                {
-                    Project.UndoContext.EndUndoStep();
-                }
-
-
             }
 
         }
