@@ -82,16 +82,16 @@ namespace Puime_s_Addin
                 }
               
 
-                Logger.AddMessage(new LogMessage(" ---- COUNT ---- : " + StationRaisers.Count.ToString(), "Puime's Add-in"));
+                //Logger.AddMessage(new LogMessage(" ---- COUNT ---- : " + StationRaisers.Count.ToString(), "Puime's Add-in"));
 
                 foreach (var item in StationRaisers)
                 {
-                    Logger.AddMessage(new LogMessage(" ---------------------------------------", "Puime's Add-in"));
-                    Logger.AddMessage(new LogMessage(" ---- list ---- NAME : " + item.Name, "Puime's Add-in"));
-                    Logger.AddMessage(new LogMessage(" ---- list ---- TYPE : " + item.Type, "Puime's Add-in"));
-                    Logger.AddMessage(new LogMessage(" ---- list ---- XPOS : " + item.Xpos, "Puime's Add-in"));
-                    Logger.AddMessage(new LogMessage(" ---- list ---- YPOS : " + item.Ypos, "Puime's Add-in"));
-                    Logger.AddMessage(new LogMessage(" ---- list ---- HEIGHT: " + item.Zpos, "Puime's Add-in"));
+                    //Logger.AddMessage(new LogMessage(" ---------------------------------------", "Puime's Add-in"));
+                    //Logger.AddMessage(new LogMessage(" ---- list ---- NAME : " + item.Name, "Puime's Add-in"));
+                    //Logger.AddMessage(new LogMessage(" ---- list ---- TYPE : " + item.Type, "Puime's Add-in"));
+                    //Logger.AddMessage(new LogMessage(" ---- list ---- XPOS : " + item.Xpos, "Puime's Add-in"));
+                    //Logger.AddMessage(new LogMessage(" ---- list ---- YPOS : " + item.Ypos, "Puime's Add-in"));
+                    //Logger.AddMessage(new LogMessage(" ---- list ---- HEIGHT: " + item.Zpos, "Puime's Add-in"));
                     Raiser(item.Name, item.Type, item.Xpos, item.Ypos, item.Zpos);
                 }
 
@@ -138,7 +138,7 @@ namespace Puime_s_Addin
         {
             if (height < 300)
             {
-            MessageBox.Show(name + " - Not supported Robot position. Minium position must be 300mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(name + " - Not supported Robot position. Minium position must be 300mm. Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             else
@@ -146,44 +146,73 @@ namespace Puime_s_Addin
                 switch (type)
                 {
                     case "TypeA":
-                        if (height>1600)
+                        if (height>1600) // maximum allowed height
                         {
-                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 1600mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(name + " - Not supported Robot position. Maximum position is 1600mm. Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
 
-                        bool b = Convert.ToBoolean(height);
-                        if (height=300 || height = 300 || height = 300 || height = 300 || height = 300 || height = 300 || height = 300)
+                        // checks if the height is in the allowed range
+                        var b = height == 300 || height == 400 || height == 500 || height == 600 || height == 700 || height == 800 || height == 900 || height == 1000
+                             || height == 1100 || height == 1200 || height == 1300 || height == 1400 || height == 1500 || height == 1600;
+
+                        if (b) // if heght is in the allowed range, creates the raiser
                         {
+                            Station station = Project.ActiveProject as Station;
+                            //
+                            // Create a part to contain the bodies.
+                            Part p = new Part();
+                            p.Name = "ABB_Raiser_" + name;
+                            station.GraphicComponents.Add(p);
+
+                            //
+                            // Create a Cylinder.
+                            Vector3 vect_position = new Vector3(0, 0, 0); //Creates the cylinder in the 0,0,0 to transfor the position later.
+                            Vector3 vect_orientation = new Vector3(0, 0, 0);
+                            Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
+                            Body b1 = Body.CreateSolidCylinder(matrix_origo, 0.33, height / 1000);
+                            b1.Name = "Raiser";
+                            p.Bodies.Add(b1);
+
+                            //
+                            // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
+                            p.Transform.X = xpos / 1000;
+                            p.Transform.Y = ypos / 1000;
+                            p.Transform.Z = 0;
+
+                            GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
+                            myGCGroup.Name = "ABB_Raiser_" + name;
+                            station.GraphicComponents.Add(myGCGroup);
+
+                            var BasePlateTypeALib = new GraphicComponentLibrary();
+                            BasePlateTypeALib = GraphicComponentLibrary.Load("c:\\BasePlateTypeA.rslib", true,null,false);
+                            station.GraphicComponents.Add(BasePlateTypeALib.RootComponent.CopyInstance());
+                            //BasePlateTypeALib.RootComponent.DisconnectFromLibrary();
+                            //BasePlateTypeALib.RootComponent.Transform.X = 1;
+                            //myGCGroup.GraphicComponents.AddLibraryComponent("c:\\BasePlateTypeA.rslib");
+
+
+
+                            //var TopPlateTypeALib = new GraphicComponentLibrary();
+                            //BasePlateTypeALib = GraphicComponentLibrary.Load("c:\\TopPlateTypeA.rslib", true, null, false);
+                            //station.GraphicComponents.Add(BasePlateTypeALib.RootComponent.CopyInstance());
+                            //BasePlateTypeALib.RootComponent.Transform.Z = 0;
 
                         }
-                        Station station = Project.ActiveProject as Station;
-                        //
-                        // Create a part to contain the bodies.
-                        Part p = new Part();
-                        p.Name = "ABB_Raiser_" + name;
-                        station.GraphicComponents.Add(p);
 
-                        //
-                        // Create a Cylinder.
-                        Vector3 vect_position = new Vector3(0, 0, 0); //Creates the cylinder in the 0,0,0 to transfor the position later.
-                        Vector3 vect_orientation = new Vector3(0, 0, 0);
-                        Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
-                        Body b1 = Body.CreateSolidCylinder(matrix_origo, 0.33, height / 1000);
-                        b1.Name = "Raiser";
-                        p.Bodies.Add(b1);
+                        else // if heght isn't in the allowed range
+                        {
+                            MessageBox.Show(name + " - Position must be betwen 300mm. and 1600mm. In 100mm. increment. Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
 
-                        //
-                        // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
-                        p.Transform.X = xpos / 1000;
-                        p.Transform.Y = ypos / 1000;
-                        p.Transform.Z = 0;
+                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + " created.", "Puime's Add-in"));
                         break;
 
                     case "TypeB":
                         if (height > 1600)
                         {
-                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 1600mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 1600mm. Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
                         break;
@@ -191,7 +220,7 @@ namespace Puime_s_Addin
                     case "TypeC":
                         if (height > 2000)
                         {
-                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 2000mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 2000mm. Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
                         break;

@@ -94,6 +94,7 @@
     <None Include="Puime_s_Addin.rsaddin">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\TopPlateTypeA.rslib" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Create_box.resx">
@@ -105,6 +106,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\BasePlateTypeA.rslib" />
     <None Include="Resources\BT_copy.png" />
   </ItemGroup>
   <ItemGroup>
