@@ -13,14 +13,16 @@ namespace Puime_s_Addin
         private double xpos;
         private double ypos;
         private double zpos;
+        private double orientation;
 
-        public Raiser_constructor(string name, string type, double xpos, double ypos, double zpos)
+        public Raiser_constructor(string name, string type, double xpos, double ypos, double zpos, double orientation)
         {
             this.name = name;
             this.type = type;
             this.xpos = xpos;
             this.ypos = ypos;
             this.zpos = zpos;
+            this.orientation = orientation;
         }
 
         public string Name
@@ -49,6 +51,12 @@ namespace Puime_s_Addin
             get { return zpos; }
             set { zpos = value; }
         }
+        public double Orientation
+        {
+            get { return orientation; }
+            set { orientation = value; }
+        }
+
 
     }
 }

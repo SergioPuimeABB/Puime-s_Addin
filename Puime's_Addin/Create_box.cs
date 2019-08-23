@@ -92,12 +92,12 @@ namespace Puime_s_Addin
 
                 //
                 // Set the material for each face of the box
-                Bitmap bmp0 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\tapa.jpg");
-                Bitmap bmp1 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\tapa2.jpg");
-                Bitmap bmp2 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\lado_largo2.jpg");
-                Bitmap bmp3 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\lado_corto3.jpg");
-                Bitmap bmp4 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\lado_largo3.jpg");
-                Bitmap bmp5 = new Bitmap(@"E:\_RobotStudio\_BLOQUES TEXTURIZADOS\Caja\lado_corto2.jpg");
+                Bitmap bmp0 = new Bitmap(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Textures\\top.jpg");
+                Bitmap bmp1 = new Bitmap(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Textures\\bottom.jpg");
+                Bitmap bmp2 = new Bitmap(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Textures\\long_side.jpg");
+                Bitmap bmp3 = new Bitmap(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Textures\\short_side2.jpg");
+                Bitmap bmp4 = new Bitmap(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Textures\\long_side2.jpg");
+                Bitmap bmp5 = new Bitmap(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Textures\\short_side.jpg");
                 Texture texture0 = new Texture(bmp0);
                 Texture texture1 = new Texture(bmp1);
                 Texture texture2 = new Texture(bmp2);
