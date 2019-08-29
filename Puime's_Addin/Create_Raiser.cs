@@ -297,11 +297,129 @@ namespace Puime_s_Addin
 
                     #region Type C
                     case "TypeC":
-                        if (height > 2000)
+
+                        //
+                        // Checks if the raiser allready exists
+                        var allreadyexistsc = false;
+                        Station stn2c = Station.ActiveStation;
+                        if (stn2c == null) return;
+
+                        foreach (GraphicComponent item in stn2c.GraphicComponents)
                         {
-                            MessageBox.Show(name + " - Not supported Robot position. Maximun position is 2000mm. Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            bool rai = item.DisplayName == "ABB_Raiser_" + name;
+                            if (rai)
+                            {
+                                MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                allreadyexistsc = true;
+                                //break;
+                            }
+                        }
+
+                        if (allreadyexistsc)
+                        {
+                            allreadyexistsc = false;
                             break;
                         }
+
+                        //
+                        // Checks if the z position of the Robot is in the maximum allowed
+                        if (height > 2000)
+                        {
+                            MessageBox.Show(name + "\n\n" + "Not supported Robot position." + "\n" + "Maximum position is 2000mm." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+
+
+                        // checks if the height is in the allowed range
+                        var c = height == 300 || height == 400 || height == 500 || height == 600 || height == 700 || height == 800 || height == 900 || height == 1000
+                             || height == 1100 || height == 1200 || height == 1300 || height == 1400 || height == 1500 || height == 1600 || height == 1700 || height == 1800
+                             || height == 1900 || height == 2000;
+
+                        if (c) // if heght is in the allowed range, creates the raiser
+                        {
+                            Station station = Project.ActiveProject as Station;
+
+                            //
+                            // The TypeC raiser has 3 diferent baseplates depending of it's height.
+                            Part PartType = new Part(); // The part to add later depending of the baseplate choosed.
+                            switch (height.ToString())
+                            {
+                                case "300": case "400": case "500": case "600": case "700": case "800": case "900": case "1000":
+                                    // Import the BasePlateTypeC library for 300-100 height
+                                    GraphicComponentLibrary BasePlateTypeBLiba = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\BasePlate\\BasePlateTypeC_300-1000.rslib", true, null, false);
+                                    Part myParta = BasePlateTypeBLiba.RootComponent.CopyInstance() as Part;
+                                    myParta.Name = "BasePlateTypeC";
+                                    myParta.DisconnectFromLibrary();
+                                    PartType = myParta;
+                                    break;
+
+                                case "1100": case "1200": case "1300": case "1400": case "1500":
+                                    // Import the BasePlateTypeC library for 1100-1500 height
+                                    GraphicComponentLibrary BasePlateTypeBLibb = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\BasePlate\\BasePlateTypeC_1000-1500.rslib", true, null, false);
+                                    Part myPartb = BasePlateTypeBLibb.RootComponent.CopyInstance() as Part;
+                                    myPartb.Name = "BasePlateTypeC";
+                                    myPartb.DisconnectFromLibrary();
+                                    PartType = myPartb;
+                                    break;
+
+                                case "1600": case "1700": case "1800": case "1900": case "2000":
+                                    // Import the BasePlateTypeC library for 1600-2000 height
+                                    GraphicComponentLibrary BasePlateTypeBLibc = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\BasePlate\\BasePlateTypeC_1600-2000.rslib", true, null, false);
+                                    Part myPartc = BasePlateTypeBLibc.RootComponent.CopyInstance() as Part;
+                                    myPartc.Name = "BasePlateTypeC";
+                                    myPartc.DisconnectFromLibrary();
+                                    PartType = myPartc;
+                                    break;
+
+                                default:
+                                    break;
+                            }
+
+
+                            //
+                            // Create the raiser middle cylinder.
+                            Part myPart3 = new Part();
+                            myPart3.Name = "Body";
+                            station.GraphicComponents.Add(myPart3);
+                            // Create a Cylinder.
+                            Vector3 vect_position = new Vector3(0, 0, 0.030); //Creates the cylinder in the 0,0,30 to transfor the position later.
+                            Vector3 vect_orientation = new Vector3(0, 0, 0);
+                            Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
+                            Body b1 = Body.CreateSolidCylinder(matrix_origo, 0.46, height / 1000 - 0.090);
+                            b1.Name = "Raiser_body";
+                            myPart3.Bodies.Add(b1);
+
+                            //
+                            // Import the TopPlateTypeC library
+                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\TopPlate\\TopPlateTypeC.rslib", true, null, false);
+                            Part myPart2 = TopPlateTypeBLib.RootComponent.CopyInstance() as Part;
+                            myPart2.Name = "TopPlateTypeC";
+                            myPart2.DisconnectFromLibrary();
+                            myPart2.Transform.Z = height / 1000 - 0.060;
+
+                            GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
+                            myGCGroup.Name = "ABB_Raiser_" + name;
+                            station.GraphicComponents.Add(myGCGroup);
+                            myGCGroup.GraphicComponents.Add(PartType);
+                            myGCGroup.GraphicComponents.Add(myPart2);
+                            myGCGroup.GraphicComponents.Add(myPart3);
+                            myGCGroup.Color = Color.FromArgb(255, 255, 128, 0);
+
+                            //
+                            // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
+                            myGCGroup.Transform.X = xpos / 1000;
+                            myGCGroup.Transform.Y = ypos / 1000;
+                            myGCGroup.Transform.RZ = orientation;
+                            //myGCGroup.Transform.Z = 0;
+                        }
+
+                        else // if heght isn't in the allowed range
+                        {
+                            MessageBox.Show(name + "\n\n" + "Position must be betwen 300mm. and 1600mm." + "\n" + " In 100mm. increment." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+
+                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + " created.", "Puime's Add-in"));
                         break;
                     #endregion Type C
 
