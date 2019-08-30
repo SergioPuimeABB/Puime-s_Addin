@@ -41,22 +41,16 @@ namespace Puime_s_Addin
                             switch (robot_model)
                             {
                                 case "IRB52": case "IRB1600": case "IRB1600ID": case "IRB2600": case "IRB2600ID": case "IRB4600":
-
                                     StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeA", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z*1000, item.Transform.RZ));
-                                    
-                                    Logger.AddMessage(new LogMessage("___________  " + name + " ---> Type A.", "Puime's Add-in"));
                                     break;
 
                                 case "IRB2400":
-                                    Logger.AddMessage(new LogMessage("___________  " + name + " ---> Type B.", "Puime's Add-in"));
-
                                     StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeB", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
                                     break;
                                     
                                 case "IRB6400R": case "IRB6620": case "IRB6640": case "IRB6650S": case "IRB6660": case "IRB6700":
                                 case "IRB7600": case "IRB660": case "IRB760": case "IRB460":
                                     StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeC", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
-                                    Logger.AddMessage(new LogMessage("___________  " + name + " ---> Type C.", "Puime's Add-in"));
                                     break;
 
                                 default:

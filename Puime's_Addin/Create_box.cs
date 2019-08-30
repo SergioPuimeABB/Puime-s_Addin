@@ -15,8 +15,10 @@ namespace Puime_s_Addin
 
             int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 30;
             this.Caption = "Create ABB Box";
+            
             this.PreferredSize = new Size(tw_width, 330);
             UIEnvironment.Windows.AddDocked(this, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
+            //Logger.AddMessage(new LogMessage(this.Control.ToString(), "Puime's Add-in"));
         }
 
         private void size_TextChanged(object sender, EventArgs e)

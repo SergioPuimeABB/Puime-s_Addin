@@ -13,7 +13,7 @@ namespace Puime_s_Addin
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2019.08.13  15:00 ", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2019.08.30  14:20 ", "Puime's Add-in"));
 
             //AddMenusAndButtons(); //Botones 
             // ==============================
@@ -134,12 +134,12 @@ namespace Puime_s_Addin
 
                 // Button "ABB Raiser"
                 Button btn5 = new Button();
-                btn5.Text = "ABB Raiser";
+                btn5.Text = "Create ABB raiser";
                 btn5.Size = new Size(145, 40);
                 btn5.Location = new Point(5, 217);
                 btn5.Click += new EventHandler(btn5_clicked);
-                //btn4.Image = Properties.Resources.BT_box_but;
-                //btn4.ImageAlign = ContentAlignment.MiddleLeft;
+                btn5.Image = Properties.Resources.BT_raiser;
+                btn5.ImageAlign = ContentAlignment.MiddleLeft;
                 btn5.TextAlign = ContentAlignment.MiddleRight;
                 btn5.FlatStyle = FlatStyle.Flat;
                 tw.Control.Controls.Add(btn5);
@@ -203,10 +203,21 @@ namespace Puime_s_Addin
             // Looks if the "Create ABB Box" window is active, if it's active, closes it.
             //
 
-            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_ABB_Box"]))
+            //
+            // Don't work since I changed the Create_box procedure
+            //
+            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_box"]))
             {
-                UIEnvironment.Windows["Create_ABB_Box"].Close();
+                UIEnvironment.Windows["Create_box"].Close();
             }
+
+
+
+            //foreach (Window item in UIEnvironment.Windows)
+            //{
+            //    //ABB.Robotics.RobotStudio.Environment.ToolWindow
+            //    //Logger.AddMessage(new LogMessage(UIEnvironment.Windows, "Puime's Add-in"));
+            //}
 
             //Create_box.create_box();
             
