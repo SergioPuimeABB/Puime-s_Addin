@@ -28,4 +28,5 @@ An ABB RobotStudio Add-in with some useful tools. ||Alpha version|| - Still in p
 * **Create ABB Box**. Change the undo message.
 * **Create ABB Box**. Check the tab order.
 * **Create ABB Box**. Check if the create ABB Box window is open, and if it's open close it.
+* **Create ABB Box**. Put the dimensions of the box in the name of the objet.
 * ~~**ABB Raiser**. Creates an ABB raiser for each Robot in the station. Scans for Robots in the station and it's position, then asigns the appropiate raiser for the Robot model and it's height.~~ Done 2019.08.30.
