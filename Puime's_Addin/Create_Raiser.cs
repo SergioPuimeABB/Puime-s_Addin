@@ -409,7 +409,7 @@ namespace Puime_s_Addin
 
                         else // if heght isn't in the allowed range
                         {
-                            MessageBox.Show(name + "\n\n" + "Position must be betwen 300mm. and 1600mm." + "\n" + " In 100mm. increment." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(name + "\n\n" + "Position must be betwen 300mm. and 2000mm." + "\n" + " In 100mm. increment." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
 

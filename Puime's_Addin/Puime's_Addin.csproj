@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Puime_s_Addin</RootNamespace>
     <AssemblyName>Puime%27s_Addin</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,29 +36,35 @@
     <StartProgram>$(ProgramFiles)\ABB Industrial IT\Robotics IT\RobotStudio 6.06\Bin\RobotStudio.exe</StartProgram>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ABB.Robotics.Controllers.PC">
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.Controllers.PC.dll</HintPath>
+    </Reference>
     <Reference Include="ABB.Robotics.Math">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(ProgramFiles)\ABB Industrial IT\Robotics IT\SDK\RobotStudio SDK 6.06\ABB.Robotics.Math.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.Math.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(ProgramFiles)\ABB Industrial IT\Robotics IT\SDK\RobotStudio SDK 6.06\ABB.Robotics.RobotStudio.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Controllers">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(ProgramFiles)\ABB Industrial IT\Robotics IT\SDK\RobotStudio SDK 6.06\ABB.Robotics.RobotStudio.Controllers.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.Controllers.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="ABB.Robotics.RobotStudio.Documents">
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.Documents.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Environment">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(ProgramFiles)\ABB Industrial IT\Robotics IT\SDK\RobotStudio SDK 6.06\ABB.Robotics.RobotStudio.Environment.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.Environment.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Stations">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>$(ProgramFiles)\ABB Industrial IT\Robotics IT\SDK\RobotStudio SDK 6.06\ABB.Robotics.RobotStudio.Stations.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.Stations.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Stations.Forms">
@@ -71,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Create_box_v2.cs" />
     <Compile Include="Create_box_old_discarted.cs" />
     <Compile Include="Create_box.cs" />
     <Compile Include="Create_box.Designer.cs">
@@ -91,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="Puime_s_Addin.rsaddin">
       <SubType>Designer</SubType>
     </None>
@@ -129,6 +138,9 @@
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Program Files (x86)\ABB\RobotStudio 2020\Bin\Addins\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

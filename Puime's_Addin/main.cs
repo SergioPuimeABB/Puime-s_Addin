@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
+
 
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
+
 
 namespace Puime_s_Addin
 {
@@ -13,7 +17,7 @@ namespace Puime_s_Addin
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2019.08.30  14:20 ", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.08.14  11:11 ", "Puime's Add-in"));
 
             //AddMenusAndButtons(); //Botones 
             // ==============================
@@ -206,12 +210,29 @@ namespace Puime_s_Addin
             //
             // Don't work since I changed the Create_box procedure
             //
-            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_box"]))
+
+            //if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_box"]))
+            //{
+            //    UIEnvironment.Windows["Create_box"].Close();
+            //}
+
+            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_ABB_Box"]))
             {
-                UIEnvironment.Windows["Create_box"].Close();
+                //UIEnvironment.Windows["Create_ABB_Box"].Close();
+                //UIEnvironment.Windows["Create_ABB_Box"].Dispose();
+                Logger.AddMessage(new LogMessage("Closing...", "Puime's Add-in"));
+                
+                
+                //Create_box_v2.create_box_v2.
             }
 
+            else Create_box_v2.create_box_v2();
 
+
+
+            //UIEnvironment.Windows.Count
+            //string windows_count = UIEnvironment.Windows.Count.ToString();
+            //Logger.AddMessage(new LogMessage(windows_count, "Puime's Add-in"));
 
             //foreach (Window item in UIEnvironment.Windows)
             //{
@@ -220,15 +241,16 @@ namespace Puime_s_Addin
             //}
 
             //Create_box.create_box();
-            
-            
+
+
             //Create_box.AddCustomControl();
-            
+
 
             //string windows_count = UIEnvironment.Windows.ToString();
             //Logger.AddMessage(new LogMessage(windows_count.ToString(), "Puime's Add-in"));
 
-            new Create_box();
+            //new Create_box_v2();
+            //Create_box_v2.create_box_v2();
 
         }
 

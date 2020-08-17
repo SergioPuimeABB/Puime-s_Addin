@@ -4,6 +4,7 @@ using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace Puime_s_Addin
 {
@@ -15,11 +16,42 @@ namespace Puime_s_Addin
 
             int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 30;
             this.Caption = "Create ABB Box";
-            
             this.PreferredSize = new Size(tw_width, 330);
             UIEnvironment.Windows.AddDocked(this, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
             //Logger.AddMessage(new LogMessage(this.Control.ToString(), "Puime's Add-in"));
+
+            if (this.Control.CanFocus)
+            {
+                this.Control.Focus();
+            }
+
         }
+
+        private void CloseActiveWindow()
+        {
+            //ToolWindow tw1 = new ToolWindow();
+
+            //tw1 = this;
+
+            //if (tw1.Caption == "Create ABB Box")
+            //{
+            //    this.Close();
+            //    Logger.AddMessage(new LogMessage("Test"));
+            //}
+
+            //FormCollection fc = Application.OpenForms;
+
+            //foreach (Form frm in fc)
+            //    //if (frm.Name == "Create ABB Box")
+            //    //{
+            //        {
+            //            Logger.AddMessage(new LogMessage(frm.Name));
+            //        }
+
+            //    //}
+
+        }
+
 
         private void size_TextChanged(object sender, EventArgs e)
         {
@@ -40,7 +72,7 @@ namespace Puime_s_Addin
         private void btn_create_clicked(object sender, EventArgs e)
         {
             #region Create ABB_Box
-            Project.UndoContext.BeginUndoStep("BodyCreateSolids");
+            Project.UndoContext.BeginUndoStep("Create ABB Box");
 
             try
             {
@@ -57,10 +89,9 @@ namespace Puime_s_Addin
                 //
                 // Create a solid box.
                 #region Create Box
-                //Vector3 vect_position = new Vector3(pos_control.Value.x, pos_control.Value.y, pos_control.Value.z);
-                Vector3 vect_position = new Vector3(0, 0, 0); //uses 0,0,0 as origin to later transform the position to the pos_control values,
-                                                              //so the part origin is allways in the corner of the box.
-                Vector3 vect_orientation = new Vector3(orientation_control.Value.x, orientation_control.Value.y, orientation_control.Value.z);
+                Vector3 vect_position = new Vector3(0, 0, 0);
+                Vector3 vect_orientation = new Vector3(0, 0, 0); //uses 0,0,0 as origin to later transform the position to the pos_control values,
+                                                                 //so the part origin is allways in the corner of the box.
                 Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
                 Vector3 size = new Vector3(length_textbox.Value / 1000, width_textbox.Value / 1000, height_textbox.Value / 1000);
 
@@ -69,11 +100,53 @@ namespace Puime_s_Addin
                 p.Bodies.Add(b1);
                 #endregion
 
-                // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
-                p.Transform.X = pos_control.Value.x;
-                p.Transform.X = pos_control.Value.y;
-                p.Transform.Z = pos_control.Value.z;
+                //
+                // Transform the position of the part to the values of the pos_control values.
+                //
 
+                //
+                // Evaluate the reference selected item
+                bool reference_select_world = cb_reference.SelectedItem.ToString() == "World"; // true if World is selected
+                if (reference_select_world) // World is selected
+                {
+                    //
+                    // Transform the position and orientation of the Part to the values of the control.
+                    p.Transform.X = pos_control.Value.x;
+                    p.Transform.Y = pos_control.Value.y;
+                    p.Transform.Z = pos_control.Value.z;
+                    p.Transform.RX = orientation_control.Value.x;
+                    p.Transform.RY = orientation_control.Value.y;
+                    p.Transform.RZ = orientation_control.Value.z;
+                }
+                else // USC selected
+                {
+                    //
+                    // When UCS is selected we need to translate the Part from the USC position with the UCS orientation.
+                    // If not, the World coordinetes are used and it sets wrong result.
+                    //
+
+                    //
+                    // Transform the position and orientation of the Part to the values of the UCS.
+                    // To move it relative to the UCS
+                    p.Transform.X = station.UCS.X;
+                    p.Transform.Y = station.UCS.Y;
+                    p.Transform.Z = station.UCS.Z;
+                    p.Transform.RX = station.UCS.RX;
+                    p.Transform.RY = station.UCS.RY;
+                    p.Transform.RZ = station.UCS.RZ;
+
+                    //
+                    // Create a Matrix with the control values.
+                    Vector3 vect_pos_input = new Vector3(pos_control.Value.x, pos_control.Value.y, pos_control.Value.z);
+                    Vector3 vect_ori_input = new Vector3(orientation_control.Value.x, orientation_control.Value.y, orientation_control.Value.z);
+                    Matrix4 matrix_input = new Matrix4(vect_pos_input, vect_ori_input);
+
+                    //
+                    // Transfor the position of the Part from it's position the values from the control with the Part orientation.
+                    p.Transform.SetRelativeTransform(p, matrix_input);
+                }
+
+                
                 //
                 // Get the faces from the box.
                 Face myFace0 = b1.Shells[0].Faces[0]; // z +
@@ -137,6 +210,7 @@ namespace Puime_s_Addin
                 Project.UndoContext.EndUndoStep();
             }
             #endregion
-        } //private void btn_create_clicked(object sender, EventArgs e)
-    } //private void btn_create_clicked(object sender, EventArgs e)
+        } 
+    
+    } 
 }

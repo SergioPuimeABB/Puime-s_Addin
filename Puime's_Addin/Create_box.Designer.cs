@@ -38,27 +38,18 @@ namespace Puime_s_Addin
         /// </summary>
         private void InitializeComponent()
         {
-            this.pb_createBox = new System.Windows.Forms.PictureBox();
-            this.lb_reference = new System.Windows.Forms.Label();
-            this.cb_reference = new System.Windows.Forms.ComboBox();
-            //this.pos_control = new System.Windows.Forms.ComboBox();
+            this.pb_createBox = new PictureBox();
+            this.lb_reference = new Label();
+            this.cb_reference = new ComboBox();
             this.pos_control = new PositionControl();
-            //this.orientation_control = new System.Windows.Forms.ComboBox();
             this.orientation_control = new OrientationControl();
-            //this.button1 = new System.Windows.Forms.Button();
-            //this.button2 = new System.Windows.Forms.Button();
-            //this.button3 = new System.Windows.Forms.Button();
             this.btn_clear = new Button();
             this.btn_create = new Button();
             this.btn_close = new Button();
-            //this.length_textbox = new System.Windows.Forms.TextBox();
-            //this.width_textbox = new System.Windows.Forms.TextBox();
-            //this.height_textbox = new System.Windows.Forms.TextBox();
             this.length_textbox = new NumericTextBox();
             this.width_textbox = new NumericTextBox();
             this.height_textbox = new NumericTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pb_createBox)).BeginInit();
-            //this.SuspendLayout();
 
             // 
             // picture_box_createBox
@@ -68,9 +59,8 @@ namespace Puime_s_Addin
             this.pb_createBox.Size = new System.Drawing.Size(65, 65);
             this.pb_createBox.BorderStyle = BorderStyle.FixedSingle;
             this.pb_createBox.Image = Properties.Resources.BT_box_tw;
-            this.pb_createBox.TabIndex = 0;
+            //this.pb_createBox.TabIndex = 0;
             this.pb_createBox.TabStop = false;
-            //tw_CreateBox.Control.Controls.Add(pb_createBox);
 
             // 
             // lb_reference
@@ -79,9 +69,8 @@ namespace Puime_s_Addin
             this.lb_reference.Location = new System.Drawing.Point(79, 30);
             this.lb_reference.Name = "lb_reference";
             this.lb_reference.Size = new System.Drawing.Size(100, 15);
-            this.lb_reference.TabIndex = 1;
+            //this.lb_reference.TabIndex = 1;
             this.lb_reference.Text = "Reference";
-            //tw_CreateBox.Control.Controls.Add(lb_reference);
 
             // 
             // combo_box_reference
@@ -94,19 +83,19 @@ namespace Puime_s_Addin
             this.cb_reference.Size = new System.Drawing.Size(105, 21);
             this.cb_reference.FlatStyle = FlatStyle.Flat;
             this.cb_reference.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-            this.cb_reference.TabIndex = 2;
+            this.cb_reference.TabIndex = 0;
             //tw_CreateBox.Control.Controls.Add(cb_reference);
             cb_reference.Items.Add("World");
+            cb_reference.Items.Add("UCS");
             //        buttonComboBox.SelectionChanged += new EventHandler(btnComboBox_SelectionChanged);
-            //cb_reference.Items.Add("UCS");
             cb_reference.SelectedIndex = 0;
             
+
             // 
             // pos_control
             // 
             int pc_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 18; // the ObjectBrowser width less the position of the cb_reference
-                                                                                           // more a margin of 10, to obtain the width size of the cb_reference
-            //PositionControl pos_control = new PositionControl();
+                                                                                           // more a margin of 18, to obtain the width size of the cb_reference
             this.pos_control.ErrorProviderControl = null;
             this.pos_control.ExpressionErrorString = "Bad Expression";
             this.pos_control.LabelQuantity = ABB.Robotics.RobotStudio.BuiltinQuantity.Length;
@@ -121,13 +110,12 @@ namespace Puime_s_Addin
             this.pos_control.RefCoordSys = null;
             this.pos_control.ShowLabel = true;
             this.pos_control.Size = new Size(177, 34);
-            this.pos_control.TabIndex = 4;
+            this.pos_control.TabIndex = 1;
             this.pos_control.Text = "positionControl1";
             this.pos_control.VerticalLayout = false;
-            this.pos_control.Focus();
-            this.pos_control.Select();
-            //tw_CreateBox.Control.Controls.Add(pos_control);
+            //this.pos_control.Select();
             
+
             // 
             // orientation_control
             // 
@@ -143,14 +131,13 @@ namespace Puime_s_Addin
             this.orientation_control.Name = "orientation_control";
             this.orientation_control.NumTextBoxes = 3;
             this.orientation_control.ReadOnly = false;
-            //orientation_control.RefCoordSys = null;
             this.orientation_control.ShowLabel = true;
             this.orientation_control.Size = new Size(177, 34);
-            this.orientation_control.TabIndex = 6;
+            this.orientation_control.TabIndex = 2;
             this.orientation_control.Text = "positionControl1";
             this.orientation_control.VerticalLayout = false;
-            //tw_CreateBox.Control.Controls.Add(orientation_control);
 
+            //
             // numericTextBox - Length
             // 
             //NumericTextBox length_textbox = new NumericTextBox();
@@ -169,12 +156,11 @@ namespace Puime_s_Addin
             this.length_textbox.ShowLabel = true;
             this.length_textbox.Size = new Size(177, 34);
             this.length_textbox.StepSize = 1D;
-            this.length_textbox.TabIndex = 10;
+            this.length_textbox.TabIndex = 3;
             this.length_textbox.Text = "numericTextBox1";
             this.length_textbox.UserEdited = false;
             this.length_textbox.Value = 0D;
             this.length_textbox.ValueChanged += new EventHandler(size_TextChanged);
-            //tw_CreateBox.Control.Controls.Add(length_textbox);
 
             //
             // numericTextBox - Width
@@ -195,12 +181,11 @@ namespace Puime_s_Addin
             this.width_textbox.ShowLabel = true;
             this.width_textbox.Size = new Size(177, 34);
             this.width_textbox.StepSize = 1D;
-            this.width_textbox.TabIndex = 11;
+            this.width_textbox.TabIndex = 4;
             this.width_textbox.Text = "numericTextBox2";
             this.width_textbox.UserEdited = false;
             this.width_textbox.Value = 0D;
             this.width_textbox.TextChanged += new EventHandler(size_TextChanged);
-            //tw_CreateBox.Control.Controls.Add(width_textbox);
             
             //
             // numericTextBox - Height
@@ -221,12 +206,11 @@ namespace Puime_s_Addin
             this.height_textbox.ShowLabel = true;
             this.height_textbox.Size = new Size(177, 34);
             this.height_textbox.StepSize = 1D;
-            this.height_textbox.TabIndex = 6;
+            this.height_textbox.TabIndex = 5;
             this.height_textbox.Text = "numericTextBox3";
             this.height_textbox.UserEdited = false;
             this.height_textbox.Value = 0D;
             this.height_textbox.ValueChanged += new EventHandler(size_TextChanged);
-            //tw_CreateBox.Control.Controls.Add(height_textbox);
 
             //
             // Button Clear
@@ -235,15 +219,13 @@ namespace Puime_s_Addin
             this.btn_clear.Text = "Clear";
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new Size(53, 25);
-            //this.btn_clear.Location = new Point(pc_width - 165, 290);
             this.btn_clear.Location = new Point(12, 295);
             this.btn_clear.Anchor = AnchorStyles.Right | AnchorStyles.Top;
             this.btn_clear.Click += new EventHandler(btn_clear_clicked);
             this.btn_clear.TextAlign = ContentAlignment.MiddleCenter;
             this.btn_clear.FlatStyle = FlatStyle.Flat;
             this.btn_clear.UseVisualStyleBackColor = true;
-            this.btn_clear.TabIndex = 7;
-            //tw_CreateBox.Control.Controls.Add(btn_clear);
+            this.btn_clear.TabIndex = 6;
 
             //
             // Button Create
@@ -252,19 +234,13 @@ namespace Puime_s_Addin
             this.btn_create.Text = "Create";
             this.btn_create.Name = "btn_create";
             this.btn_create.Size = new Size(53, 25);
-            //this.btn_create.Location = new Point(pc_width - 105, 290);
             this.btn_create.Location = new Point(72, 295);
             this.btn_create.Anchor = AnchorStyles.Right | AnchorStyles.Top;
             this.btn_create.TextAlign = ContentAlignment.MiddleCenter;
             this.btn_create.FlatStyle = FlatStyle.Flat;
             this.btn_create.UseVisualStyleBackColor = true;
-            this.btn_create.TabIndex = 8;
-            //if (!string.IsNullOrEmpty(length_textbox.Text))
-            //    btn_create.Enabled = true;
-            //else
-            //    btn_create.Enabled = false;
+            this.btn_create.TabIndex = 7;
             btn_create.Enabled = false;
-            //tw_CreateBox.Control.Controls.Add(btn_create);
             this.btn_create.Click += new EventHandler(btn_create_clicked);
             
             //
@@ -274,16 +250,12 @@ namespace Puime_s_Addin
             this.btn_close.Text = "Close";
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new Size(53, 25);
-            //this.btn_close.Location = new Point(pc_width - 45, 290);
             this.btn_close.Location = new Point(132, 295);
             this.btn_close.Anchor = AnchorStyles.Right | AnchorStyles.Top;
-            //btn1.Image = Properties.Resources.BT_box;
-            //btn1.ImageAlign = ContentAlignment.MiddleLeft;
             this.btn_close.TextAlign = ContentAlignment.MiddleCenter;
             this.btn_close.FlatStyle = FlatStyle.Flat;
             this.btn_close.UseVisualStyleBackColor = true;
-            this.btn_close.TabIndex = 9;
-            //tw_CreateBox.Control.Controls.Add(btn_close);
+            this.btn_close.TabIndex = 8;
             btn_close.Click += new EventHandler(btn_close_clicked);
 
 
@@ -291,9 +263,6 @@ namespace Puime_s_Addin
             // 
             // Create_box2
             // 
-            //this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            //this.ClientSize = new System.Drawing.Size(438, 440);
             this.Control.Controls.Add(this.height_textbox);
             this.Control.Controls.Add(this.width_textbox);
             this.Control.Controls.Add(this.length_textbox);
@@ -305,20 +274,15 @@ namespace Puime_s_Addin
             this.Control.Controls.Add(this.cb_reference);
             this.Control.Controls.Add(this.lb_reference);
             this.Control.Controls.Add(this.pb_createBox);
-            //this.Name = "Create_box2";
-            //this.Text = "Create_box2";
             ((System.ComponentModel.ISupportInitialize)(this.pb_createBox)).EndInit();
-            //this.ResumeLayout(false);
-            //this.PerformLayout();
             
-
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pb_createBox;
-        private System.Windows.Forms.Label lb_reference;
-        private System.Windows.Forms.ComboBox cb_reference;
+        private PictureBox pb_createBox;
+        private Label lb_reference;
+        private ComboBox cb_reference;
         private PositionControl pos_control;
         private OrientationControl orientation_control;
         private Button btn_clear;
@@ -327,9 +291,6 @@ namespace Puime_s_Addin
         private NumericTextBox length_textbox;
         private NumericTextBox width_textbox;
         private NumericTextBox height_textbox;
-        
-
-        
 
     }
 }
