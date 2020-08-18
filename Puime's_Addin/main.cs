@@ -9,7 +9,7 @@ using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
-
+using ABB.Robotics.RobotStudio.Stations.Forms;
 
 namespace Puime_s_Addin
 {
@@ -17,7 +17,7 @@ namespace Puime_s_Addin
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.08.14  11:11 ", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.08.17  12:41 ", "Puime's Add-in"));
 
             //AddMenusAndButtons(); //Botones 
             // ==============================
@@ -221,12 +221,23 @@ namespace Puime_s_Addin
                 //UIEnvironment.Windows["Create_ABB_Box"].Close();
                 //UIEnvironment.Windows["Create_ABB_Box"].Dispose();
                 Logger.AddMessage(new LogMessage("Closing...", "Puime's Add-in"));
-                
-                
+
+
                 //Create_box_v2.create_box_v2.
             }
 
-            else Create_box_v2.create_box_v2();
+            //else Create_box_v3();
+            else
+            {
+                Create_box_v3 obj = new Create_box_v3();
+                obj.Show();
+                //Create_box_v3.create_box_v3();
+                //Create_box_v2.create_box_v2();
+                Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in"));
+
+            }
+
+
 
 
 

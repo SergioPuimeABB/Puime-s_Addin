@@ -62,7 +62,7 @@ namespace Puime_s_Addin
         private void btn_clear_clicked(object sender, EventArgs e)
         {
             this.Close();
-            new Create_box();
+           //new Create_box();
         }
         private void btn_close_clicked(object sender, EventArgs e)
         {
@@ -196,7 +196,7 @@ namespace Puime_s_Addin
                 //
                 // Reset the ToolWindow
                 this.Close();
-                new Create_box();
+                //new Create_box();
 
             }
 

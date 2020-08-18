@@ -70,6 +70,9 @@
     <Reference Include="ABB.Robotics.RobotStudio.Stations.Forms">
       <HintPath>C:\Program Files (x86)\ABB Industrial IT\Robotics IT\SDK\RobotStudio SDK 6.05\ABB.Robotics.RobotStudio.Stations.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="RobotStudio.UI.Modeling">
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2020\Bin\RobotStudio.UI.Modeling.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
@@ -78,6 +81,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Create_box_v3.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Create_box_v3.Designer.cs">
+      <DependentUpon>Create_box_v3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Create_box_v2.cs" />
     <Compile Include="Create_box_old_discarted.cs" />
     <Compile Include="Create_box.cs" />
@@ -105,6 +114,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Create_box_v3.resx">
+      <DependentUpon>Create_box_v3.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Create_box.resx">
       <DependentUpon>Create_box.cs</DependentUpon>
     </EmbeddedResource>
