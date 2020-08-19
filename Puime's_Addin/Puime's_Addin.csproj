@@ -37,41 +37,41 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ABB.Robotics.Controllers.PC">
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.Controllers.PC.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\ABB.Robotics.Controllers.PC.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.Math">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.Math.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\ABB.Robotics.Math.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\ABB.Robotics.RobotStudio.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Controllers">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.Controllers.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\ABB.Robotics.RobotStudio.Controllers.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Documents">
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.Documents.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\ABB.Robotics.RobotStudio.Documents.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Environment">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.Environment.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\ABB.Robotics.RobotStudio.Environment.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Stations">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2020 SDK\ABB.Robotics.RobotStudio.Stations.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\ABB.Robotics.RobotStudio.Stations.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Stations.Forms">
-      <HintPath>C:\Program Files (x86)\ABB Industrial IT\Robotics IT\SDK\RobotStudio SDK 6.05\ABB.Robotics.RobotStudio.Stations.Forms.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\ABB.Robotics.RobotStudio.Stations.Forms.dll</HintPath>
     </Reference>
     <Reference Include="RobotStudio.UI.Modeling">
-      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2020\Bin\RobotStudio.UI.Modeling.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\RobotStudio.UI.Modeling.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -83,9 +83,6 @@
   <ItemGroup>
     <Compile Include="Create_box_v3.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Create_box_v3.Designer.cs">
-      <DependentUpon>Create_box_v3.cs</DependentUpon>
     </Compile>
     <Compile Include="Create_box_v2.cs" />
     <Compile Include="Create_box_old_discarted.cs" />
@@ -152,7 +149,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Program Files (x86)\ABB\RobotStudio 2020\Bin\Addins\"</PostBuildEvent>
+    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Program Files (x86)\ABB\RobotStudio 2019\Bin\Addins\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

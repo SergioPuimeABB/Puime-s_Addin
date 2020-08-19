@@ -231,9 +231,10 @@ namespace Puime_s_Addin
             {
                 Create_box_v3 obj = new Create_box_v3();
                 obj.Show();
+                //ToolControlManager.ShowTool(typeof(Create_box_v3), e.Id);
                 //Create_box_v3.create_box_v3();
                 //Create_box_v2.create_box_v2();
-                Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in"));
+                Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in", LogMessageSeverity.Information));
 
             }
 
