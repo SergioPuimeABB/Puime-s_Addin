@@ -154,10 +154,10 @@ namespace Puime_s_Addin
                 lbl_version.Text = "V. Alpha 0.1";
                 lbl_version.Location = new Point(90, 500);
                 tw.Control.Controls.Add(lbl_version);
-                
 
-
+                //tw.Visible = false;
             }
+
             catch (Exception execption)
             {
                 Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
@@ -235,7 +235,6 @@ namespace Puime_s_Addin
                 //Create_box_v3.create_box_v3();
                 //Create_box_v2.create_box_v2();
                 Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in", LogMessageSeverity.Information));
-
             }
 
 

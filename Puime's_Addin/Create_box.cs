@@ -2,6 +2,7 @@
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
+using ABB.Robotics.RobotStudio.Stations.Forms;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
