@@ -17,7 +17,7 @@ namespace Puime_s_Addin
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.08.17  12:41 ", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.10.09  14:10 ", "Puime's Add-in"));
 
             //AddMenusAndButtons(); //Botones 
             // ==============================
@@ -222,8 +222,8 @@ namespace Puime_s_Addin
                 //UIEnvironment.Windows["Create_ABB_Box"].Dispose();
                 Logger.AddMessage(new LogMessage("Closing...", "Puime's Add-in"));
 
-
-                //Create_box_v2.create_box_v2.
+                return;
+                //Create_box_v2.create_box_v2();
             }
 
             //else Create_box_v3();
@@ -231,10 +231,18 @@ namespace Puime_s_Addin
             {
                 Create_box_v3 obj = new Create_box_v3();
                 obj.Show();
-                Create_box_v3;
                 //Create_box_v3.create_box_v3();
                 //Create_box_v2.create_box_v2();
                 Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in"));
+
+                Create_box_v2.create_box_v2();
+
+                //// Add a ToolWindow.
+                //int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 30;
+                //ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
+                //tw_CreateBox.Caption = "Create ABB Box";
+                //tw_CreateBox.PreferredSize = new Size(tw_width, 330);
+                //UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
 
             }
 

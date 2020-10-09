@@ -30,19 +30,19 @@ namespace Puime_s_Addin
         //((System.ComponentModel.ISupportInitialize)(pb_createBox)).BeginInit();
 
         public static void create_box_v2()
-            {
-                Project.UndoContext.BeginUndoStep("AddToolWindow");
-            
+        {
+            Project.UndoContext.BeginUndoStep("AddToolWindow");
+
             #region add toolwindow and elements
             try
             {
 
                 // Add a ToolWindow.
-                    int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 30;
-                    ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
-                    tw_CreateBox.Caption = "Create ABB Box";
-                    tw_CreateBox.PreferredSize = new Size(tw_width, 330);
-                    UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
+                int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 30;
+                ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
+                tw_CreateBox.Caption = "Create ABB Box";
+                tw_CreateBox.PreferredSize = new Size(tw_width, 330);
+                UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
 
                 if (tw_CreateBox.Control.CanFocus)
                 {
@@ -280,19 +280,19 @@ namespace Puime_s_Addin
             }
 
             catch (Exception ex)
-                {
-                    Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
-                    Logger.AddMessage(new LogMessage(ex.Message.ToString()));
-                    throw;
-                }
-                finally
-                {
-                    Project.UndoContext.EndUndoStep();
-                }
+            {
+                Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+                Logger.AddMessage(new LogMessage(ex.Message.ToString()));
+                throw;
+            }
+            finally
+            {
+                Project.UndoContext.EndUndoStep();
+            }
             #endregion add toolwindow and elements
 
 
-            }
+        }
 
 
 
@@ -465,6 +465,7 @@ namespace Puime_s_Addin
                 // Reset the ToolWindow
                 UIEnvironment.Windows["Create_ABB_Box"].Close();
                 Create_box_v2.create_box_v2();
+                
 
             }
 
@@ -564,7 +565,7 @@ namespace Puime_s_Addin
 
     }
 
-    
+
 
 
 

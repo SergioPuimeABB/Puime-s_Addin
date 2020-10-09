@@ -27,25 +27,25 @@ namespace Puime_s_Addin
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components_v3 != null))
+            if (disposing && (components != null))
             {
-                components_v3.Dispose();
+                components.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private void InitializeComponents()
         {
-            this.components_v3 = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RobotStudio.UI.Modeling.Create3DBox));
-            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Create_box_v3));
+            this.components = new System.ComponentModel.Container();
+            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RobotStudio.UI.Modeling.Create3DBox));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Create_box_v3));
             this.orientationControl = new ABB.Robotics.RobotStudio.Stations.Forms.OrientationControl();
             this.referenceComboBox = new ABB.Robotics.RobotStudio.Stations.Forms.ReferenceComboBox();
             this.refCoordSys = new ABB.Robotics.RobotStudio.Stations.Forms.RefCoordSys();
             this.worldRefCoordSys = new ABB.Robotics.RobotStudio.Stations.Forms.WorldRefCoordSys("World");
             this.ucsRefCoordSys = new ABB.Robotics.RobotStudio.Stations.Forms.UcsRefCoordSys("UCS");
             this.numericTextBoxHeight = new ABB.Robotics.RobotStudio.Stations.Forms.NumericTextBox();
-            this.errorProviderNumTextBoxValidation = new System.Windows.Forms.ErrorProvider(components_v3);
+            this.errorProviderNumTextBoxValidation = new System.Windows.Forms.ErrorProvider(components);
             this.numericTextBoxWidth = new ABB.Robotics.RobotStudio.Stations.Forms.NumericTextBox();
             this.numericTextBoxLength = new ABB.Robotics.RobotStudio.Stations.Forms.NumericTextBox();
             this.positionControlCornerPoint = new ABB.Robotics.RobotStudio.Stations.Forms.PositionControl();
