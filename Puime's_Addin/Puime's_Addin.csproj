@@ -81,18 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Create_box_v3.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Create_box_v3.Designer.cs">
-      <DependentUpon>Create_box_v3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Create_box_v2.cs" />
-    <Compile Include="Create_box_old_discarted.cs" />
     <Compile Include="Create_box.cs" />
-    <Compile Include="Create_box.Designer.cs">
-      <DependentUpon>Create_box.cs</DependentUpon>
-    </Compile>
     <Compile Include="Hide_CS.cs" />
     <Compile Include="Copy_Position.cs" />
     <Compile Include="main.cs" />
@@ -107,19 +96,11 @@
     <Compile Include="Raiser_constructor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="Puime_s_Addin.rsaddin">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Create_box_v3.resx">
-      <DependentUpon>Create_box_v3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Create_box.resx">
-      <DependentUpon>Create_box.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

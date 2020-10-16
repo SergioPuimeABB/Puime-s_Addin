@@ -58,15 +58,17 @@ namespace Puime_s_Addin
                                     break;
                             }
                         }
-                    } 
-                    
+                    }
                 }
               
                 foreach (var item in StationRaisers)
                 {
                     Raiser(item.Name, item.Type, item.Xpos, item.Ypos, item.Orientation, item.Zpos);
+                    break;
                 }
                 
+                //MessageBox.Show("No valid Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             #endregion try
 
