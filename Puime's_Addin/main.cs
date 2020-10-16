@@ -13,11 +13,11 @@ using ABB.Robotics.RobotStudio.Stations.Forms;
 
 namespace Puime_s_Addin
 {
-    public class main
+    class main
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.10.15  13:36 ", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.08.17  12:41 ", "Puime's Add-in"));
 
             //AddMenusAndButtons(); //Botones 
             // ==============================
@@ -154,10 +154,10 @@ namespace Puime_s_Addin
                 lbl_version.Text = "V. Alpha 0.1";
                 lbl_version.Location = new Point(90, 500);
                 tw.Control.Controls.Add(lbl_version);
-                
 
-
+                //tw.Visible = false;
             }
+
             catch (Exception execption)
             {
                 Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
@@ -192,67 +192,50 @@ namespace Puime_s_Addin
         }
 
 
-        public static Create_box createbox;
         // The event handler for the "Create ABB box" button.
-        public static void btn4_clicked(object sender, EventArgs e)
+        static void btn4_clicked(object sender, EventArgs e)
         {
 
-            if (createbox == null)
+            //int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 90;
+            //ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
+            //tw_CreateBox.Caption = "Create ABB Box";
+            //tw_CreateBox.PreferredSize = new Size(tw_width, 330);
+            //UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
+            //tw_CreateBox.Control.Controls.Add(Create_box2);
+
+            //
+            // Looks if the "Create ABB Box" window is active, if it's active, closes it.
+            //
+
+            //
+            // Don't work since I changed the Create_box procedure
+            //
+
+            //if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_box"]))
+            //{
+            //    UIEnvironment.Windows["Create_box"].Close();
+            //}
+
+            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_ABB_Box"]))
             {
-                createbox = new Create_box();
+                //UIEnvironment.Windows["Create_ABB_Box"].Close();
+                //UIEnvironment.Windows["Create_ABB_Box"].Dispose();
+                Logger.AddMessage(new LogMessage("Closing...", "Puime's Add-in"));
+
+
+                //Create_box_v2.create_box_v2.
             }
 
-            createbox.ResetObj += new EventHandler(DisposeObj);
-
-            ////int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 90;
-            ////ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
-            ////tw_CreateBox.Caption = "Create ABB Box";
-            ////tw_CreateBox.PreferredSize = new Size(tw_width, 330);
-            ////UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
-            ////tw_CreateBox.Control.Controls.Add(Create_box2);
-
-            ////
-            //// Looks if the "Create ABB Box" window is active, if it's active, closes it.
-            ////
-
-            ////
-            //// Don't work since I changed the Create_box procedure
-            ////
-
-            ////if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_box"]))
-            ////{
-            ////    UIEnvironment.Windows["Create_box"].Close();
-            ////}
-
-            //if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_ABB_Box"]))
-            //{
-            //    //UIEnvironment.Windows["Create_ABB_Box"].Close();
-            //    //UIEnvironment.Windows["Create_ABB_Box"].Dispose();
-            //    Logger.AddMessage(new LogMessage("Closing...", "Puime's Add-in"));
-
-            //    return;
-            //    //Create_box_v2.create_box_v2();
-            //}
-
-            ////else Create_box_v3();
-            //else
-            //{
-            //    //Create_box_v3 obj = new Create_box_v3();
-            //    //obj.Show();
-            //    //Create_box_v3.create_box_v3();
-            //    //Create_box_v2.create_box_v2();
-            //    Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in"));
-
-            //    Create_box_v2.create_box_v2();
-
-            //    //// Add a ToolWindow.
-            //    //int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 30;
-            //    //ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
-            //    //tw_CreateBox.Caption = "Create ABB Box";
-            //    //tw_CreateBox.PreferredSize = new Size(tw_width, 330);
-            //    //UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
-
-            //}
+            //else Create_box_v3();
+            else
+            {
+                Create_box_v3 obj = new Create_box_v3();
+                obj.Show();
+                //ToolControlManager.ShowTool(typeof(Create_box_v3), e.Id);
+                //Create_box_v3.create_box_v3();
+                //Create_box_v2.create_box_v2();
+                Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in", LogMessageSeverity.Information));
+            }
 
 
 
@@ -282,10 +265,6 @@ namespace Puime_s_Addin
 
         }
 
-        public static void DisposeObj (object sender, EventArgs e)
-        {
-            createbox = null;
-        }
 
         // The event handler for the "ABB Raiser" button.
         static void btn5_clicked(object sender, EventArgs e)
