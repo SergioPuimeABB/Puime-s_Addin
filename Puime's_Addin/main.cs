@@ -11,6 +11,7 @@ namespace Puime_s_Addin
     {
         public static void AddinMain()
         {
+            Logger.AddMessage(new LogMessage("Puime's Addin Loaded", "Puime's Add-in"));
             PuimesAddinToolWindow();
         }
 

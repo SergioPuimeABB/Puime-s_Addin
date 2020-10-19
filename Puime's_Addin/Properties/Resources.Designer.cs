@@ -61,6 +61,66 @@ namespace Puime_s_Addin.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BasePlateTypeA {
+            get {
+                object obj = ResourceManager.GetObject("BasePlateTypeA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BasePlateTypeB {
+            get {
+                object obj = ResourceManager.GetObject("BasePlateTypeB", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BasePlateTypeC_1000_1500 {
+            get {
+                object obj = ResourceManager.GetObject("BasePlateTypeC_1000_1500", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BasePlateTypeC_1600_2000 {
+            get {
+                object obj = ResourceManager.GetObject("BasePlateTypeC_1600_2000", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] BasePlateTypeC_300_1000 {
+            get {
+                object obj = ResourceManager.GetObject("BasePlateTypeC_300_1000", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap bottom {
+            get {
+                object obj = ResourceManager.GetObject("bottom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap BT_box {
@@ -127,6 +187,86 @@ namespace Puime_s_Addin.Properties {
             get {
                 object obj = ResourceManager.GetObject("BT_raiser", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap long_side {
+            get {
+                object obj = ResourceManager.GetObject("long_side", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap long_side2 {
+            get {
+                object obj = ResourceManager.GetObject("long_side2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap short_side {
+            get {
+                object obj = ResourceManager.GetObject("short_side", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap short_side2 {
+            get {
+                object obj = ResourceManager.GetObject("short_side2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap top {
+            get {
+                object obj = ResourceManager.GetObject("top", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TopPlateTypeA {
+            get {
+                object obj = ResourceManager.GetObject("TopPlateTypeA", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TopPlateTypeB {
+            get {
+                object obj = ResourceManager.GetObject("TopPlateTypeB", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] TopPlateTypeC {
+            get {
+                object obj = ResourceManager.GetObject("TopPlateTypeC", resourceCulture);
+                return ((byte[])(obj));
             }
         }
     }

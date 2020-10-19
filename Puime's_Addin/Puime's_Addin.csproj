@@ -97,6 +97,9 @@
     <None Include="Puime_s_Addin.rsaddin">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Resources\TopPlateTypeA.rslib" />
+    <None Include="Resources\TopPlateTypeB.rslib" />
+    <None Include="Resources\TopPlateTypeC.rslib" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -105,6 +108,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\BasePlateTypeA.rslib" />
+    <None Include="Resources\BasePlateTypeB.rslib" />
+    <None Include="Resources\BasePlateTypeC_1000-1500.rslib" />
+    <None Include="Resources\BasePlateTypeC_1600-2000.rslib" />
+    <None Include="Resources\BasePlateTypeC_300-1000.rslib" />
     <None Include="Resources\BT_copy.png" />
   </ItemGroup>
   <ItemGroup>
@@ -125,13 +133,31 @@
   <ItemGroup>
     <None Include="Resources\BT_raiser.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bottom.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\long_side.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\long_side2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\short_side.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\short_side2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\top.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Program Files (x86)\ABB\RobotStudio 2020\Bin\Addins\"</PostBuildEvent>
+    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Program Files (x86)\ABB\RobotStudio 2020\Bin\Addins\Puime's_Addin\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
