@@ -13,11 +13,11 @@ using ABB.Robotics.RobotStudio.Stations.Forms;
 
 namespace Puime_s_Addin
 {
-    class main
+    public class main
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.08.17  12:41 ", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.10.19  9:17 ", "Puime's Add-in"));
 
             //AddMenusAndButtons(); //Botones 
             // ==============================
@@ -193,7 +193,8 @@ namespace Puime_s_Addin
 
 
         // The event handler for the "Create ABB box" button.
-        static void btn4_clicked(object sender, EventArgs e)
+        public static Create_box createbox;
+        public static void btn4_clicked(object sender, EventArgs e)
         {
 
             //int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 90;
@@ -203,9 +204,15 @@ namespace Puime_s_Addin
             //UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
             //tw_CreateBox.Control.Controls.Add(Create_box2);
 
+            if (createbox == null)
+            {
+                createbox = new Create_box();
+            }
+
             //
             // Looks if the "Create ABB Box" window is active, if it's active, closes it.
             //
+            createbox.ResetObj += new EventHandler(DisposeObj);
 
             //
             // Don't work since I changed the Create_box procedure
@@ -216,27 +223,26 @@ namespace Puime_s_Addin
             //    UIEnvironment.Windows["Create_box"].Close();
             //}
 
-            if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_ABB_Box"]))
-            {
-                //UIEnvironment.Windows["Create_ABB_Box"].Close();
-                //UIEnvironment.Windows["Create_ABB_Box"].Dispose();
-                Logger.AddMessage(new LogMessage("Closing...", "Puime's Add-in"));
+            //if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_ABB_Box"]))
+            //{
+            //    //UIEnvironment.Windows["Create_ABB_Box"].Close();
+            //    //UIEnvironment.Windows["Create_ABB_Box"].Dispose();
+            //    Logger.AddMessage(new LogMessage("Closing...", "Puime's Add-in"));
 
 
-                //Create_box_v2.create_box_v2.
-            }
+            //    //Create_box_v2.create_box_v2.
+            //}
 
             //else Create_box_v3();
-            else
-            {
-                Create_box_v3 obj = new Create_box_v3();
-                obj.Show();
-                //ToolControlManager.ShowTool(typeof(Create_box_v3), e.Id);
-                //Create_box_v3.create_box_v3();
-                //Create_box_v2.create_box_v2();
-                Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in", LogMessageSeverity.Information));
-            }
-
+            //else
+            //{
+            //    Create_box_v3 obj = new Create_box_v3();
+            //    obj.Show();
+            //    //ToolControlManager.ShowTool(typeof(Create_box_v3), e.Id);
+            //    //Create_box_v3.create_box_v3();
+            //    //Create_box_v2.create_box_v2();
+            //    Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in", LogMessageSeverity.Information));
+            //}
 
 
 
@@ -263,6 +269,11 @@ namespace Puime_s_Addin
             //new Create_box_v2();
             //Create_box_v2.create_box_v2();
 
+        }
+
+        public static void DisposeObj (object sender, EventArgs e)
+        {
+            createbox = null;
         }
 
 
