@@ -1,18 +1,16 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio.Stations;
-using ABB.Robotics.RobotStudio.Stations.Forms;
 using ABB.Robotics.RobotStudio;
 
 namespace Puime_s_Addin
 {
     public class Make_Floor
     {
-        static bool val_x_neg = false; // Para saber si el valor es negativo
-        static bool val_y_neg = false; // Para saber si el valor es negativo
+        static bool val_x_neg = false; // Used to check if the value is negative
+        static bool val_y_neg = false; // Used to check if the value is negative
         public static void ObtenerObjetosEstacion()
         {
           //Begin UndoStep
@@ -25,60 +23,41 @@ namespace Puime_s_Addin
                 double min_y_positivo = 1000000;
                 double max_x = 0;
                 double max_y = 0;
-                //bool val_neg = false;
                 int x_size = 1;
                 int y_size = 1;
 
                 Station station = Station.ActiveStation;
 
-
-
-                // Busca entre todos los componentes el mayor/menor valor de X e Y
+                // Search in all the station components the major/minor X, Y value
                 #region foreach item in station.GraphicComponents
                 foreach (GraphicComponent item in station.GraphicComponents)
                 {
                     BoundingBox bbox = item.GetBoundingBox(true);
 
-                    //Logger.AddMessage(new LogMessage(item.ToString() + " bbox.min.x = " + bbox.min.x));
-
-                    // Valor minimo de X
-                    if (bbox.min.x < 0) // Valor negativo
+                    // Minur X value
+                    if (bbox.min.x < 0) // Negative value
                     {
                         if (bbox.min.x < min_x)
                         {
                             min_x = bbox.min.x;
                             val_x_neg = true;
-
-                        //    Logger.AddMessage(new LogMessage(item.ToString() + " min_x negativo - Valor: " + min_x + "val nega :" + val_x_neg));
                         }
 
                     }
 
-                    else if (bbox.min.x == 0) // Valor "cero"
+                    else if (bbox.min.x == 0) // "0" value
                     {
-                            min_x = 0;  // bbox.min.x;
+                            min_x = 0;
                             val_x_neg = true;
-
-                    //    Logger.AddMessage(new LogMessage(item.ToString() + " min_x cero - Valor: " + min_x + "val nega :" + val_x_neg));
                     }
 
-                    else if (val_x_neg == false & bbox.min.x < min_x_positivo) // Valor positico
-                     //{
+                    else if (val_x_neg == false & bbox.min.x < min_x_positivo) // Positive value
                     {
                             min_x = bbox.min.x;
                             min_x_positivo = min_x;
-
-                    //        Logger.AddMessage(new LogMessage(item.ToString() + " min_x positivo - Valor: " + min_x + "val nega :" + val_x_neg));
                     }
-                    //}
-
-                    // Valor minimo de Y
-                    //if (bbox.min.y < min_y)
-                    //{
-                    //    min_y = bbox.min.y;
-                    //}
-
-                    if (bbox.min.y <= 0) // Valor negativo
+                    
+                    if (bbox.min.y <= 0) // Negative value
                     {
                         if (bbox.min.y < min_y)
                         {
@@ -86,7 +65,7 @@ namespace Puime_s_Addin
                             val_y_neg = true;
                         }
                     }
-                    else // Valor positico
+                    else // Positive value
                     {
                         if (val_y_neg == false & bbox.min.y < min_y_positivo)
                         {
@@ -95,21 +74,17 @@ namespace Puime_s_Addin
                         }
                     }
 
-                    // Valor maximo de X
+                    // X maximum value
                     if (bbox.max.x > max_x)
                     {
                         max_x = bbox.max.x;
                     }
 
-                    // Valor maximo de Y
+                    // Y maximum value
                     if (bbox.max.y > max_y)
                     {
                         max_y = bbox.max.y;
                     }
-
-                    //Logger.AddMessage(new LogMessage(item.ToString() + " - min.x: " + min_x + " - min.y: " +min_y+ " - max.x: " +max_x+ " - max.y: " + max_y ));
-                    //Logger.AddMessage(new LogMessage(min_x + ", " + min_y + ", " + max_x + ", " + max_y ));
-
                 }
                 #endregion
 
@@ -143,14 +118,12 @@ namespace Puime_s_Addin
 
             catch (Exception execption)
               {
-                //Cancel UndoStep
                 Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
                 Logger.AddMessage(new LogMessage(execption.Message.ToString()));
                 throw;
             }
             finally
              {
-                //End UndoStep
                 Project.UndoContext.EndUndoStep();
              }
         }
@@ -158,13 +131,13 @@ namespace Puime_s_Addin
 
         static double obtener_redondeo(double valor)
         {
-            double valor_red = valor; //valor que devolvemos
-            double valor_ab; //valor absoluto
+            double valor_red = valor; // value to return
+            double valor_ab; // absolute value
             bool b_negativo = false;
 
-            if (valor < 0) //numero negativo
+            if (valor < 0) // negative number
             {
-                valor_ab = Math.Abs(valor); //valor absoluto de valor
+                valor_ab = Math.Abs(valor); // Absolute value
                 b_negativo = true;
             }
             else
@@ -175,7 +148,7 @@ namespace Puime_s_Addin
             {
                 valor_red = 1000;
 
-                if (b_negativo) //convertirlo a negativo
+                if (b_negativo) // convert to negative
                 {
                     valor_red = valor_red * (-1);
                 }
@@ -188,11 +161,11 @@ namespace Puime_s_Addin
                 double valor_b;
                 double valor_c;
 
-                valor_b = valor_ab % 1000; // tres ultimos digitos
-                valor_c = 1000 - valor_b; // lo que falta hasta el próxino mil
-                valor_red = valor_ab + valor_c; // sumamos todo
+                valor_b = valor_ab % 1000; // the three last digits
+                valor_c = 1000 - valor_b; // what it rest until the next thousand
+                valor_red = valor_ab + valor_c; // all added
 
-                if (b_negativo)  //convertirlo a negativo
+                if (b_negativo)  // convert to negative
                 {
                     valor_red = valor_red * (-1);
                 }
@@ -215,11 +188,6 @@ namespace Puime_s_Addin
             p.Name = "Floor";
             station.GraphicComponents.Add(p);
             
-
-            // Create a solid box.
-            //Matrix4 matrix_origo = new Matrix4(new Vector3(Axis.X), 0.0);
-            //Matrix4 matrix_origo = new Matrix4(new Vector3 (x_pos, y_pos, -10));
-
             Vector3 position = new Vector3();
             Vector3 size = new Vector3();
 
@@ -251,8 +219,6 @@ namespace Puime_s_Addin
             Matrix4 matrix_origo = new Matrix4(position);
             Body b1 = Body.CreateSolidBox(matrix_origo, size);
             b1.Name = "Box";
-            //Color box_color = Color.FromArgb(128, 128, 255);
-            //b1.Color = box_color;
             b1.Color = Color.FromArgb(128, 128, 255);
             p.Bodies.Add(b1);
 
@@ -261,9 +227,6 @@ namespace Puime_s_Addin
 
             val_x_neg = false;
             val_y_neg = false;
-
-            //Logger.AddMessage(new LogMessage(position + ", " + matrix_origo + ", " + size ));
         }
-
     }
 }

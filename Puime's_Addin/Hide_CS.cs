@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using ABB.Robotics.Math;
-using ABB.Robotics.RobotStudio.Stations;
-using ABB.Robotics.RobotStudio;
-
-using ABB.Robotics.RobotStudio.Environment;
-using ABB.Robotics.RobotStudio.Stations.Forms;
+﻿using ABB.Robotics.RobotStudio.Stations;
 
 namespace Puime_s_Addin
 {

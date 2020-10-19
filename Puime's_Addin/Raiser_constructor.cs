@@ -56,7 +56,5 @@ namespace Puime_s_Addin
             get { return orientation; }
             set { orientation = value; }
         }
-
-
     }
 }

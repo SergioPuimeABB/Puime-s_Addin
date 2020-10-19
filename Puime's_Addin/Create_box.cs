@@ -1,21 +1,17 @@
-﻿using ABB.Robotics.Math;
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Puime_s_Addin
 {
     public class Create_box
     {
-
         public PictureBox pb_createBox = new PictureBox();
         public Label lb_reference = new Label();
         public ComboBox cb_reference = new ComboBox();
@@ -35,7 +31,6 @@ namespace Puime_s_Addin
             #region add toolwindow and elements
             try
             {
-
                 // Add a ToolWindow.
                 int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 30;
                 ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
@@ -324,7 +319,6 @@ namespace Puime_s_Addin
             {
                 Station station = Project.ActiveProject as Station;
 
-                //
                 // Create a part to contain the bodies.
                 #region BodyCreateSolidsStep1
                 Part p = new Part();
@@ -332,7 +326,6 @@ namespace Puime_s_Addin
                 station.GraphicComponents.Add(p);
                 #endregion
 
-                //
                 // Create a solid box.
                 #region Create Box
                 Vector3 vect_position = new Vector3(0, 0, 0);
@@ -350,12 +343,10 @@ namespace Puime_s_Addin
                 // Transform the position of the part to the values of the pos_control values.
                 //
 
-                //
                 // Evaluate the reference selected item
                 bool reference_select_world = cb_reference.SelectedItem.ToString() == "World"; // true if World is selected
                 if (reference_select_world) // World is selected
                 {
-                    //
                     // Transform the position and orientation of the Part to the values of the control.
                     p.Transform.X = pos_control.Value.x;
                     p.Transform.Y = pos_control.Value.y;
@@ -381,19 +372,15 @@ namespace Puime_s_Addin
                     p.Transform.RY = station.UCS.RY;
                     p.Transform.RZ = station.UCS.RZ;
 
-                    //
                     // Create a Matrix with the control values.
                     Vector3 vect_pos_input = new Vector3(pos_control.Value.x, pos_control.Value.y, pos_control.Value.z);
                     Vector3 vect_ori_input = new Vector3(orientation_control.Value.x, orientation_control.Value.y, orientation_control.Value.z);
                     Matrix4 matrix_input = new Matrix4(vect_pos_input, vect_ori_input);
 
-                    //
                     // Transfor the position of the Part from it's position the values from the control with the Part orientation.
                     p.Transform.SetRelativeTransform(p, matrix_input);
                 }
 
-
-                //
                 // Get the faces from the box.
                 Face myFace0 = b1.Shells[0].Faces[0]; // z +
                 Face myFace1 = b1.Shells[0].Faces[1]; // z -
@@ -402,7 +389,6 @@ namespace Puime_s_Addin
                 Face myFace4 = b1.Shells[0].Faces[4]; // y +
                 Face myFace5 = b1.Shells[0].Faces[5]; // x +
 
-                //
                 // Make sure the faces are visible.
                 myFace0.Visible = true;
                 myFace1.Visible = true;
@@ -411,7 +397,6 @@ namespace Puime_s_Addin
                 myFace4.Visible = true;
                 myFace5.Visible = true;
 
-                //
                 // Set the material for each face of the box
                 Bitmap bmp0 = new Bitmap(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Textures\\top.jpg");
                 Bitmap bmp1 = new Bitmap(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Textures\\bottom.jpg");

@@ -1,13 +1,12 @@
-﻿using ABB.Robotics.Math;
-using ABB.Robotics.RobotStudio;
-using ABB.Robotics.RobotStudio.Stations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
+using ABB.Robotics.Math;
+using ABB.Robotics.RobotStudio;
+using ABB.Robotics.RobotStudio.Stations;
 
 namespace Puime_s_Addin
 {
@@ -16,76 +15,102 @@ namespace Puime_s_Addin
         public static void Create_ABB_Raiser()
         {
             #region try
-            //Begin UndoStep
             Project.UndoContext.BeginUndoStep("RotateBasedOnAxis");
             try
             {
                 Station stn = Station.ActiveStation;
                     if (stn == null) return;
 
-                var StationRaisers = new List<Raiser_constructor>();
-                
-                foreach (GraphicComponent item in stn.GraphicComponents)
+                var StationRaisers = new List<Raiser_constructor>(); // List to store all the raisers to create
+
+                var StationElements = stn.GraphicComponents.ToList(); // List of all Station GraphisComponents
+
+                bool RobotInStation = false; // To check if are some Robots are the station
+
+                if (StationElements.Count > 0) // Check if in the station are some objects, if not, send message
                 {
-                    bool mec = item.TypeDisplayName == "Mechanism";
-                    if (mec)
+                    foreach (GraphicComponent item in stn.GraphicComponents)
                     {
-                        Mechanism mec2 = item as Mechanism;
-                        bool mec3 = mec2.MechanismType.ToString() == "Robot";
-                        if (mec3)
+                        bool mec = item.TypeDisplayName == "Mechanism";
+                        if (mec)
                         {
-                            string name = item.DisplayName.ToString();
-                            string[] complete_name = name.Split('_');
-                            string robot_model = complete_name[0];
-
-                            switch (robot_model)
+                            Mechanism mec2 = item as Mechanism;
+                            bool mec3 = mec2.MechanismType.ToString() == "Robot";
+                            if (mec3)
                             {
-                                case "IRB52": case "IRB1600": case "IRB1600ID": case "IRB2600": case "IRB2600ID": case "IRB4600":
-                                    StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeA", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z*1000, item.Transform.RZ));
-                                    break;
+                                RobotInStation = true; // There is some Robot at the station
+                                string name = item.DisplayName.ToString();
+                                string[] complete_name = name.Split('_');
+                                string robot_model = complete_name[0];
 
-                                case "IRB2400":
-                                    StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeB", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
-                                    break;
-                                    
-                                case "IRB6400R": case "IRB6620": case "IRB6640": case "IRB6650S": case "IRB6660": case "IRB6700":
-                                case "IRB7600": case "IRB660": case "IRB760": case "IRB460":
-                                    StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeC", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
-                                    break;
+                                switch (robot_model)
+                                {
+                                    case "IRB52":
+                                    case "IRB1600":
+                                    case "IRB1600ID":
+                                    case "IRB2600":
+                                    case "IRB2600ID":
+                                    case "IRB4600":
+                                        StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeA", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
+                                        break;
 
-                                default:
-                                    MessageBox.Show(name + "\n\n" + "Not supported Robot model.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    break;
+                                    case "IRB2400":
+                                        StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeB", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
+                                        break;
+
+                                    case "IRB6400R":
+                                    case "IRB6620":
+                                    case "IRB6640":
+                                    case "IRB6650S":
+                                    case "IRB6660":
+                                    case "IRB6700":
+                                    case "IRB7600":
+                                    case "IRB660":
+                                    case "IRB760":
+                                    case "IRB460":
+                                        StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeC", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
+                                        break;
+
+                                    default:
+                                        MessageBox.Show(name + "\n\n" + "Not supported Robot model.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        break;
+                                }
                             }
                         }
                     }
+
+                    if (!RobotInStation) // if none of the elements in the station is a Robot, sends a message
+                    {
+                        MessageBox.Show("No Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                 }
+                else // if no elements in the station sends a message 
+                {
+                    MessageBox.Show("No Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                
               
                 foreach (var item in StationRaisers)
                 {
                     Raiser(item.Name, item.Type, item.Xpos, item.Ypos, item.Orientation, item.Zpos);
-                    break;
                 }
-                
-                //MessageBox.Show("No valid Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
             }
             #endregion try
 
             catch (Exception execption)
                 {
-                    //Cancel UndoStep
                     Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
                     Logger.AddMessage(new LogMessage(execption.Message.ToString()));
                     throw;
                 }
             finally
                 {
-                    //End UndoStep
                      Project.UndoContext.EndUndoStep();
                 }
 
-        } // public static void Hide_Objects()
+        }
 
         public static void Raiser(string name, string type, double xpos, double ypos, double orientation, double height)
         {
@@ -101,7 +126,6 @@ namespace Puime_s_Addin
                     #region Type A
                     case "TypeA":
 
-                        //
                         // Checks if the raiser allready exists
                         var allreadyexists = false;
                         Station stn2 = Station.ActiveStation;
@@ -114,7 +138,6 @@ namespace Puime_s_Addin
                             {
                                 MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 allreadyexists = true;
-                                //break;
                             }
                         }
 
@@ -124,7 +147,6 @@ namespace Puime_s_Addin
                             break;
                         }
 
-                        //
                         // Checks if the z position of the Robot is in the maximum allowed
                         if (height>1600) // maximum allowed height
                         {
@@ -141,14 +163,12 @@ namespace Puime_s_Addin
                         {
                             Station station = Project.ActiveProject as Station;
                             
-                            //
                             // Import the BasePlateTypeA library
                             GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\BasePlate\\BasePlateTypeA.rslib", true,null,false);
                             Part myPart1 = BasePlateTypeALib.RootComponent.CopyInstance() as Part;
                             myPart1.Name = "BasePlateTypeA";
                             myPart1.DisconnectFromLibrary();
 
-                            //
                             // Create the raiser middle cylinder.
                             Part myPart3 = new Part();
                             myPart3.Name = "Body";
@@ -161,7 +181,6 @@ namespace Puime_s_Addin
                             b1.Name = "Raiser_body";
                             myPart3.Bodies.Add(b1);
 
-                            //
                             // Import the TopPlateTypeA library
                             GraphicComponentLibrary TopPlateTypeALib = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\TopPlate\\TopPlateTypeA.rslib", true, null, false);
                             Part myPart2 = TopPlateTypeALib.RootComponent.CopyInstance() as Part;
@@ -177,12 +196,10 @@ namespace Puime_s_Addin
                             myGCGroup.GraphicComponents.Add(myPart3);
                             myGCGroup.Color = Color.FromArgb(255,255,128,0);
 
-                            //
                             // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
                             myGCGroup.Transform.X = xpos / 1000;
                             myGCGroup.Transform.Y = ypos / 1000;
                             myGCGroup.Transform.RZ = orientation;
-                            //myGCGroup.Transform.Z = 0;
                         }
 
                         else // if heght isn't in the allowed range
@@ -198,7 +215,6 @@ namespace Puime_s_Addin
                     #region Type B
                     case "TypeB":
 
-                        //
                         // Checks if the raiser allready exists
                         var allreadyexistsb = false;
                         Station stn2b = Station.ActiveStation;
@@ -211,7 +227,6 @@ namespace Puime_s_Addin
                             {
                                 MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 allreadyexistsb = true;
-                                //break;
                             }
                         }
 
@@ -221,7 +236,6 @@ namespace Puime_s_Addin
                             break;
                         }
 
-                        //
                         // Checks if the z position of the Robot is in the maximum allowed
                         if (height > 1600) // maximum allowed height
                         {
@@ -237,14 +251,12 @@ namespace Puime_s_Addin
                         {
                             Station station = Project.ActiveProject as Station;
 
-                            //
                             // Import the BasePlateTypeB library
                             GraphicComponentLibrary BasePlateTypeBLib = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\BasePlate\\BasePlateTypeB.rslib", true, null, false);
                             Part myPart1 = BasePlateTypeBLib.RootComponent.CopyInstance() as Part;
                             myPart1.Name = "BasePlateTypeB";
                             myPart1.DisconnectFromLibrary();
 
-                            //
                             // Create the raiser middle cylinder.
                             Part myPart3 = new Part();
                             myPart3.Name = "Body";
@@ -257,7 +269,6 @@ namespace Puime_s_Addin
                             b1.Name = "Raiser_body";
                             myPart3.Bodies.Add(b1);
 
-                            //
                             // Import the TopPlateTypeB library
                             GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\TopPlate\\TopPlateTypeB.rslib", true, null, false);
                             Part myPart2 = TopPlateTypeBLib.RootComponent.CopyInstance() as Part;
@@ -273,12 +284,10 @@ namespace Puime_s_Addin
                             myGCGroup.GraphicComponents.Add(myPart3);
                             myGCGroup.Color = Color.FromArgb(255, 255, 128, 0);
 
-                            //
                             // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
                             myGCGroup.Transform.X = xpos / 1000;
                             myGCGroup.Transform.Y = ypos / 1000;
                             myGCGroup.Transform.RZ = orientation;
-                            //myGCGroup.Transform.Z = 0;
                         }
 
                         else // if heght isn't in the allowed range
@@ -294,7 +303,6 @@ namespace Puime_s_Addin
                     #region Type C
                     case "TypeC":
 
-                        //
                         // Checks if the raiser allready exists
                         var allreadyexistsc = false;
                         Station stn2c = Station.ActiveStation;
@@ -307,7 +315,6 @@ namespace Puime_s_Addin
                             {
                                 MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 allreadyexistsc = true;
-                                //break;
                             }
                         }
 
@@ -317,7 +324,6 @@ namespace Puime_s_Addin
                             break;
                         }
 
-                        //
                         // Checks if the z position of the Robot is in the maximum allowed
                         if (height > 2000)
                         {
@@ -335,7 +341,6 @@ namespace Puime_s_Addin
                         {
                             Station station = Project.ActiveProject as Station;
 
-                            //
                             // The TypeC raiser has 3 diferent baseplates depending of it's height.
                             Part PartType = new Part(); // The part to add later depending of the baseplate choosed.
                             switch (height.ToString())
@@ -372,7 +377,6 @@ namespace Puime_s_Addin
                             }
 
 
-                            //
                             // Create the raiser middle cylinder.
                             Part myPart3 = new Part();
                             myPart3.Name = "Body";
@@ -385,7 +389,6 @@ namespace Puime_s_Addin
                             b1.Name = "Raiser_body";
                             myPart3.Bodies.Add(b1);
 
-                            //
                             // Import the TopPlateTypeC library
                             GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB Industrial IT\\Robotics IT\\Puime's Addin\\Library\\TopPlate\\TopPlateTypeC.rslib", true, null, false);
                             Part myPart2 = TopPlateTypeBLib.RootComponent.CopyInstance() as Part;
@@ -401,12 +404,10 @@ namespace Puime_s_Addin
                             myGCGroup.GraphicComponents.Add(myPart3);
                             myGCGroup.Color = Color.FromArgb(255, 255, 128, 0);
 
-                            //
                             // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
                             myGCGroup.Transform.X = xpos / 1000;
                             myGCGroup.Transform.Y = ypos / 1000;
                             myGCGroup.Transform.RZ = orientation;
-                            //myGCGroup.Transform.Z = 0;
                         }
 
                         else // if heght isn't in the allowed range
@@ -422,14 +423,8 @@ namespace Puime_s_Addin
                     default:
                         break;
                 }
-                    
             }
-
         }
-
-
-
-
-    } // class Raiser
+    } 
 }
 

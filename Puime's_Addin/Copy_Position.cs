@@ -1,16 +1,16 @@
-﻿
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
+using System;
 
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
-using System;
+
 
 namespace Puime_s_Addin
 {
     public class Copy_Position
     {
-        //Variables para almacenar la posición y orientación de los objetos
+        //Vars to store the objects position and orientation
         static double PosX, PosY, PosZ, DegX, DegY, DegZ;
 
         public static void ObtainPosition()
@@ -38,7 +38,7 @@ namespace Puime_s_Addin
                 #region SelectPart2
                 if (selectedPart != null)
                 {
-                    // Asignamos los valores del objeto a las variables de posición y orientación
+                    // Asign the object position and orientation values to the vars
                     PosX = selectedPart.Transform.X;
                     PosY = selectedPart.Transform.Y;
                     PosZ = selectedPart.Transform.Z;
@@ -46,10 +46,6 @@ namespace Puime_s_Addin
                     DegX = selectedPart.Transform.RX;
                     DegY = selectedPart.Transform.RY;
                     DegZ = selectedPart.Transform.RZ;
-
-                    // Mensaje del part copiado
-                    // (rselectedPart.Transform.RX * 180) / System.Math.PI
-                    // Globals.RadToDeg(selectedPart.Transform.RX)
 
                     Logger.AddMessage(new LogMessage(selectedPart.Name.ToString() + " Position copied" +
                                                         " [X = " + selectedPart.Transform.X * 1000 +
@@ -67,14 +63,13 @@ namespace Puime_s_Addin
                 #region SelectRsTarget2
                 if (selectedRsTarget != null)
                 {
+                    // The position obtained in RsRobTarget is relative to its WorkObject and we want it from the station origin (World).
+                    
+                    // We can get the relative distance betwen the Target and the station origin with "GetRelativeTrasform"
 
-                    // La posición que nos muestra directamenta el RsRobTarget es relativo a su WorkObject y nosotros lo queremos
-                    // relativo al origen de la estación (mundo).
-                    // Obtenemos la distancia relativa entre el punto y el origen de la estación con "GetRelativeTransform"
-
-                    RsWorkObject myWobj = new RsWorkObject(); // Declaramos un WorkObject sin definirle posición para que lo cree en el 0,0,0 (para definir el RsTarget)
-                    RsRobTarget myRsRobTarget = new RsRobTarget(); // Declaramos un RsRobTarget sin posición (para definir el RsTarget)
-                    RsTarget myRsTarget = new RsTarget(myWobj, myRsRobTarget); // Declaramos el RsTarget para utilizarlo en "GetRelativeTransform"
+                    RsWorkObject myWobj = new RsWorkObject(); // New WorkObject without position (it'll be created at 0,0,0) to define the RsTarget
+                    RsRobTarget myRsRobTarget = new RsRobTarget(); // New RsRobTarget without position to define the RsTarget.
+                    RsTarget myRsTarget = new RsTarget(myWobj, myRsRobTarget); // New RsTarget to use in the "GetRelativeTransform"
 
                     Matrix4 relMx = (selectedRsTarget.Transform.GetRelativeTransform(myRsTarget));
 
@@ -106,7 +101,7 @@ namespace Puime_s_Addin
                 #region SelectedWorkObject2
                 if (selectedWorkObject != null)
                 {
-                    // Asignamos los valores del objeto a las variables de posición y orientación
+                    // Asign the object position and orientation values to the vars
                     PosX = selectedWorkObject.UserFrame.X;
                     PosY = selectedWorkObject.UserFrame.Y;
                     PosZ = selectedWorkObject.UserFrame.Z;
@@ -115,7 +110,6 @@ namespace Puime_s_Addin
                     DegY = selectedWorkObject.UserFrame.RY;
                     DegZ = selectedWorkObject.UserFrame.RZ;
 
-                    // Mensaje del WorkObject copiado
                     Logger.AddMessage(new LogMessage(selectedWorkObject.Name.ToString() + " Position copied" +
                                                         " [X = " + selectedWorkObject.UserFrame.X * 1000 +
                                                         ", Y = " + selectedWorkObject.UserFrame.Y * 1000 +
@@ -168,14 +162,13 @@ namespace Puime_s_Addin
                 RsTarget selectedRsTarget = Selection.SelectedObjects.SingleSelectedObject as RsTarget;
                 #endregion
 
-
                 // Check if there is a part selected. 
                 #region SelectPart2
                 if (selectedPart != null)
 
                 {
                     #region Log Position and Orientation
-                    // Asignamos los valores las variables de posición y orientación al los valores del objeto
+                    // Asign the var values to the object position and orientation
                     selectedPart.Transform.X = PosX;
                     selectedPart.Transform.Y = PosY;
                     selectedPart.Transform.Z = PosZ;
@@ -184,7 +177,7 @@ namespace Puime_s_Addin
                     selectedPart.Transform.RY = DegY;
                     selectedPart.Transform.RZ = DegZ;
                     #endregion
-                    // Mensaje del part modificado
+                    
                     Logger.AddMessage(new LogMessage("Position applied to " + selectedPart.Name.ToString() +
                                                      " [X = " + selectedPart.Transform.X * 1000 +
                                                      ", Y = " + selectedPart.Transform.Y * 1000 +
@@ -218,8 +211,7 @@ namespace Puime_s_Addin
 
                     Matrix4 relMx = (myRsTarget_dest.Transform.GetRelativeTransform(myRsTarget_origen));
 
-                    // Asignamos los valores del objeto a las variables de posición y orientación
-
+                    // Asign the var values to the object position and orientation
                     selectedRsTarget.Transform.X = relMx.Translation.x;
                     selectedRsTarget.Transform.Y = relMx.Translation.y;
                     selectedRsTarget.Transform.Z = relMx.Translation.z;
@@ -244,7 +236,7 @@ namespace Puime_s_Addin
                 #region SelectedWorkObject2
                 if (selectedWorkObject != null)
                 {
-                    // Asignamos los valores del objeto a las variables de posición y orientación
+                    // Asign the object values to the vars position and orientation
                     selectedWorkObject.UserFrame.X = PosX;
                     selectedWorkObject.UserFrame.Y = PosY;
                     selectedWorkObject.UserFrame.Z = PosZ;
@@ -253,7 +245,6 @@ namespace Puime_s_Addin
                     selectedWorkObject.UserFrame.RY = DegY;
                     selectedWorkObject.UserFrame.RZ = DegZ;
 
-                    // Mensaje del WorkObject copiado
                     Logger.AddMessage(new LogMessage("Position applied to " + selectedWorkObject.Name.ToString() +
                                                         " [X = " + selectedWorkObject.UserFrame.X * 1000 +
                                                         ", Y = " + selectedWorkObject.UserFrame.Y * 1000 +

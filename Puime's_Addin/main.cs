@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 
-
-using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
-using ABB.Robotics.RobotStudio.Stations;
-using ABB.Robotics.RobotStudio.Stations.Forms;
 
 namespace Puime_s_Addin
 {
@@ -17,19 +11,9 @@ namespace Puime_s_Addin
     {
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Add-in loaded ... 2020.10.19  9:17 ", "Puime's Add-in"));
-
-            //AddMenusAndButtons(); //Botones 
-            // ==============================
-            // Cambiar por menú del ratón !!!
-            // ==============================
-            
             PuimesAddinToolWindow();
-
         }
 
-
-        // PRUEBA DE MENU --- Buscar como añadir los botones al menu del raton
         public static void PuimesAddinToolWindow()
         {
             Project.UndoContext.BeginUndoStep("ToolWindow Creation");
@@ -50,22 +34,14 @@ namespace Puime_s_Addin
 
                 // Button "Copy position"
                 Button btn = new Button();
-                // Set the text of the button.
                 btn.Text = "Copy position";
-                // Set the size of the button.
                 btn.Size = new Size(70, 70);
-                // Set the location of the button (pixels from top left corner).
                 btn.Location = new Point(5, 5);
-                // Add an event handler to the button.
                 btn.Click += new EventHandler(btn1_clicked);
-                // Set the image of the button
                 btn.Image = Properties.Resources.BT_copy;
                 btn.ImageAlign = ContentAlignment.TopCenter;
-                // Set the text alignment
                 btn.TextAlign = ContentAlignment.BottomCenter;
-                // Set the button style
                 btn.FlatStyle = FlatStyle.Flat;
-                // Add the button to the ToolWindow.
                 tw.Control.Controls.Add(btn);
 
                 // Button "Set position"
@@ -88,7 +64,6 @@ namespace Puime_s_Addin
                 btn2_2.Enabled = false;
                 btn2_2.ForeColor = Color.Gray;
                 tw.Control.Controls.Add(btn2_2);
-
                 
                 // Button "Create floor"
                 Button btn3 = new Button();
@@ -102,7 +77,6 @@ namespace Puime_s_Addin
                 btn3.FlatStyle = FlatStyle.Flat;
                 tw.Control.Controls.Add(btn3);
 
-
                 // Create a separator button.
                 Button btn3_2 = new Button();
                 btn3_2.Size = new Size(145, 2);
@@ -111,7 +85,6 @@ namespace Puime_s_Addin
                 btn3_2.Enabled = false;
                 btn3_2.ForeColor = Color.Gray;
                 tw.Control.Controls.Add(btn3_2);
-
 
                 // Button "Create ABB Box"
                 Button btn4 = new Button();
@@ -125,7 +98,6 @@ namespace Puime_s_Addin
                 btn4.FlatStyle = FlatStyle.Flat;
                 tw.Control.Controls.Add(btn4);
 
-
                 // Create a separator button.
                 Button btn4_2 = new Button();
                 btn4_2.Size = new Size(145, 2);
@@ -134,7 +106,6 @@ namespace Puime_s_Addin
                 btn4_2.Enabled = false;
                 btn4_2.ForeColor = Color.Gray;
                 tw.Control.Controls.Add(btn4_2);
-
 
                 // Button "ABB Raiser"
                 Button btn5 = new Button();
@@ -148,14 +119,11 @@ namespace Puime_s_Addin
                 btn5.FlatStyle = FlatStyle.Flat;
                 tw.Control.Controls.Add(btn5);
 
-
                 // Label Current version
                 Label lbl_version = new Label();
                 lbl_version.Text = "V. Alpha 0.1";
                 lbl_version.Location = new Point(90, 500);
                 tw.Control.Controls.Add(lbl_version);
-
-                //tw.Visible = false;
             }
 
             catch (Exception execption)
@@ -193,87 +161,26 @@ namespace Puime_s_Addin
 
 
         // The event handler for the "Create ABB box" button.
+
+        // Asigns a variable to the Create_box ToolWindow
         public static Create_box createbox;
         public static void btn4_clicked(object sender, EventArgs e)
         {
-
-            //int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 90;
-            //ToolWindow tw_CreateBox = new ToolWindow("Create_ABB_Box");
-            //tw_CreateBox.Caption = "Create ABB Box";
-            //tw_CreateBox.PreferredSize = new Size(tw_width, 330);
-            //UIEnvironment.Windows.AddDocked(tw_CreateBox, System.Windows.Forms.DockStyle.Top, UIEnvironment.Windows["ObjectBrowser"] as ToolWindow);
-            //tw_CreateBox.Control.Controls.Add(Create_box2);
-
+            
+            // Checks if the variable asigned to the ToolWindow is active (if the ToolWindow is allready created)
             if (createbox == null)
             {
                 createbox = new Create_box();
             }
 
-            //
-            // Looks if the "Create ABB Box" window is active, if it's active, closes it.
-            //
+            // Creates a new EventHandler to check when the createbox Dispose is raised
             createbox.ResetObj += new EventHandler(DisposeObj);
-
-            //
-            // Don't work since I changed the Create_box procedure
-            //
-
-            //if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_box"]))
-            //{
-            //    UIEnvironment.Windows["Create_box"].Close();
-            //}
-
-            //if (UIEnvironment.Windows.Contains(UIEnvironment.Windows["Create_ABB_Box"]))
-            //{
-            //    //UIEnvironment.Windows["Create_ABB_Box"].Close();
-            //    //UIEnvironment.Windows["Create_ABB_Box"].Dispose();
-            //    Logger.AddMessage(new LogMessage("Closing...", "Puime's Add-in"));
-
-
-            //    //Create_box_v2.create_box_v2.
-            //}
-
-            //else Create_box_v3();
-            //else
-            //{
-            //    Create_box_v3 obj = new Create_box_v3();
-            //    obj.Show();
-            //    //ToolControlManager.ShowTool(typeof(Create_box_v3), e.Id);
-            //    //Create_box_v3.create_box_v3();
-            //    //Create_box_v2.create_box_v2();
-            //    Logger.AddMessage(new LogMessage("Click...", "Puime's Add-in", LogMessageSeverity.Information));
-            //}
-
-
-
-
-            //UIEnvironment.Windows.Count
-            //string windows_count = UIEnvironment.Windows.Count.ToString();
-            //Logger.AddMessage(new LogMessage(windows_count, "Puime's Add-in"));
-
-            //foreach (Window item in UIEnvironment.Windows)
-            //{
-            //    //ABB.Robotics.RobotStudio.Environment.ToolWindow
-            //    //Logger.AddMessage(new LogMessage(UIEnvironment.Windows, "Puime's Add-in"));
-            //}
-
-            //Create_box.create_box();
-
-
-            //Create_box.AddCustomControl();
-
-
-            //string windows_count = UIEnvironment.Windows.ToString();
-            //Logger.AddMessage(new LogMessage(windows_count.ToString(), "Puime's Add-in"));
-
-            //new Create_box_v2();
-            //Create_box_v2.create_box_v2();
-
         }
 
+        // createbox Dispose is raised
         public static void DisposeObj (object sender, EventArgs e)
         {
-            createbox = null;
+            createbox = null; // when the ToolWindow us Disposed, the variable createbox is set to null.
         }
 
 
@@ -282,8 +189,5 @@ namespace Puime_s_Addin
         {
             Create_Raiser.Create_ABB_Raiser();
         }
-
-
-
     }
 }
