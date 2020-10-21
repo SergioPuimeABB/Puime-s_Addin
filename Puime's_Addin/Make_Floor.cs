@@ -34,7 +34,7 @@ namespace Puime_s_Addin
                 {
                     BoundingBox bbox = item.GetBoundingBox(true);
 
-                    // Minur X value
+                    // Minor X value
                     if (bbox.min.x < 0) // Negative value
                     {
                         if (bbox.min.x < min_x)
@@ -74,7 +74,7 @@ namespace Puime_s_Addin
                         }
                     }
 
-                    // X maximum value
+                    // Maximum X value
                     if (bbox.max.x > max_x)
                     {
                         max_x = bbox.max.x;

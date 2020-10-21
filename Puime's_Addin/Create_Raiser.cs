@@ -48,6 +48,7 @@ namespace Puime_s_Addin
                                     case "IRB52":
                                     case "IRB1600":
                                     case "IRB1600ID":
+                                    case "IRB1660ID":
                                     case "IRB2600":
                                     case "IRB2600ID":
                                     case "IRB4600":
@@ -81,13 +82,13 @@ namespace Puime_s_Addin
 
                     if (!RobotInStation) // if none of the elements in the station is a Robot, sends a message
                     {
-                        MessageBox.Show("No Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No valid Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                 }
                 else // if no elements in the station sends a message 
                 {
-                    MessageBox.Show("No Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No valid Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
                 
@@ -159,7 +160,7 @@ namespace Puime_s_Addin
                         var a = height == 300 || height == 400 || height == 500 || height == 600 || height == 700 || height == 800 || height == 900 || height == 1000
                              || height == 1100 || height == 1200 || height == 1300 || height == 1400 || height == 1500 || height == 1600;
 
-                        if (a) // if heght is in the allowed range, creates the raiser
+                        if (a) // if heght is in the allowed range, creates the raiser 
                         {
                             Station station = Project.ActiveProject as Station;
 

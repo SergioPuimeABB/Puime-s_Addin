@@ -1,41 +1,51 @@
 ﻿using ABB.Robotics.RobotStudio.Stations;
+using ABB.Robotics.RobotStudio.Environment;
 
 namespace Puime_s_Addin
 {
-
-    // Hide Coordinated systems (Targets, WorkObjetcs, Paths)
-    //
-    // Only works on the active Task
-    // Only works on the active WorkObject
-    // Only works on the active Tool
-    //
     public class Hide_CS
     {
         public static void Hide_Objects()
         {
-            Station stn = Station.ActiveStation;
-            if (stn == null) return;
+            // Frames (targets, workobjects, frames)
+            bool FramesVisible = CommandBarButton.FromID("ViewShowAllFrames").IsChecked; // checks if the Command is checked
+
+            if (FramesVisible) // if the option is active desactive it
+            {
+                CommandBarButton.FromID("ViewShowAllFrames").Execute();
+            }
+            else // if the option is desactivated, active and desactive it. If some frama is creted with the option off, the frame is still visible
+            {
+                CommandBarButton.FromID("ViewShowAllFrames").Execute();
+                CommandBarButton.FromID("ViewShowAllFrames").Execute();
+            }
+
+            // Paths
+            bool PathsVisible = CommandBarButton.FromID("ViewShowAllPaths").IsChecked; // checks if the Command is checked
+
+            if (PathsVisible)
+            {
+                CommandBarButton.FromID("ViewShowAllPaths").Execute();
+            }
+            else
+            {
+                CommandBarButton.FromID("ViewShowAllPaths").Execute();
+                CommandBarButton.FromID("ViewShowAllPaths").Execute();
+            }
+        }
+
+        public static void ResetFloor()
+        {
+            // Will Reset the floor size using the RobotStudio CommandBarButton
+            CommandBarButton.FromID("ViewResetFloorSize").Execute();
+
+            // Hide the RobotStudio floor
+            bool FloorVisible = CommandBarButton.FromID("ViewShowFloor").IsChecked; // check if the Command ShowFloor is checked
             
-            RsTask myTask = stn.ActiveTask;
-
-            // Hide Targets
-            foreach (RsTarget tgr in myTask.Targets)
+            if (FloorVisible)
             {
-                tgr.Visible = false;
+                CommandBarButton.FromID("ViewShowFloor").Execute();
             }
-
-            // Hide WorkObjects
-            myTask.ActiveWorkObject.Visible = false;
-
-            // Hide Paths
-            foreach (RsPathProcedure pth in myTask.PathProcedures)
-            {
-                pth.Visible = false;
-            }
-
-            //Hide Tool
-            myTask.ActiveTool.Visible = false;
-
         }
     }
 }

@@ -8,6 +8,7 @@ using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 
+
 namespace Puime_s_Addin
 {
     public class Create_box

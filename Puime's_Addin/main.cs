@@ -157,6 +157,7 @@ namespace Puime_s_Addin
         {
             Make_Floor.ObtenerObjetosEstacion();
             Hide_CS.Hide_Objects();
+            Hide_CS.ResetFloor(); 
             Logger.AddMessage(new LogMessage("Floor created.", "Puime's Add-in"));
         }
 
