@@ -1,11 +1,11 @@
 # Puime's Addin
-An ABB RobotStudio Add-in with some useful tools. ||Alpha version|| - Still in progress -
+An ABB RobotStudio Add-in with some useful tools. ||Beta version|| - Still in progress -
 
 * **Copy position**. Gets parts, targets or workobjects position and orientation.
 * **Apply position**. Sets parts, targets or workobjects position from the copied one.
-* **Make floor**. Creates a floor (box from -10 to 0 in Z) with the dimension of the entire station plus one meter. Hides all station targets and paths.
-* **Make ABB Box**. Creates a standard box with cardboard texture and the ABB logo, stickers, and shipping logos.
-* **Make ABB Raiser**. Creates an ABB raiser for each elevated Robot in the station. Scans for Robots in the station and it's position, if the Robot is at the minium height (300mm) asigns the appropiate raiser for the Robot model and it's height.
+* **Create floor**. Creates a floor (box from -10 to 0 in Z) with the dimension of the entire station plus one meter. Hides all station targets and paths.
+* **Create ABB Box**. Creates a standard box with cardboard texture and the ABB logo, stickers, and shipping logos.
+* **Create ABB Raiser**. Creates an ABB raiser for each elevated Robot in the station. Scans for Robots in the station and it's position, if the Robot is at the minium height (300mm) asigns the appropiate raiser for the Robot model and it's height.
 
 *Add-in screen position*
 
