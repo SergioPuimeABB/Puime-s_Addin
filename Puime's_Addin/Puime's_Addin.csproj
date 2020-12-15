@@ -97,22 +97,15 @@
     <None Include="Puime_s_Addin.rsaddin">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Resources\TopPlateTypeA.rslib" />
-    <None Include="Resources\TopPlateTypeB.rslib" />
-    <None Include="Resources\TopPlateTypeC.rslib" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BasePlateTypeA.rslib" />
-    <None Include="Resources\BasePlateTypeB.rslib" />
-    <None Include="Resources\BasePlateTypeC_1000-1500.rslib" />
-    <None Include="Resources\BasePlateTypeC_1600-2000.rslib" />
-    <None Include="Resources\BasePlateTypeC_300-1000.rslib" />
     <None Include="Resources\BT_copy.png" />
   </ItemGroup>
   <ItemGroup>

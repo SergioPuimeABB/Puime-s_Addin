@@ -20,7 +20,7 @@ namespace Puime_s_Addin
             Project.UndoContext.BeginUndoStep("ToolWindow Creation");
             try
             {
-                // Add a ToolWindow where we can put some buttons.
+                // Add a ToolWindow
                 ToolWindow tw = new ToolWindow();
                 tw.Caption = "Puime's Addin";
                 tw.PreferredSize = new Size(157, 100);
@@ -122,8 +122,8 @@ namespace Puime_s_Addin
 
                 // Label Current version
                 Label lbl_version = new Label();
-                lbl_version.Text = "V. Alpha 0.1";
-                lbl_version.Location = new Point(90, 500);
+                lbl_version.Text = "Puime's addin v.1.0";
+                lbl_version.Location = new Point(50, 500);
                 tw.Control.Controls.Add(lbl_version);
             }
 
@@ -163,12 +163,10 @@ namespace Puime_s_Addin
 
 
         // The event handler for the "Create ABB box" button.
-
         // Asigns a variable to the Create_box ToolWindow
         public static Create_box createbox;
         public static void btn4_clicked(object sender, EventArgs e)
         {
-            
             // Checks if the variable asigned to the ToolWindow is active (if the ToolWindow is allready created)
             if (createbox == null)
             {

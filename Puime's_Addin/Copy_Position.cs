@@ -1,6 +1,5 @@
 ﻿using System.Windows.Forms;
 using System;
-
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
@@ -64,17 +63,14 @@ namespace Puime_s_Addin
                 if (selectedRsTarget != null)
                 {
                     // The position obtained in RsRobTarget is relative to its WorkObject and we want it from the station origin (World).
-                    
                     // We can get the relative distance betwen the Target and the station origin with "GetRelativeTrasform"
-
                     RsWorkObject myWobj = new RsWorkObject(); // New WorkObject without position (it'll be created at 0,0,0) to define the RsTarget
                     RsRobTarget myRsRobTarget = new RsRobTarget(); // New RsRobTarget without position to define the RsTarget.
                     RsTarget myRsTarget = new RsTarget(myWobj, myRsRobTarget); // New RsTarget to use in the "GetRelativeTransform"
 
                     Matrix4 relMx = (selectedRsTarget.Transform.GetRelativeTransform(myRsTarget));
 
-                    // Asignamos los valores del objeto a las variables de posición y orientación
-
+                    // Asing the objetc values to the position and orientation vars
                     PosX = relMx.Translation.x;
                     PosY = relMx.Translation.y;
                     PosZ = relMx.Translation.z;
@@ -83,8 +79,7 @@ namespace Puime_s_Addin
                     DegY = relMx.EulerZYX.y;
                     DegZ = relMx.EulerZYX.z;
 
-                    // Mensaje del RsTarget copiado
-
+                    // RsTarget copied message
                     Logger.AddMessage(new LogMessage(selectedRsTarget.Name.ToString() + " Position copied" +
                                                         " [X = " + relMx.Translation.x * 1000 +
                                                         ", Y = " + relMx.Translation.y * 1000 +
@@ -147,7 +142,7 @@ namespace Puime_s_Addin
             Project.UndoContext.BeginUndoStep("Set the position of the selected object");
             try
             {
-                // Get the selected part. 
+                // Get the selected Part. 
                 #region SelectPart1
                 Part selectedPart = Selection.SelectedObjects.SingleSelectedObject as Part;
                 #endregion

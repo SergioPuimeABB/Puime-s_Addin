@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;

@@ -7,6 +7,8 @@ namespace Puime_s_Addin
     {
         public static void Hide_Objects()
         {
+            // Will hide the frames (targets) and paths using the RobotStudio CommandBarButton
+
             // Frames (targets, workobjects, frames)
             bool FramesVisible = CommandBarButton.FromID("ViewShowAllFrames").IsChecked; // checks if the Command is checked
 
@@ -14,7 +16,7 @@ namespace Puime_s_Addin
             {
                 CommandBarButton.FromID("ViewShowAllFrames").Execute();
             }
-            else // if the option is desactivated, active and desactive it. If some frama is creted with the option off, the frame is still visible
+            else // if the option is desactivated, active and desactive it. If some frame is creted with the option off, the frame is still visible
             {
                 CommandBarButton.FromID("ViewShowAllFrames").Execute();
                 CommandBarButton.FromID("ViewShowAllFrames").Execute();
