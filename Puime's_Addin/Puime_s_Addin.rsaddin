@@ -1,22 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <RobotStudioAddIn xmlns="urn:abb-robotics-robotstudio-addin"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  autoLoad="false">
+                  xsi:schemaLocation="urn:abb-robotics-robotstudio-addin file:///C:\Program%20Files%20(x86)\ABB%20Industrial%20IT\Robotics%20IT\SDK\RobotStudio%20SDK%206.08\RobotStudioAddin.xsd"
+                  autoLoad="true">
 
-  <!-- Make sure the ApplicationId is unique -->
-  <ApplicationId>com.abb.es.Puime_s_Addin</ApplicationId>
+  <ApplicationId>com.abb.es.PuimesAddin</ApplicationId>
   <DisplayName>Puime's Addin</DisplayName>
   <DisplayVersion>1.0</DisplayVersion>
   
   <AddInType>General</AddInType>
 
   <Assembly>
-    <FileName>Puime's_Addin.dll</FileName>
-    <Path>Puime's_Addin\</Path>
+    <FileName>PuimesAddin.dll</FileName>
   </Assembly>
 
-  <!-- By default, the minimum host version is equal to the SDK version -->
-  <!-- You can change this if your add-in supports older RobotStudio versions -->
   <MinimumHostVersion>6.06</MinimumHostVersion>
   <Dependencies>Station</Dependencies>
   <!-- Change Platform to x86 if your add-in uses any native x86 components -->

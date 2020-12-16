@@ -126,24 +126,6 @@
   <ItemGroup>
     <None Include="Resources\BT_raiser.png" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\bottom.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\long_side.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\long_side2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\short_side.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\short_side2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\top.jpg" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
