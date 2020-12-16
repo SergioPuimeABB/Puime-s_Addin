@@ -10,12 +10,14 @@ The Puime’s Addin is a RobotStudio add-in that extends RobotStudio with some u
 From the Add-Ins tab in RobotStudio, click on “Install Package” and select the PuimesAddin-1.0.rspak file. This will add an item in the “Installed Packages” section. You’ll need to restart RobotStudio in order to finish the installation.
 
 **How it works.**
-After the installation, a new toolwindow will be added at the right side in RobotStudio. It’ll star hidden.
+After the installation, a new toolwindow will be added at the right side in RobotStudio. It’ll start hidden.
+
 
 
 *Add-in screen position*
 
 ![Add-in screen position](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/001.png)
+
 
 
 *Add-in main screen*
@@ -47,8 +49,5 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 
 
 
-# To Do List.
 
-* **Create ABB Box**. Put the dimensions of the box in the name.
-
-In the Data folder
+* In the Data folder you'll find the rspak file and the libraries and textures used.
