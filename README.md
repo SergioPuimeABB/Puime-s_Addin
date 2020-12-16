@@ -1,6 +1,6 @@
  ![Add-in](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/000.png)
-#Puime's Addin
-######Version 1.0
+# Puime's Addin
+###### Version 1.0
 
 
 **Overview.**
@@ -32,9 +32,10 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 * **Create ABB box.** Similar to the standard Create box, but it’ll add cardboard textures to all of the created box faces. The origin of the created box will be always in the box corner though you specified another position and orientation when you create it. 
 
 * **Create ABB raiser.** Creates ABB standard raisers (type A, B and C). It’ll scan all the station robots and its position to create the corresponding raiser at the robot position with the robot height.
-The supported robot models are:
+
+	The supported robot models are:
 	- Type A
-	 - IRB52, IRB1600, IRB1600ID, IRB1660ID, IRB2600, IRB2600ID, IRB4600
+	  - IRB52, IRB1600, IRB1600ID, IRB1660ID, IRB2600, IRB2600ID, IRB4600
 
 	- Type B
 	  - IRB2400
