@@ -50,4 +50,4 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 
 
 
-* In the Data folder you'll find the rspak file and the libraries and textures used.
+*In the Data folder you'll find the rspak file and the libraries and textures used.*
