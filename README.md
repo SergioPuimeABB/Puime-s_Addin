@@ -1,8 +1,6 @@
- Puime's Addin
-
-![Add-in](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/001.png)
-
-**Version 1.0**
+ ![Add-in](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/000.png)
+#Puime's Addin
+######Version 1.0
 
 
 **Overview.**
@@ -16,10 +14,12 @@ After the installation, a new toolwindow will be added at the right side in Robo
 
 
 *Add-in screen position*
+
 ![Add-in screen position](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/001.png)
 
 
 *Add-in main screen*
+
 ![Add-in main screen](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/002.png)
 
 * **Copy Position.** Copy the position and orientation of the selected object. It only woks with Parts, Targets or WorkObjects.
@@ -33,17 +33,21 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 
 * **Create ABB raiser.** Creates ABB standard raisers (type A, B and C). It’ll scan all the station robots and its position to create the corresponding raiser at the robot position with the robot height.
 The supported robot models are:
-Type A
-IRB52, IRB1600, IRB1600ID, IRB1660ID, IRB2600, IRB2600ID, IRB4600
+	- Type A
+	 - IRB52, IRB1600, IRB1600ID, IRB1660ID, IRB2600, IRB2600ID, IRB4600
 
-Type B
-IRB2400
-Type C
-IRB6400R, IRB6620, IRB6640, IRB6650S, IRB6660, IRB6700, IRB7600, IRB660, IRB760, IRB460
-The position must be between 300 mm and 1600 mm in 100 mm increments.
+	- Type B
+	  - IRB2400
+
+	- Type C
+	  - IRB6400R, IRB6620, IRB6640, IRB6650S, IRB6660, IRB6700, IRB7600, IRB660, IRB760, IRB460
+
+	The position must be between 300 mm and 1600 mm in 100 mm increments.
 
 
 
 # To Do List.
 
 * **Create ABB Box**. Put the dimensions of the box in the name.
+
+In the Data folder
