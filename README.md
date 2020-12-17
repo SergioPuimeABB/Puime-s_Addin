@@ -47,7 +47,7 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 
 	The position must be between 300 mm and 1600 mm in 100 mm increments.
  
- ######  
+ # 
  
  
  
