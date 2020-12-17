@@ -46,8 +46,8 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 	  - IRB6400R, IRB6620, IRB6640, IRB6650S, IRB6660, IRB6700, IRB7600, IRB660, IRB760, IRB460
 
 	The position must be between 300 mm and 1600 mm in 100 mm increments.
-
-
-
-
-*In the Data folder you'll find the rspak file and the libraries and textures used.*
+ 
+ 
+ 
+ 
+*In the Data folder you'll find the rspak file, the libraries and the textures used.*
