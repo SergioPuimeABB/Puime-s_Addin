@@ -163,8 +163,6 @@ namespace Puime_s_Addin
                             Station station = Project.ActiveProject as Station;
 
                             // Import the BasePlateTypeA library                                                                                                             
-                            //GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) + "\\ABB\\RobotStudio 2020\\Bin\\Addins\\Puime's_Addin\\Library\\BasePlate\\BasePlateTypeA.rslib", true, null, false);
-
                             GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeA.rslib", true, null, false);
 
                             Part myPart1 = BasePlateTypeALib.RootComponent.CopyInstance() as Part;
@@ -392,7 +390,7 @@ namespace Puime_s_Addin
                             myPart3.Bodies.Add(b1);
 
                             // Import the TopPlateTypeC library
-                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load(".\\Library\\TopPlate\\TopPlateTypeC.rslib", true, null, false);
+                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\TopPlate\\TopPlateTypeC.rslib", true, null, false);
                             Part myPart2 = TopPlateTypeBLib.RootComponent.CopyInstance() as Part;
                             myPart2.Name = "TopPlateTypeC";
                             myPart2.DisconnectFromLibrary();
