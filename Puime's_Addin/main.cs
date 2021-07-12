@@ -4,127 +4,146 @@ using System.Windows.Forms;
 
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
+using ABB.Robotics.RobotStudio.Stations.Forms;
 
 namespace Puime_s_Addin
 {
     public class main
     {
+        private static ToolWindow twPuimesAddin;
+        private static Button btnCopyPosition;
+        private static Button btnSetPosition;
+        private static Button btnSeparator1;
+        private static Button btnCreateFloor;
+        private static Button btnSeparator2;
+        private static Button btnCreateABBBox;
+        //private static CommandBarButton btnCreateABBBox;
+        private static Button btnSeparator3;
+        private static Button btnCreateABBRaiser;
+        private static Label lblCurrenteVersion;
+
         public static void AddinMain()
         {
             Logger.AddMessage(new LogMessage("Puime's Addin Loaded", "Puime's Add-in"));
-            PuimesAddinToolWindow();
-        }
+            if (twPuimesAddin == null)
+            {
+                addToolWindow();
+            }
+         }
 
-        public static void PuimesAddinToolWindow()
+        public static void addToolWindow()
         {
             Project.UndoContext.BeginUndoStep("ToolWindow Creation");
             try
             {
-                // Add a ToolWindow
-                ToolWindow tw = new ToolWindow();
-                tw.Caption = "Puime's Addin";
-                tw.PreferredSize = new Size(157, 100);
-                // Add it docked to the right of the screen.
-                UIEnvironment.Windows.AddDocked(tw, DockStyle.Right);
-                // Starts it hidden
-                tw.AutoHide = true;
+                twPuimesAddin = new ToolWindow("twPuimeAddin");
+                btnCopyPosition = new Button();
+                btnSetPosition = new Button();
+                btnSeparator1 = new Button();
+                btnCreateFloor = new Button();
+                btnSeparator2 = new Button();
+                btnCreateABBBox = new Button();
+                //btnCreateABBBox = new CommandBarButton("CreateABBBox", "Create ABB Box");
+                btnSeparator3 = new Button();
+                btnCreateABBRaiser = new Button();
+                lblCurrenteVersion = new Label();
+
+
+                twPuimesAddin.Caption = "Puime's Addin";
+                twPuimesAddin.PreferredSize = new Size(157, 100);
+                UIEnvironment.Windows.AddDocked(twPuimesAddin, DockStyle.Right);
+                twPuimesAddin.AutoHide = true;
 
                 //
                 // Create the buttons.
                 //
 
                 // Button "Copy position"
-                Button btn = new Button();
-                btn.Text = "Copy position";
-                btn.Size = new Size(70, 70);
-                btn.Location = new Point(5, 5);
-                btn.Click += new EventHandler(btn1_clicked);
-                btn.Image = Properties.Resources.BT_copy;
-                btn.ImageAlign = ContentAlignment.TopCenter;
-                btn.TextAlign = ContentAlignment.BottomCenter;
-                btn.FlatStyle = FlatStyle.Flat;
-                tw.Control.Controls.Add(btn);
+                btnCopyPosition.Text = "Copy position";
+                btnCopyPosition.Size = new Size(70, 70);
+                btnCopyPosition.Location = new Point(5, 5);
+                btnCopyPosition.Click += new EventHandler(btnCopyPosition_clicked);
+                btnCopyPosition.Image = Properties.Resources.BT_copy;
+                btnCopyPosition.ImageAlign = ContentAlignment.TopCenter;
+                btnCopyPosition.TextAlign = ContentAlignment.BottomCenter;
+                btnCopyPosition.FlatStyle = FlatStyle.Flat;
 
                 // Button "Set position"
-                Button btn2 = new Button();
-                btn2.Text = "Set position";
-                btn2.Size = new Size(70, 70);
-                btn2.Location = new Point(80, 5);
-                btn2.Click += new EventHandler(btn2_clicked);
-                btn2.Image = Properties.Resources.BT_paste;
-                btn2.ImageAlign = ContentAlignment.TopCenter;
-                btn2.TextAlign = ContentAlignment.BottomCenter;
-                btn2.FlatStyle = FlatStyle.Flat;
-                tw.Control.Controls.Add(btn2);
+                btnSetPosition.Text = "Set position";
+                btnSetPosition.Size = new Size(70, 70);
+                btnSetPosition.Location = new Point(80, 5);
+                btnSetPosition.Click += new EventHandler(btnSetPosition_clicked);
+                btnSetPosition.Image = Properties.Resources.BT_paste;
+                btnSetPosition.ImageAlign = ContentAlignment.TopCenter;
+                btnSetPosition.TextAlign = ContentAlignment.BottomCenter;
+                btnSetPosition.FlatStyle = FlatStyle.Flat;
 
                 // Create a separator button.
-                Button btn2_2 = new Button();
-                btn2_2.Size = new Size(145, 2);
-                btn2_2.Location = new Point(5, 84);
-                btn2_2.FlatStyle = FlatStyle.Flat;
-                btn2_2.Enabled = false;
-                btn2_2.ForeColor = Color.Gray;
-                tw.Control.Controls.Add(btn2_2);
-                
+                btnSeparator1.Size = new Size(145, 2);
+                btnSeparator1.Location = new Point(5, 84);
+                btnSeparator1.FlatStyle = FlatStyle.Flat;
+                btnSeparator1.Enabled = false;
+                btnSeparator1.ForeColor = Color.Gray;
+
                 // Button "Create floor"
-                Button btn3 = new Button();
-                btn3.Text = "Create floor    ";
-                btn3.Size = new Size(145, 40);
-                btn3.Location = new Point(5, 95);
-                btn3.Click += new EventHandler(btn3_clicked);
-                btn3.Image = Properties.Resources.BT_floor;
-                btn3.ImageAlign = ContentAlignment.MiddleLeft;
-                btn3.TextAlign = ContentAlignment.MiddleRight;
-                btn3.FlatStyle = FlatStyle.Flat;
-                tw.Control.Controls.Add(btn3);
+                btnCreateFloor.Text = "Create floor    ";
+                btnCreateFloor.Size = new Size(145, 40);
+                btnCreateFloor.Location = new Point(5, 95);
+                btnCreateFloor.Click += new EventHandler(bbtnCreateFloor_clicked);
+                btnCreateFloor.Image = Properties.Resources.BT_floor;
+                btnCreateFloor.ImageAlign = ContentAlignment.MiddleLeft;
+                btnCreateFloor.TextAlign = ContentAlignment.MiddleRight;
+                btnCreateFloor.FlatStyle = FlatStyle.Flat;
 
                 // Create a separator button.
-                Button btn3_2 = new Button();
-                btn3_2.Size = new Size(145, 2);
-                btn3_2.Location = new Point(5, 144);
-                btn3_2.FlatStyle = FlatStyle.Flat;
-                btn3_2.Enabled = false;
-                btn3_2.ForeColor = Color.Gray;
-                tw.Control.Controls.Add(btn3_2);
+                btnSeparator2.Size = new Size(145, 2);
+                btnSeparator2.Location = new Point(5, 144);
+                btnSeparator2.FlatStyle = FlatStyle.Flat;
+                btnSeparator2.Enabled = false;
+                btnSeparator2.ForeColor = Color.Gray;
 
                 // Button "Create ABB Box"
-                Button btn4 = new Button();
-                btn4.Text = "Create ABB box  ";
-                btn4.Size = new Size(145, 40);
-                btn4.Location = new Point(5, 156);
-                btn4.Click += new EventHandler(btn4_clicked);
-                btn4.Image = Properties.Resources.BT_box_but;
-                btn4.ImageAlign = ContentAlignment.MiddleLeft;
-                btn4.TextAlign = ContentAlignment.MiddleRight;
-                btn4.FlatStyle = FlatStyle.Flat;
-                tw.Control.Controls.Add(btn4);
+                btnCreateABBBox.Text = "Create ABB box  ";
+                btnCreateABBBox.Size = new Size(145, 40);
+                btnCreateABBBox.Location = new Point(5, 156);
+                btnCreateABBBox.Image = Properties.Resources.BT_box_but;
+                btnCreateABBBox.ImageAlign = ContentAlignment.MiddleLeft;
+                btnCreateABBBox.TextAlign = ContentAlignment.MiddleRight;
+                btnCreateABBBox.FlatStyle = FlatStyle.Flat;
+                btnCreateABBBox.Click += new EventHandler(btnCreateABBBox_clicked);
+                ToolControlManager.RegisterToolCommand("CreateABBBox", ToolControlManager.FindToolHost("ElementBrowser"));
+
 
                 // Create a separator button.
-                Button btn4_2 = new Button();
-                btn4_2.Size = new Size(145, 2);
-                btn4_2.Location = new Point(5, 205);
-                btn4_2.FlatStyle = FlatStyle.Flat;
-                btn4_2.Enabled = false;
-                btn4_2.ForeColor = Color.Gray;
-                tw.Control.Controls.Add(btn4_2);
+                btnSeparator3.Size = new Size(145, 2);
+                btnSeparator3.Location = new Point(5, 205);
+                btnSeparator3.FlatStyle = FlatStyle.Flat;
+                btnSeparator3.Enabled = false;
+                btnSeparator3.ForeColor = Color.Gray;
 
                 // Button "ABB Raiser"
-                Button btn5 = new Button();
-                btn5.Text = "Create ABB raiser";
-                btn5.Size = new Size(145, 40);
-                btn5.Location = new Point(5, 217);
-                btn5.Click += new EventHandler(btn5_clicked);
-                btn5.Image = Properties.Resources.BT_raiser;
-                btn5.ImageAlign = ContentAlignment.MiddleLeft;
-                btn5.TextAlign = ContentAlignment.MiddleRight;
-                btn5.FlatStyle = FlatStyle.Flat;
-                tw.Control.Controls.Add(btn5);
+                btnCreateABBRaiser.Text = "Create ABB raiser";
+                btnCreateABBRaiser.Size = new Size(145, 40);
+                btnCreateABBRaiser.Location = new Point(5, 217);
+                btnCreateABBRaiser.Click += new EventHandler(btnCreateABBRaiser_clicked);
+                btnCreateABBRaiser.Image = Properties.Resources.BT_raiser;
+                btnCreateABBRaiser.ImageAlign = ContentAlignment.MiddleLeft;
+                btnCreateABBRaiser.TextAlign = ContentAlignment.MiddleRight;
+                btnCreateABBRaiser.FlatStyle = FlatStyle.Flat;
 
                 // Label Current version
-                Label lbl_version = new Label();
-                lbl_version.Text = "Puime's addin v.1.0";
-                lbl_version.Location = new Point(50, 500);
-                tw.Control.Controls.Add(lbl_version);
+                lblCurrenteVersion.Text = "Puime's addin v.1.2";
+                lblCurrenteVersion.Location = new Point(50, 500);
+
+                twPuimesAddin.Control.Controls.Add(btnCopyPosition);
+                twPuimesAddin.Control.Controls.Add(btnSetPosition);
+                twPuimesAddin.Control.Controls.Add(btnSeparator1);
+                twPuimesAddin.Control.Controls.Add(btnCreateFloor);
+                twPuimesAddin.Control.Controls.Add(btnSeparator2);
+                twPuimesAddin.Control.Controls.Add(btnCreateABBBox);
+                twPuimesAddin.Control.Controls.Add(btnSeparator3);
+                twPuimesAddin.Control.Controls.Add(btnCreateABBRaiser);
+                twPuimesAddin.Control.Controls.Add(lblCurrenteVersion);
             }
 
             catch (Exception execption)
@@ -140,20 +159,20 @@ namespace Puime_s_Addin
         }
 
         // The event handler for the "Copy Position" button.
-        static void btn1_clicked(object sender, EventArgs e)
+        static void btnCopyPosition_clicked(object sender, EventArgs e)
         {
             Copy_Position.ObtainPosition();
             
         }
 
         // The event handler for the "Set Position" button.
-        static void btn2_clicked(object sender, EventArgs e)
+        static void btnSetPosition_clicked(object sender, EventArgs e)
         {
             Copy_Position.SetPosition();
         }
 
         // The event handler for the "Create floor" button.
-        static void btn3_clicked(object sender, EventArgs e)
+        static void bbtnCreateFloor_clicked(object sender, EventArgs e)
         {
             Make_Floor.ObtenerObjetosEstacion();
             Hide_CS.Hide_Objects();
@@ -165,16 +184,21 @@ namespace Puime_s_Addin
         // The event handler for the "Create ABB box" button.
         // Asigns a variable to the Create_box ToolWindow
         public static Create_box createbox;
-        public static void btn4_clicked(object sender, EventArgs e)
+        public static void btnCreateABBBox_clicked(object sender, EventArgs e)
         {
-            // Checks if the variable asigned to the ToolWindow is active (if the ToolWindow is allready created)
-            if (createbox == null)
-            {
-                createbox = new Create_box();
-            }
+            //// Checks if the variable asigned to the ToolWindow is active (if the ToolWindow is allready created)
+            //if (createbox == null)
+            //{
+            //    createbox = new Create_box();
+            //}
 
-            // Creates a new EventHandler to check when the createbox Dispose is raised
-            createbox.ResetObj += new EventHandler(DisposeObj);
+            //// Creates a new EventHandler to check when the createbox Dispose is raised
+            //createbox.ResetObj += new EventHandler(DisposeObj);
+
+
+            ToolControlManager.ShowTool(typeof(frmAutoMarkUpBuilder), e.Id);
+
+
         }
 
         // createbox Dispose is raised
@@ -185,7 +209,7 @@ namespace Puime_s_Addin
 
 
         // The event handler for the "ABB Raiser" button.
-        static void btn5_clicked(object sender, EventArgs e)
+        static void btnCreateABBRaiser_clicked(object sender, EventArgs e)
         {
             Create_Raiser.Create_ABB_Raiser();
         }
