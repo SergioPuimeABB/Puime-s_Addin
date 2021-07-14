@@ -22,9 +22,11 @@ namespace Puime_s_Addin
         private static Button btnCreateABBRaiser;
         private static Label lblCurrenteVersion;
 
+
+
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Addin Loaded", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2121.07.13 - 11:29", "Puime's Add-in"));
             if (twPuimesAddin == null)
             {
                 addToolWindow();
@@ -111,7 +113,11 @@ namespace Puime_s_Addin
                 btnCreateABBBox.TextAlign = ContentAlignment.MiddleRight;
                 btnCreateABBBox.FlatStyle = FlatStyle.Flat;
                 btnCreateABBBox.Click += new EventHandler(btnCreateABBBox_clicked);
-                ToolControlManager.RegisterToolCommand("CreateABBBox", ToolControlManager.FindToolHost("ElementBrowser"));
+
+                // Buscar cómo poner ID al boton
+                // Para poder utilizarlo cómo un ToolControl
+                --> ToolControlManager.RegisterToolCommand("CreateBoxButtonTag", ToolControlManager.FindToolHost("ElementBrowser"));
+                // O pasar todo al Ribbon (cómo el EquipmentBuilder - puesto 7)
 
 
                 // Create a separator button.
@@ -134,6 +140,7 @@ namespace Puime_s_Addin
                 // Label Current version
                 lblCurrenteVersion.Text = "Puime's addin v.1.2";
                 lblCurrenteVersion.Location = new Point(50, 500);
+
 
                 twPuimesAddin.Control.Controls.Add(btnCopyPosition);
                 twPuimesAddin.Control.Controls.Add(btnSetPosition);
@@ -196,7 +203,7 @@ namespace Puime_s_Addin
             //createbox.ResetObj += new EventHandler(DisposeObj);
 
 
-            ToolControlManager.ShowTool(typeof(frmAutoMarkUpBuilder), e.Id);
+            //ToolControlManager.ShowTool(typeof(frmAutoMarkUpBuilder), e.Id);
 
 
         }
