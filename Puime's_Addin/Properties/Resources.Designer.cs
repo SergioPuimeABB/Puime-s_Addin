@@ -73,6 +73,16 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BT_box_96 {
+            get {
+                object obj = ResourceManager.GetObject("BT_box_96", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BT_box_but {
             get {
                 object obj = ResourceManager.GetObject("BT_box_but", resourceCulture);
@@ -103,9 +113,29 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BT_copy_96 {
+            get {
+                object obj = ResourceManager.GetObject("BT_copy_96", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BT_floor {
             get {
                 object obj = ResourceManager.GetObject("BT_floor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BT_floor_96 {
+            get {
+                object obj = ResourceManager.GetObject("BT_floor_96", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -123,9 +153,39 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BT_paste_96 {
+            get {
+                object obj = ResourceManager.GetObject("BT_paste_96", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BT_raiser {
             get {
                 object obj = ResourceManager.GetObject("BT_raiser", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap BT_raiser_96 {
+            get {
+                object obj = ResourceManager.GetObject("BT_raiser_96", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PA {
+            get {
+                object obj = ResourceManager.GetObject("PA", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

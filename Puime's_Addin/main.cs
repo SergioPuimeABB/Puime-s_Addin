@@ -4,12 +4,24 @@ using System.Windows.Forms;
 
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
+using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
+using Puime_s_Addin.Properties;
 
 namespace Puime_s_Addin
 {
     public class main
     {
+
+        private static RibbonGroup rgPA;
+        private static CommandBarGalleryPopup galleryPA;
+        private static CommandBarButton btnCP; // Copy Position
+        private static CommandBarButton btnSP; // Set Position
+        private static CommandBarButton btnCF; // Create Floor
+        private static CommandBarButton btnCB; // Create ABB Box
+        private static CommandBarButton btnCR; // Create ABB Raiser
+
+
         private static ToolWindow twPuimesAddin;
         private static Button btnCopyPosition;
         private static Button btnSetPosition;
@@ -17,21 +29,152 @@ namespace Puime_s_Addin
         private static Button btnCreateFloor;
         private static Button btnSeparator2;
         private static Button btnCreateABBBox;
-        //private static CommandBarButton btnCreateABBBox;
         private static Button btnSeparator3;
         private static Button btnCreateABBRaiser;
         private static Label lblCurrenteVersion;
 
-
-
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2121.07.13 - 11:29", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2121.07.19 - 11:41", "Puime's Add-in"));
             if (twPuimesAddin == null)
             {
                 addToolWindow();
             }
-         }
+
+            if (rgPA == null)
+            {
+                AddRibbonGroup();
+            }
+            Project.ActiveProjectChanged += Project_ActiveProjectChanged;
+        }
+
+        private static void Project_ActiveProjectChanged(object sender, EventArgs e)
+        {
+            if (rgPA == null)
+            {
+                AddRibbonGroup();
+            }
+            btnCP.DefaultEnabled = true;
+        }
+
+
+        public static void AddRibbonGroup()
+        {
+            rgPA = new RibbonGroup("rgPA", "PA");
+            galleryPA = new CommandBarGalleryPopup("Puime's addin");
+            galleryPA.NumberOfColumns = 3;
+            galleryPA.GalleryTextPosition = GalleryTextPosition.Below;
+            galleryPA.GalleryItemSize = new Size(96, 96);
+            galleryPA.Image = Resources.PA;
+            galleryPA.HelpText = "Puime's Addin.";
+            
+            CommandBarHeader control = new CommandBarHeader("Copy & set position");
+            galleryPA.GalleryControls.Add(control);
+            
+            btnCP = new CommandBarButton("Copy", "Copy");
+            btnCP.Image = Resources.BT_copy_96;
+            galleryPA.GalleryControls.Add(btnCP);
+            btnCP.UpdateCommandUI += btnCP_UpdateCommandUI;
+            btnCP.ExecuteCommand += btnCP_ExecuteCommand;
+
+            btnSP = new CommandBarButton("Set", "Set");
+            btnSP.Image = Resources.BT_paste_96;
+            galleryPA.GalleryControls.Add(btnSP);
+            btnSP.UpdateCommandUI += btnSP_UpdateCommandUI;
+            btnSP.ExecuteCommand += btnSP_ExecuteCommand;
+            
+            CommandBarHeader control2 = new CommandBarHeader("Object creation ...");
+            galleryPA.GalleryControls.Add(control2);
+
+            btnCF = new CommandBarButton("Floor", "Floor");
+            btnCF.Image = Resources.BT_floor_96;
+            galleryPA.GalleryControls.Add(btnCF);
+            btnCF.UpdateCommandUI += btnCF_UpdateCommandUI;
+            btnCF.ExecuteCommand += btnCF_ExecuteCommand;
+
+            //CommandBarHeader control3 = new CommandBarHeader("Create ABB Box");
+            //galleryPA.GalleryControls.Add(control3);
+
+            btnCB = new CommandBarButton("ABB Box", "ABB Box");
+            btnCB.Image = Resources.BT_box_96;
+            galleryPA.GalleryControls.Add(btnCB);
+            btnCB.UpdateCommandUI += btnCB_UpdateCommandUI;
+            btnCB.ExecuteCommand += btnCB_ExecuteCommand;
+
+            //CommandBarHeader control4 = new CommandBarHeader("Create ABB Raiser");
+            //galleryPA.GalleryControls.Add(control4);
+
+            btnCR = new CommandBarButton("ABB Raiser", "ABB Raiser");
+            btnCR.Image = Resources.BT_raiser_96;
+            galleryPA.GalleryControls.Add(btnCR);
+            btnCR.UpdateCommandUI += btnCR_UpdateCommandUI;
+            btnCR.ExecuteCommand += btnCR_ExecuteCommand;
+
+
+
+
+
+
+            UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
+
+            //ToolControlManager.RegisterToolCommand("Fence", ToolControlManager.FindToolHost("ElementBrowser"));
+        }
+
+        private static void btnCP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+
+        // The event handler for the "Copy Position" button.
+        private static void btnCP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            //ToolControlManager.ShowTool(typeof(frmGripperToolBuilder), e.Id);
+            Copy_Position.ObtainPosition();
+        }
+
+        private static void btnSP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+
+        static void btnSP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            Copy_Position.SetPosition();
+        }
+
+        private static void btnCF_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+
+        // The event handler for the "Create floor" button.
+        static void btnCF_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            Make_Floor.ObtenerObjetosEstacion();
+            Hide_CS.Hide_Objects();
+            Hide_CS.ResetFloor();
+            Logger.AddMessage(new LogMessage("Floor created.", "Puime's Add-in"));
+        }
+
+        private static void btnCB_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+
+        // The event handler for the "Create ABB Box" button.
+        static void btnCB_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            
+        }
+        private static void btnCR_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        
+        static void btnCR_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            Create_Raiser.Create_ABB_Raiser();
+        }
 
         public static void addToolWindow()
         {
@@ -64,7 +207,7 @@ namespace Puime_s_Addin
                 btnCopyPosition.Text = "Copy position";
                 btnCopyPosition.Size = new Size(70, 70);
                 btnCopyPosition.Location = new Point(5, 5);
-                btnCopyPosition.Click += new EventHandler(btnCopyPosition_clicked);
+                //btnCopyPosition.Click += new EventHandler(btnCopyPosition_clicked);
                 btnCopyPosition.Image = Properties.Resources.BT_copy;
                 btnCopyPosition.ImageAlign = ContentAlignment.TopCenter;
                 btnCopyPosition.TextAlign = ContentAlignment.BottomCenter;
@@ -74,7 +217,7 @@ namespace Puime_s_Addin
                 btnSetPosition.Text = "Set position";
                 btnSetPosition.Size = new Size(70, 70);
                 btnSetPosition.Location = new Point(80, 5);
-                btnSetPosition.Click += new EventHandler(btnSetPosition_clicked);
+                //btnSetPosition.Click += new EventHandler(btnSetPosition_clicked);
                 btnSetPosition.Image = Properties.Resources.BT_paste;
                 btnSetPosition.ImageAlign = ContentAlignment.TopCenter;
                 btnSetPosition.TextAlign = ContentAlignment.BottomCenter;
@@ -91,7 +234,7 @@ namespace Puime_s_Addin
                 btnCreateFloor.Text = "Create floor    ";
                 btnCreateFloor.Size = new Size(145, 40);
                 btnCreateFloor.Location = new Point(5, 95);
-                btnCreateFloor.Click += new EventHandler(bbtnCreateFloor_clicked);
+                //btnCreateFloor.Click += new EventHandler(bbtnCreateFloor_clicked);
                 btnCreateFloor.Image = Properties.Resources.BT_floor;
                 btnCreateFloor.ImageAlign = ContentAlignment.MiddleLeft;
                 btnCreateFloor.TextAlign = ContentAlignment.MiddleRight;
@@ -112,13 +255,7 @@ namespace Puime_s_Addin
                 btnCreateABBBox.ImageAlign = ContentAlignment.MiddleLeft;
                 btnCreateABBBox.TextAlign = ContentAlignment.MiddleRight;
                 btnCreateABBBox.FlatStyle = FlatStyle.Flat;
-                btnCreateABBBox.Click += new EventHandler(btnCreateABBBox_clicked);
-
-                // Buscar cómo poner ID al boton
-                // Para poder utilizarlo cómo un ToolControl
-                --> ToolControlManager.RegisterToolCommand("CreateBoxButtonTag", ToolControlManager.FindToolHost("ElementBrowser"));
-                // O pasar todo al Ribbon (cómo el EquipmentBuilder - puesto 7)
-
+                //btnCreateABBBox.Click += new EventHandler(btnCreateABBBox_clicked);
 
                 // Create a separator button.
                 btnSeparator3.Size = new Size(145, 2);
@@ -131,7 +268,7 @@ namespace Puime_s_Addin
                 btnCreateABBRaiser.Text = "Create ABB raiser";
                 btnCreateABBRaiser.Size = new Size(145, 40);
                 btnCreateABBRaiser.Location = new Point(5, 217);
-                btnCreateABBRaiser.Click += new EventHandler(btnCreateABBRaiser_clicked);
+                //btnCreateABBRaiser.Click += new EventHandler(btnCreateABBRaiser_clicked);
                 btnCreateABBRaiser.Image = Properties.Resources.BT_raiser;
                 btnCreateABBRaiser.ImageAlign = ContentAlignment.MiddleLeft;
                 btnCreateABBRaiser.TextAlign = ContentAlignment.MiddleRight;
@@ -165,27 +302,22 @@ namespace Puime_s_Addin
             }
         }
 
-        // The event handler for the "Copy Position" button.
-        static void btnCopyPosition_clicked(object sender, EventArgs e)
-        {
-            Copy_Position.ObtainPosition();
-            
-        }
+        
 
         // The event handler for the "Set Position" button.
-        static void btnSetPosition_clicked(object sender, EventArgs e)
-        {
-            Copy_Position.SetPosition();
-        }
+        //static void btnSetPosition_clicked(object sender, EventArgs e)
+        //{
+        //    Copy_Position.SetPosition();
+        //}
 
-        // The event handler for the "Create floor" button.
-        static void bbtnCreateFloor_clicked(object sender, EventArgs e)
-        {
-            Make_Floor.ObtenerObjetosEstacion();
-            Hide_CS.Hide_Objects();
-            Hide_CS.ResetFloor(); 
-            Logger.AddMessage(new LogMessage("Floor created.", "Puime's Add-in"));
-        }
+        //// The event handler for the "Create floor" button.
+        //static void bbtnCreateFloor_clicked(object sender, EventArgs e)
+        //{
+        //    Make_Floor.ObtenerObjetosEstacion();
+        //    Hide_CS.Hide_Objects();
+        //    Hide_CS.ResetFloor(); 
+        //    Logger.AddMessage(new LogMessage("Floor created.", "Puime's Add-in"));
+        //}
 
 
         // The event handler for the "Create ABB box" button.
@@ -193,19 +325,14 @@ namespace Puime_s_Addin
         public static Create_box createbox;
         public static void btnCreateABBBox_clicked(object sender, EventArgs e)
         {
-            //// Checks if the variable asigned to the ToolWindow is active (if the ToolWindow is allready created)
-            //if (createbox == null)
-            //{
-            //    createbox = new Create_box();
-            //}
+            // Checks if the variable asigned to the ToolWindow is active (if the ToolWindow is allready created)
+            if (createbox == null)
+            {
+                createbox = new Create_box();
+            }
 
-            //// Creates a new EventHandler to check when the createbox Dispose is raised
-            //createbox.ResetObj += new EventHandler(DisposeObj);
-
-
-            //ToolControlManager.ShowTool(typeof(frmAutoMarkUpBuilder), e.Id);
-
-
+            // Creates a new EventHandler to check when the createbox Dispose is raised
+            createbox.ResetObj += new EventHandler(DisposeObj);
         }
 
         // createbox Dispose is raised
@@ -216,9 +343,9 @@ namespace Puime_s_Addin
 
 
         // The event handler for the "ABB Raiser" button.
-        static void btnCreateABBRaiser_clicked(object sender, EventArgs e)
-        {
-            Create_Raiser.Create_ABB_Raiser();
-        }
+        //static void btnCreateABBRaiser_clicked(object sender, EventArgs e)
+        //{
+        //    Create_Raiser.Create_ABB_Raiser();
+        //}
     }
 }
