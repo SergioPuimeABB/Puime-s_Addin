@@ -80,6 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Create_box.cs" />
+    <Compile Include="frmCreateBoxBuilder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Hide_CS.cs" />
     <Compile Include="Copy_Position.cs" />
     <Compile Include="main.cs" />

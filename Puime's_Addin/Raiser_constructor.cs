@@ -8,7 +8,7 @@ namespace Puime_s_Addin
 {
     public class Raiser_constructor
     {
-        private string name;
+        private string name; 
         private string type;
         private double xpos;
         private double ypos;

@@ -294,8 +294,7 @@ namespace Puime_s_Addin
                 
         public void btn_close_clicked(object sender, EventArgs e)
         {
-            UIEnvironment.Windows["Create_ABB_Box"].Close();
-            main.createbox = null;
+            //CloseTool();
         }
 
         // Event that handles the close "X" 
@@ -307,7 +306,7 @@ namespace Puime_s_Addin
         public void FireEvent()
         {
             ResetObj?.Invoke(this, new EventArgs());
-            main.createbox = null;
+            //main.createbox = null;
         }
 
         private void btn_create_clicked(object sender, EventArgs e)
