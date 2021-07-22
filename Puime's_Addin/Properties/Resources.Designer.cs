@@ -63,6 +63,16 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BigMetNut {
+            get {
+                object obj = ResourceManager.GetObject("BigMetNut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BT_box {
             get {
                 object obj = ResourceManager.GetObject("BT_box", resourceCulture);
@@ -73,29 +83,9 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BT_box_96 {
+        internal static System.Drawing.Bitmap BT_box_65 {
             get {
-                object obj = ResourceManager.GetObject("BT_box_96", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BT_box_but {
-            get {
-                object obj = ResourceManager.GetObject("BT_box_but", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BT_box_tw {
-            get {
-                object obj = ResourceManager.GetObject("BT_box_tw", resourceCulture);
+                object obj = ResourceManager.GetObject("BT_box_65", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,29 +103,9 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BT_copy_96 {
-            get {
-                object obj = ResourceManager.GetObject("BT_copy_96", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap BT_floor {
             get {
                 object obj = ResourceManager.GetObject("BT_floor", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap BT_floor_96 {
-            get {
-                object obj = ResourceManager.GetObject("BT_floor_96", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,16 +123,6 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BT_paste_96 {
-            get {
-                object obj = ResourceManager.GetObject("BT_paste_96", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap BT_raiser {
             get {
                 object obj = ResourceManager.GetObject("BT_raiser", resourceCulture);
@@ -173,9 +133,39 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BT_raiser_96 {
+        internal static System.Drawing.Bitmap Grommet {
             get {
-                object obj = ResourceManager.GetObject("BT_raiser_96", resourceCulture);
+                object obj = ResourceManager.GetObject("Grommet", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Klammer {
+            get {
+                object obj = ResourceManager.GetObject("Klammer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Metnut {
+            get {
+                object obj = ResourceManager.GetObject("Metnut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Nut {
+            get {
+                object obj = ResourceManager.GetObject("Nut", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -186,6 +176,86 @@ namespace Puime_s_Addin.Properties {
         internal static System.Drawing.Bitmap PA {
             get {
                 object obj = ResourceManager.GetObject("PA", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Panzer {
+            get {
+                object obj = ResourceManager.GetObject("Panzer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PlasticNut {
+            get {
+                object obj = ResourceManager.GetObject("PlasticNut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RetClip {
+            get {
+                object obj = ResourceManager.GetObject("RetClip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SClip {
+            get {
+                object obj = ResourceManager.GetObject("SClip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SmallSnapClip {
+            get {
+                object obj = ResourceManager.GetObject("SmallSnapClip", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Snap {
+            get {
+                object obj = ResourceManager.GetObject("Snap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TrimClipPlastic {
+            get {
+                object obj = ResourceManager.GetObject("TrimClipPlastic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap TrimFastener {
+            get {
+                object obj = ResourceManager.GetObject("TrimFastener", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

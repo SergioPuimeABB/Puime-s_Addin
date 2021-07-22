@@ -79,7 +79,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Create_box.cs" />
+    <Compile Include="frmAutoMarkUpBuilder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="frmCreateBoxBuilder.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -109,22 +111,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BT_copy.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\BT_floor.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BT_paste.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BT_box.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BT_box_but.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BT_box_tw.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BT_raiser.png" />
@@ -133,19 +123,46 @@
     <None Include="Resources\PA.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BT_box_96.png" />
+    <None Include="Resources\BT_box_65.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BT_copy_96.png" />
+    <None Include="Resources\BigMetNut.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BT_floor_96.png" />
+    <None Include="Resources\Grommet.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BT_paste_96.png" />
+    <None Include="Resources\Klammer.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BT_raiser_96.png" />
+    <None Include="Resources\Metnut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Panzer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PlasticNut.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\RetClip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SClip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SmallSnapClip.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Snap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrimClipPlastic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\TrimFastener.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

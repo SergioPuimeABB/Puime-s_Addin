@@ -1,15 +1,11 @@
-﻿using ABB.Robotics.Math;
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Puime_s_Addin
 {
@@ -50,13 +46,10 @@ namespace Puime_s_Addin
                 Project.UndoContext.EndUndoStep();
             }
             #endregion add toolwindow and elements
-
-
         }
 
         private void frmCreateBoxBuilder_Activate(object sender, EventArgs e)
         {
-            //positionControlPC.Focus();
         }
 
         private void frmCreateBoxBuilder_Desactivate (object sender, EventArgs e)
@@ -76,7 +69,6 @@ namespace Puime_s_Addin
             CleanValues();
         }
 
-        //Clean toolwindow elements values
         private void CleanValues()
         {
             comboBoxReference.SelectedIndex = 0;
@@ -87,27 +79,10 @@ namespace Puime_s_Addin
             numericTextBoxHeight.Value = 0;
         }
 
-        //public event EventHandler ResetObj;
-
         public void btn_close_clicked(object sender, EventArgs e)
         {
-            //UIEnvironment.Windows["Create_ABB_Box"].Close();
-            //main.createbox = null;
-
             CloseTool();
         }
-
-        // Event that handles the close "X" 
-        //public void CloseButton_click(object sender, EventArgs e)
-        //{
-        //    //FireEvent();
-        //}
-
-        //public void FireEvent()
-        //{
-        //    //ResetObj?.Invoke(this, new EventArgs());
-        //    //main.createbox = null;
-        //}
 
         private void btn_create_clicked(object sender, EventArgs e)
         {
@@ -242,7 +217,7 @@ namespace Puime_s_Addin
         
         private void InitializeComponent()
         {
-            int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width;
+            int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width -25;
             Logger.AddMessage(new LogMessage("control size: " + UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width.ToString()));
             Logger.AddMessage(new LogMessage("tw_width size: " + tw_width));
 
@@ -258,8 +233,8 @@ namespace Puime_s_Addin
             numericTextBoxWidth = new NumericTextBox();
             numericTextBoxHeight = new NumericTextBox();
 
-            //pictureBoxCreateBox.SuspendLayout();
-            //SuspendLayout();
+            pictureBoxCreateBox.SuspendLayout();
+            SuspendLayout();
 
             //
             //Add elements
@@ -269,21 +244,15 @@ namespace Puime_s_Addin
             pictureBoxCreateBox.Name = "pictureBoxCB";
             pictureBoxCreateBox.Size = new Size(65, 65);
             pictureBoxCreateBox.BorderStyle = BorderStyle.FixedSingle;
-            pictureBoxCreateBox.Image = Properties.Resources.BT_box_tw;
+            pictureBoxCreateBox.Image = Properties.Resources.BT_box_65;
             pictureBoxCreateBox.TabStop = false;
 
-            //labelReference.AutoSize = true;
             labelReference.Location = new Point(79, 30);
-            labelReference.Name = "labelRF";
             labelReference.Size = new Size(100, 15);
             labelReference.Text = "Reference";
 
-            //comboBoxReference.FormattingEnabled = true;
-            comboBoxReference.Location = new Point(80, 50);
-            comboBoxReference.Name = "cb_reference";
-            comboBoxReference.Size = new Size(tw_width-150, 21);
-            comboBoxReference.FlatStyle = FlatStyle.Flat;
-            comboBoxReference.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+            comboBoxReference.Location = new Point(80, 52);
+            comboBoxReference.Size = new Size(tw_width -65, 21);
             comboBoxReference.TabIndex = 0;
             comboBoxReference.Items.Add("World");
             comboBoxReference.Items.Add("UCS");
@@ -291,12 +260,11 @@ namespace Puime_s_Addin
             Logger.AddMessage(new LogMessage("comboBox size: " + comboBoxReference.Size.ToString()));
 
 
-            //positionControlPC.ErrorProviderControl = null;
-            //positionControlPC.ExpressionErrorString = "Bad Expression";
-            //positionControlPC.LabelQuantity = BuiltinQuantity.Length;
+            positionControlPC.ErrorProviderControl = null;
+            positionControlPC.ExpressionErrorString = "Bad Expression";
+            positionControlPC.LabelQuantity = BuiltinQuantity.Length;
             positionControlPC.LabelText = "Corner Point";
             positionControlPC.Location = new Point(8, 85);
-            positionControlPC.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             positionControlPC.MaxValueErrorString = "Value exceeds maximum";
             positionControlPC.MinValueErrorString = "Value is below minimum";
             positionControlPC.Name = "pos_control";
@@ -304,10 +272,10 @@ namespace Puime_s_Addin
             positionControlPC.ReadOnly = false;
             positionControlPC.RefCoordSys = null;
             positionControlPC.ShowLabel = true;
-            positionControlPC.Size = new Size(tw_width-150 , 34);
+            positionControlPC.Size = new Size(tw_width +7 , 34);
             positionControlPC.TabIndex = 1;
             positionControlPC.Text = "Position Control";
-            //positionControlPC.VerticalLayout = false;
+            positionControlPC.VerticalLayout = false;
             Logger.AddMessage(new LogMessage("position control size: " + positionControlPC.Size.ToString()));
 
             orientationControlOC.ErrorProviderControl = null;
@@ -315,7 +283,6 @@ namespace Puime_s_Addin
             orientationControlOC.LabelQuantity = BuiltinQuantity.Length;
             orientationControlOC.LabelText = "Orientation";
             orientationControlOC.Location = new Point(8, 125);
-            orientationControlOC.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             orientationControlOC.MaxValueErrorString = "Value exceeds maximum";
             orientationControlOC.MinValueErrorString = "Value is below minimum";
             orientationControlOC.Name = "Orientation Control";
@@ -331,7 +298,6 @@ namespace Puime_s_Addin
             numericTextBoxLength.ExpressionErrorString = "Bad Expression";
             numericTextBoxLength.LabelText = "Length (mm)";
             numericTextBoxLength.Location = new Point(8, 165);
-            numericTextBoxLength.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             numericTextBoxLength.MaxValue = 1000000000D;
             numericTextBoxLength.MaxValueErrorString = "Value exceeds maximum";
             numericTextBoxLength.MinValue = -1000000000D;
@@ -352,7 +318,6 @@ namespace Puime_s_Addin
             numericTextBoxWidth.ExpressionErrorString = "Bad Expression";
             numericTextBoxWidth.LabelText = "Width (mm)";
             numericTextBoxWidth.Location = new Point(8, 205);
-            numericTextBoxWidth.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             numericTextBoxWidth.MaxValue = 1000000000D;
             numericTextBoxWidth.MaxValueErrorString = "Value exceeds maximum";
             numericTextBoxWidth.MinValue = -1000000000D;
@@ -373,7 +338,6 @@ namespace Puime_s_Addin
             numericTextBoxHeight.ExpressionErrorString = "Bad Expression";
             numericTextBoxHeight.LabelText = "Height (mm)";
             numericTextBoxHeight.Location = new Point(8, 245);
-            numericTextBoxHeight.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
             numericTextBoxHeight.MaxValue = 1000000000D;
             numericTextBoxHeight.MaxValueErrorString = "Value exceeds maximum";
             numericTextBoxHeight.MinValue = -1000000000D;
@@ -391,22 +355,16 @@ namespace Puime_s_Addin
             numericTextBoxHeight.ValueChanged += new EventHandler(size_TextChanged);
 
             buttonClear.Text = "Clear";
-            buttonClear.Name = "btn_clear";
             buttonClear.Size = new Size(53, 25);
             buttonClear.Location = new Point(tw_width - 158, 295);
-            buttonClear.Anchor = AnchorStyles.Right | AnchorStyles.Top;
-            buttonClear.Click += new EventHandler(btn_clear_clicked);
-            buttonClear.TextAlign = ContentAlignment.MiddleCenter;
             buttonClear.FlatStyle = FlatStyle.Flat;
             buttonClear.UseVisualStyleBackColor = true;
             buttonClear.TabIndex = 6;
+            buttonClear.Click += new EventHandler(btn_clear_clicked);
 
             buttonCreate.Text = "Create";
-            buttonCreate.Name = "btn_create";
             buttonCreate.Size = new Size(53, 25);
             buttonCreate.Location = new Point(tw_width - 98, 295);
-            buttonCreate.Anchor = AnchorStyles.Right | AnchorStyles.Top;
-            buttonCreate.TextAlign = ContentAlignment.MiddleCenter;
             buttonCreate.FlatStyle = FlatStyle.Flat;
             buttonCreate.UseVisualStyleBackColor = true;
             buttonCreate.TabIndex = 7;
@@ -414,21 +372,19 @@ namespace Puime_s_Addin
             buttonCreate.Click += new EventHandler(btn_create_clicked);
 
             buttonClose.Text = "Close";
-            buttonClose.Name = "btn_close";
             buttonClose.Size = new Size(53, 25);
             buttonClose.Location = new Point(tw_width - 38, 295);
-            buttonClose.Anchor = AnchorStyles.Right | AnchorStyles.Top;
             buttonClose.TextAlign = ContentAlignment.MiddleCenter;
             buttonClose.FlatStyle = FlatStyle.Flat;
             buttonClose.UseVisualStyleBackColor = true;
             buttonClose.TabIndex = 8;
             buttonClose.Click += new EventHandler(btn_close_clicked);
 
-            //AutoScroll = true;
-            //base.AdjustableHeight = true;
-            //base.AutoScaleDimensions = new SizeF(6f, 13f);
-            //base.AutoScaleMode = AutoScaleMode.Font;
-            //base.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            AutoScroll = true;
+            base.AdjustableHeight = true;
+            base.AutoScaleDimensions = new SizeF(6f, 13f);
+            base.AutoScaleMode = AutoScaleMode.Font;
+            base.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             base.Caption = "Create ABB Box";
             base.Controls.Add(pictureBoxCreateBox);
             base.Controls.Add(labelReference);
@@ -442,12 +398,11 @@ namespace Puime_s_Addin
             base.Controls.Add(numericTextBoxWidth);
             base.Controls.Add(numericTextBoxHeight);
             base.Name = "frmCreateBoxBuilder";
-            //base.Size = new Size(242, 340);
-            base.Size = new Size(tw_width, 340);
+            base.Size = new Size(tw_width, 330);
             pictureBoxCreateBox.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
-        }
+     }
 }

@@ -20,6 +20,7 @@ namespace Puime_s_Addin
         private static CommandBarButton btnCF; // Create Floor
         private static CommandBarButton btnCB; // Create ABB Box
         private static CommandBarButton btnCR; // Create ABB Raiser
+        private static CommandBarButton btnCM; // Create Markups
 
         public static void AddinMain()
         {
@@ -44,39 +45,45 @@ namespace Puime_s_Addin
             CommandBarHeader control = new CommandBarHeader("Copy & set position");
             galleryPA.GalleryControls.Add(control);
             
-            btnCP = new CommandBarButton("Copy", "Copy");
-            btnCP.Image = Resources.BT_copy_96;
+            btnCP = new CommandBarButton("Copy", "Copy position");
+            btnCP.Image = Resources.BT_copy;
             galleryPA.GalleryControls.Add(btnCP);
             btnCP.UpdateCommandUI += btnCP_UpdateCommandUI;
             btnCP.ExecuteCommand += btnCP_ExecuteCommand;
 
-            btnSP = new CommandBarButton("Set", "Set");
-            btnSP.Image = Resources.BT_paste_96;
+            btnSP = new CommandBarButton("Set", "Set position");
+            btnSP.Image = Resources.BT_paste;
             galleryPA.GalleryControls.Add(btnSP);
             btnSP.UpdateCommandUI += btnSP_UpdateCommandUI;
             btnSP.ExecuteCommand += btnSP_ExecuteCommand;
             
-            CommandBarHeader control2 = new CommandBarHeader("Object creation ...");
+            CommandBarHeader control2 = new CommandBarHeader("Helpers");
             galleryPA.GalleryControls.Add(control2);
 
-            btnCF = new CommandBarButton("Floor", "Floor");
-            btnCF.Image = Resources.BT_floor_96;
+            btnCF = new CommandBarButton("Floor", "Floor creator");
+            btnCF.Image = Resources.BT_floor;
             galleryPA.GalleryControls.Add(btnCF);
             btnCF.UpdateCommandUI += btnCF_UpdateCommandUI;
             btnCF.ExecuteCommand += btnCF_ExecuteCommand;
 
-            btnCB = new CommandBarButton("ABBBox", "ABB Box");
-            btnCB.Image = Resources.BT_box_96;
+            btnCB = new CommandBarButton("ABBBox", "ABB Box creator");
+            btnCB.Image = Resources.BT_box;
             galleryPA.GalleryControls.Add(btnCB);
             btnCB.UpdateCommandUI += btnCB_UpdateCommandUI;
             btnCB.ExecuteCommand += btnCB_ExecuteCommand;
             ToolControlManager.RegisterToolCommand("ABBBox", ToolControlManager.FindToolHost("ElementBrowser"));
 
-            btnCR = new CommandBarButton("ABB Raiser", "ABB Raiser");
-            btnCR.Image = Resources.BT_raiser_96;
+            btnCR = new CommandBarButton("ABB Raiser", "ABB Raiser creator");
+            btnCR.Image = Resources.BT_raiser;
             galleryPA.GalleryControls.Add(btnCR);
             btnCR.UpdateCommandUI += btnCR_UpdateCommandUI;
             btnCR.ExecuteCommand += btnCR_ExecuteCommand;
+
+            btnCM = new CommandBarButton("Marks", "Auto markup creator");
+            //btnCM.Image = Resources.BT_raiser_96;
+            galleryPA.GalleryControls.Add(btnCM);
+            //btnCR.UpdateCommandUI += btnCR_UpdateCommandUI;
+            //btnCR.ExecuteCommand += btnCR_ExecuteCommand;
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
