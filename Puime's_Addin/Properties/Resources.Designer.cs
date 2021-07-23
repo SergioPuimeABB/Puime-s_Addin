@@ -113,6 +113,16 @@ namespace Puime_s_Addin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BT_marks {
+            get {
+                object obj = ResourceManager.GetObject("BT_marks", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap BT_paste {
             get {
                 object obj = ResourceManager.GetObject("BT_paste", resourceCulture);

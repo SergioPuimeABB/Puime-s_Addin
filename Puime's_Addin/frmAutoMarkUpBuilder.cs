@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ABB.Robotics.Math;
@@ -7,8 +6,9 @@ using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
+using Puime_s_Addin.Properties;
 
-namespace Test_AutoMarkUp
+namespace Puime_s_Addin
 {
     public class frmAutoMarkUpBuilder : ToolControlBase
     {
@@ -364,56 +364,56 @@ namespace Test_AutoMarkUp
                 case "Panzer":
                     buttonColor.BackColor = Color.FromArgb(128, 128, 0);
                     pictureboxNutImage.BorderStyle = BorderStyle.FixedSingle;
-                    pictureboxNutImage.Image = Puime_s_Addin.Properties.Resources.Panzer;
+                    pictureboxNutImage.Image = Resources.Panzer;
                     break;
                 case "Snap":
                     buttonColor.BackColor = Color.FromArgb(255, 127, 0);
                     pictureboxNutImage.BorderStyle = BorderStyle.FixedSingle;
-                    pictureboxNutImage.Image = Properties.Resources.Snap;
+                    pictureboxNutImage.Image = Resources.Snap;
                     break;
                 case "Grommet":
                     buttonColor.BackColor = Color.FromArgb(0, 0, 255);
-                    pictureboxNutImage.Image = Properties.Resources.Grommet;
+                    pictureboxNutImage.Image = Resources.Grommet;
                     break;
                 case "Metnut/C_Nut":
                     buttonColor.BackColor = Color.FromArgb(255, 0, 255);
-                    pictureboxNutImage.Image = Properties.Resources.Metnut;
+                    pictureboxNutImage.Image = Resources.Metnut;
                     break;
                 case "Nut":
                     buttonColor.BackColor = Color.FromArgb(247, 191, 190);
-                    pictureboxNutImage.Image = Properties.Resources.Nut;
+                    pictureboxNutImage.Image = Resources.Nut;
                     break;
                 case "Big MetNut":
                     buttonColor.BackColor = Color.FromArgb(104, 36, 109);
-                    pictureboxNutImage.Image = Properties.Resources.BigMetNut;
+                    pictureboxNutImage.Image = Resources.BigMetNut;
                     break;
                 case "Trim Fastener":
                     buttonColor.BackColor = Color.FromArgb(255, 215, 0);
-                    pictureboxNutImage.Image = Properties.Resources.TrimFastener;
+                    pictureboxNutImage.Image = Resources.TrimFastener;
                     break;
                 case "Small Snap Clip":
                     buttonColor.BackColor = Color.FromArgb(0, 0, 0);
-                    pictureboxNutImage.Image = Properties.Resources.SmallSnapClip;
+                    pictureboxNutImage.Image = Resources.SmallSnapClip;
                     break;
                 case "Ret Clip":
                     buttonColor.BackColor = Color.FromArgb(245, 245, 220);
-                    pictureboxNutImage.Image = Properties.Resources.RetClip;
+                    pictureboxNutImage.Image = Resources.RetClip;
                     break;
                 case "S-Clip":
                     buttonColor.BackColor = Color.FromArgb(150, 75, 0);
-                    pictureboxNutImage.Image = Properties.Resources.SClip;
+                    pictureboxNutImage.Image = Resources.SClip;
                     break;
                 case "Klammer":
                     buttonColor.BackColor = Color.FromArgb(128, 0, 32);
-                    pictureboxNutImage.Image = Properties.Resources.Klammer;
+                    pictureboxNutImage.Image = Resources.Klammer;
                     break;
                 case "TrimClip Plastic":
                     buttonColor.BackColor = Color.FromArgb(195, 176, 145);
-                    pictureboxNutImage.Image = Properties.Resources.TrimClipPlastic;
+                    pictureboxNutImage.Image = Resources.TrimClipPlastic;
                     break;
                 case "Plastic Nut":
                     buttonColor.BackColor = Color.FromArgb(208, 255, 20);
-                    pictureboxNutImage.Image = Properties.Resources.PlasticNut;
+                    pictureboxNutImage.Image = Resources.PlasticNut;
                     break;
                 default:
                     break;

@@ -6,6 +6,7 @@ using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
+using Puime_s_Addin.Properties;
 
 namespace Puime_s_Addin
 {
@@ -22,6 +23,7 @@ namespace Puime_s_Addin
         private NumericTextBox numericTextBoxLength;
         private NumericTextBox numericTextBoxWidth;
         private NumericTextBox numericTextBoxHeight;
+        private TemporaryGraphic tgBox;
 
         public frmCreateBoxBuilder()
         {
@@ -62,6 +64,10 @@ namespace Puime_s_Addin
         {
             var bl = (numericTextBoxLength.Value != 0) && (numericTextBoxWidth.Value != 0) && (numericTextBoxHeight.Value != 0);
             buttonCreate.Enabled = bl;
+            if (bl)
+            {
+                createTemporaryGraphic();
+            }
         }
 
         private void btn_clear_clicked(object sender, EventArgs e)
@@ -87,16 +93,22 @@ namespace Puime_s_Addin
         private void btn_create_clicked(object sender, EventArgs e)
         {
             #region Create ABB_Box
+
+            
+
             Project.UndoContext.BeginUndoStep("Create ABB Box");
 
             try
             {
                 Station station = Project.ActiveProject as Station;
 
+                // Remove the TemporaryGraphics copy.
+                station.TemporaryGraphics.Remove(tgBox);
+
                 // Create a part to contain the bodies.
                 #region BodyCreateSolidsStep1
                 Part p = new Part();
-                p.Name = "ABB_Box";
+                p.Name = "ABB_Box_" + numericTextBoxLength.Value.ToString() + "x" + numericTextBoxWidth.Value.ToString() + "x" + numericTextBoxHeight.Value.ToString();
                 station.GraphicComponents.Add(p);
                 #endregion
 
@@ -214,12 +226,29 @@ namespace Puime_s_Addin
             }
             #endregion
         }
+
+        private void createTemporaryGraphic ()
+        {
+            Vector3 vect_pos_input = new Vector3(positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
+            Vector3 vect_ori_input = new Vector3(orientationControlOC.Value.x, orientationControlOC.Value.y, orientationControlOC.Value.z);
+            Matrix4 matrix_origo = new Matrix4(vect_pos_input, vect_ori_input);
+
+            Station station = Project.ActiveProject as Station;
+            // Create a part to contain the bodies.
+            Part p = new Part();
+            //p.Name = "ABB_Box_" + numericTextBoxLength.Value.ToString() + "x" + numericTextBoxWidth.Value.ToString() + "x" + numericTextBoxHeight.Value.ToString();
+            //station.GraphicComponents.Add(p);
+
+            tgBox = station.TemporaryGraphics.DrawBox(matrix_origo,vect_pos_input, Color.Gray);
+
+            
+        }
         
         private void InitializeComponent()
         {
             int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width -25;
-            Logger.AddMessage(new LogMessage("control size: " + UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width.ToString()));
-            Logger.AddMessage(new LogMessage("tw_width size: " + tw_width));
+            //Logger.AddMessage(new LogMessage("control size: " + UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width.ToString()));
+            //Logger.AddMessage(new LogMessage("tw_width size: " + tw_width));
 
             pictureBoxCreateBox = new PictureBox();
             labelReference = new Label();
@@ -244,7 +273,7 @@ namespace Puime_s_Addin
             pictureBoxCreateBox.Name = "pictureBoxCB";
             pictureBoxCreateBox.Size = new Size(65, 65);
             pictureBoxCreateBox.BorderStyle = BorderStyle.FixedSingle;
-            pictureBoxCreateBox.Image = Properties.Resources.BT_box_65;
+            pictureBoxCreateBox.Image = Resources.BT_box_65;
             pictureBoxCreateBox.TabStop = false;
 
             labelReference.Location = new Point(79, 30);
@@ -257,8 +286,6 @@ namespace Puime_s_Addin
             comboBoxReference.Items.Add("World");
             comboBoxReference.Items.Add("UCS");
             comboBoxReference.SelectedIndex = 0;
-            Logger.AddMessage(new LogMessage("comboBox size: " + comboBoxReference.Size.ToString()));
-
 
             positionControlPC.ErrorProviderControl = null;
             positionControlPC.ExpressionErrorString = "Bad Expression";
@@ -276,7 +303,6 @@ namespace Puime_s_Addin
             positionControlPC.TabIndex = 1;
             positionControlPC.Text = "Position Control";
             positionControlPC.VerticalLayout = false;
-            Logger.AddMessage(new LogMessage("position control size: " + positionControlPC.Size.ToString()));
 
             orientationControlOC.ErrorProviderControl = null;
             orientationControlOC.ExpressionErrorString = "Bad Expression";

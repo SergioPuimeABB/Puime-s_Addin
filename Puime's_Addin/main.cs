@@ -24,7 +24,7 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2121.07.20 - 12:44", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -80,10 +80,12 @@ namespace Puime_s_Addin
             btnCR.ExecuteCommand += btnCR_ExecuteCommand;
 
             btnCM = new CommandBarButton("Marks", "Auto markup creator");
-            //btnCM.Image = Resources.BT_raiser_96;
+            btnCM.Image = Resources.BT_marks;
             galleryPA.GalleryControls.Add(btnCM);
-            //btnCR.UpdateCommandUI += btnCR_UpdateCommandUI;
-            //btnCR.ExecuteCommand += btnCR_ExecuteCommand;
+            btnCM.UpdateCommandUI += btnCM_UpdateCommandUI;
+            btnCM.ExecuteCommand += btnCM_ExecuteCommand;
+            ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
+
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
@@ -138,6 +140,16 @@ namespace Puime_s_Addin
         static void btnCR_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
             Create_Raiser.Create_ABB_Raiser();
+        }
+
+        private static void btnCM_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+
+        static void btnCM_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            ToolControlManager.ShowTool(typeof(frmAutoMarkUpBuilder), e.Id);
         }
     }
 }
