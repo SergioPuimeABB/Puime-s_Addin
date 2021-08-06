@@ -64,10 +64,13 @@ namespace Puime_s_Addin
         {
             var bl = (numericTextBoxLength.Value != 0) && (numericTextBoxWidth.Value != 0) && (numericTextBoxHeight.Value != 0);
             buttonCreate.Enabled = bl;
-            if (bl)
-            {
+
+
+
+            //if (bl)
+            //{
                 createTemporaryGraphic();
-            }
+            //}
         }
 
         private void btn_clear_clicked(object sender, EventArgs e)
@@ -232,6 +235,8 @@ namespace Puime_s_Addin
             Vector3 vect_pos_input = new Vector3(positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
             Vector3 vect_ori_input = new Vector3(orientationControlOC.Value.x, orientationControlOC.Value.y, orientationControlOC.Value.z);
             Matrix4 matrix_origo = new Matrix4(vect_pos_input, vect_ori_input);
+            Vector3 vect_size = new Vector3(numericTextBoxLength.Value/1000, numericTextBoxWidth.Value/1000, numericTextBoxHeight.Value/1000);
+            TemporaryGraphicCollection coll = new TemporaryGraphicCollection();
 
             Station station = Project.ActiveProject as Station;
             // Create a part to contain the bodies.
@@ -239,9 +244,11 @@ namespace Puime_s_Addin
             //p.Name = "ABB_Box_" + numericTextBoxLength.Value.ToString() + "x" + numericTextBoxWidth.Value.ToString() + "x" + numericTextBoxHeight.Value.ToString();
             //station.GraphicComponents.Add(p);
 
-            tgBox = station.TemporaryGraphics.DrawBox(matrix_origo,vect_pos_input, Color.Gray);
+            //tgBox = station.TemporaryGraphics.DrawBox(matrix_origo,vect_size, Color.Gray);
+            //tgBox = GraphicControl.ActiveGraphicControl.TemporaryGraphics.DrawBox(matrix_origo, vect_size, Color.FromArgb(128,Color.Gray));
+            tgBox = coll.DrawBox(matrix_origo, vect_size, Color.FromArgb(128, Color.Gray));
 
-            
+
         }
         
         private void InitializeComponent()
