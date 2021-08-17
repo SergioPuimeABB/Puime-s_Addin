@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ABB.Robotics.Math;
@@ -23,7 +24,9 @@ namespace Puime_s_Addin
         private NumericTextBox numericTextBoxLength;
         private NumericTextBox numericTextBoxWidth;
         private NumericTextBox numericTextBoxHeight;
-        private TemporaryGraphic tgBox;
+        //private TemporaryGraphic tgBox;
+        private List<TemporaryGraphic> tgBoxList = new List<TemporaryGraphic>();
+        //TemporaryGraphic tgBox = new TemporaryGraphic;
 
         public frmCreateBoxBuilder()
         {
@@ -70,6 +73,7 @@ namespace Puime_s_Addin
             //if (bl)
             //{
                 createTemporaryGraphic();
+                
             //}
         }
 
@@ -106,7 +110,11 @@ namespace Puime_s_Addin
                 Station station = Project.ActiveProject as Station;
 
                 // Remove the TemporaryGraphics copy.
-                station.TemporaryGraphics.Remove(tgBox);
+                //station.TemporaryGraphics.Remove(tgBox);
+                
+                ClearGfx();
+
+
 
                 // Create a part to contain the bodies.
                 #region BodyCreateSolidsStep1
@@ -232,22 +240,51 @@ namespace Puime_s_Addin
 
         private void createTemporaryGraphic ()
         {
+            Logger.AddMessage(new LogMessage("CreateTemporaryGraphics ...", "Puime's Add-in"));
+
+            Station station = Project.ActiveProject as Station;
+
+            double Xvalue = numericTextBoxLength.Value / 1000;
+            double Yvalue = numericTextBoxWidth.Value / 1000;
+            double Zvalue = numericTextBoxHeight.Value / 1000;
+            var Xvalue_cero = (Xvalue == 0);
+            var Yvalue_cero = (Yvalue == 0);
+            var Zvalue_cero = (Zvalue == 0);
+
+            Logger.AddMessage(new LogMessage("Xvalue_cero" + Xvalue_cero, "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Yvalue_cero" + Yvalue_cero, "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Zvalue_cero" + Zvalue_cero, "Puime's Add-in"));
+
+            //if (Xvalue_cero && Yvalue_cero && Zvalue_cero);
+
             Vector3 vect_pos_input = new Vector3(positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
             Vector3 vect_ori_input = new Vector3(orientationControlOC.Value.x, orientationControlOC.Value.y, orientationControlOC.Value.z);
             Matrix4 matrix_origo = new Matrix4(vect_pos_input, vect_ori_input);
-            Vector3 vect_size = new Vector3(numericTextBoxLength.Value/1000, numericTextBoxWidth.Value/1000, numericTextBoxHeight.Value/1000);
+            Vector3 vect_size = new Vector3(Xvalue, Yvalue, Zvalue);
             TemporaryGraphicCollection coll = new TemporaryGraphicCollection();
 
-            Station station = Project.ActiveProject as Station;
+            //Station station = Project.ActiveProject as Station;
             // Create a part to contain the bodies.
-            Part p = new Part();
+            //Part p = new Part();
             //p.Name = "ABB_Box_" + numericTextBoxLength.Value.ToString() + "x" + numericTextBoxWidth.Value.ToString() + "x" + numericTextBoxHeight.Value.ToString();
             //station.GraphicComponents.Add(p);
 
             //tgBox = station.TemporaryGraphics.DrawBox(matrix_origo,vect_size, Color.Gray);
             //tgBox = GraphicControl.ActiveGraphicControl.TemporaryGraphics.DrawBox(matrix_origo, vect_size, Color.FromArgb(128,Color.Gray));
-            tgBox = coll.DrawBox(matrix_origo, vect_size, Color.FromArgb(128, Color.Gray));
+            //tgBox = coll.DrawBox(matrix_origo, vect_size, Color.FromArgb(128, Color.Gray));
 
+
+            //ClearGfx();
+            //tgBox.Add(coll.DrawBox(matrix_origo, vect_size, Color.FromArgb(128, Color.Gray)));
+
+            Part part = new Part();
+            Body box = Body.CreateSolidBox(matrix_origo, vect_size);
+            part.Bodies.Add(box);
+            //station.GraphicComponents.Add(part);
+
+            //TemporaryGraphic tgBox = station.TemporaryGraphics.DrawBox(matrix_origo, vect_size, Color.Gray);
+
+            TemporaryGraphic tgBox = station.TemporaryGraphics.DrawPart(new Matrix4(new Vector3(0, 0, 0)), part, 0.5);
 
         }
         
@@ -437,5 +474,15 @@ namespace Puime_s_Addin
             PerformLayout();
         }
 
-     }
+
+        internal void ClearGfx()
+        {
+            foreach (TemporaryGraphic tmpBox in tgBoxList)
+            {
+                tmpBox.Delete();
+            }
+            tgBoxList.Clear();
+        }
+
+    }
 }
