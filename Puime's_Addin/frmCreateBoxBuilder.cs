@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ABB.Robotics.Math;
@@ -24,9 +23,7 @@ namespace Puime_s_Addin
         private NumericTextBox numericTextBoxLength;
         private NumericTextBox numericTextBoxWidth;
         private NumericTextBox numericTextBoxHeight;
-        //private TemporaryGraphic tgBox;
-        private List<TemporaryGraphic> tgBoxList = new List<TemporaryGraphic>();
-        //TemporaryGraphic tgBox = new TemporaryGraphic;
+        private TemporaryGraphic previewBox;
 
         public frmCreateBoxBuilder()
         {
@@ -68,13 +65,7 @@ namespace Puime_s_Addin
             var bl = (numericTextBoxLength.Value != 0) && (numericTextBoxWidth.Value != 0) && (numericTextBoxHeight.Value != 0);
             buttonCreate.Enabled = bl;
 
-
-
-            //if (bl)
-            //{
-                createTemporaryGraphic();
-                
-            //}
+            ValidateToolControl();
         }
 
         private void btn_clear_clicked(object sender, EventArgs e)
@@ -99,37 +90,61 @@ namespace Puime_s_Addin
 
         private void btn_create_clicked(object sender, EventArgs e)
         {
+            if (ValidateToolControl())
+            {
+                Project.UndoContext.BeginUndoStep();
+                try
+                {
+                    CreateABBBox(preview: false);
+                }
+                finally
+                {
+                    Project.UndoContext.EndUndoStep();
+                }
+            }
+        }
+
+        private void CreateABBBox(bool preview)
+        {
             #region Create ABB_Box
-
-            
-
             Project.UndoContext.BeginUndoStep("Create ABB Box");
 
             try
             {
-                Station station = Project.ActiveProject as Station;
+                Vector3 value = positionControlPC.Value;
+                Vector3 value2 = orientationControlOC.Value;
 
-                // Remove the TemporaryGraphics copy.
-                //station.TemporaryGraphics.Remove(tgBox);
+                double Xvalue = numericTextBoxLength.Value;
+                double Yvalue = numericTextBoxWidth.Value;
+                double Zvalue = numericTextBoxHeight.Value;
+                if (Yvalue == 0.0)
+                {
+                    Yvalue = Xvalue;
+                }
+                if (Zvalue == 0.0)
+                {
+                    Zvalue = Xvalue;
+                }
                 
-                ClearGfx();
-
-
-
-                // Create a part to contain the bodies.
-                #region BodyCreateSolidsStep1
-                Part p = new Part();
-                p.Name = "ABB_Box_" + numericTextBoxLength.Value.ToString() + "x" + numericTextBoxWidth.Value.ToString() + "x" + numericTextBoxHeight.Value.ToString();
-                station.GraphicComponents.Add(p);
-                #endregion
-
                 // Create a solid box.
                 #region Create Box
                 Vector3 vect_position = new Vector3(0, 0, 0);
                 Vector3 vect_orientation = new Vector3(0, 0, 0); //uses 0,0,0 as origin to later transform the position to the pos_control values,
                                                                  //so the part origin is allways in the corner of the box.
                 Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
-                Vector3 size = new Vector3(numericTextBoxLength.Value / 1000, numericTextBoxWidth.Value / 1000, numericTextBoxHeight.Value / 1000);
+                Vector3 size = new Vector3(Xvalue/1000, Yvalue/1000, Zvalue/1000);
+
+                Matrix4 matrix = new Matrix4(value, value2);
+
+                Station station = Project.ActiveProject as Station;
+                if (preview)
+                {
+                    previewBox = station.TemporaryGraphics.DrawBox(matrix, size, Color.FromArgb(128, Color.Gray));
+                    return;
+                }
+                Part p = new Part();
+                p.Name = "ABB_Box_" + Xvalue.ToString() + "x" + Yvalue.ToString() + "x" + Zvalue.ToString();
+                station.GraphicComponents.Add(p);
 
                 Body b1 = Body.CreateSolidBox(matrix_origo, size);
                 b1.Name = "Box";
@@ -238,61 +253,37 @@ namespace Puime_s_Addin
             #endregion
         }
 
-        private void createTemporaryGraphic ()
+        protected override bool ValidateToolControl()
         {
-            Logger.AddMessage(new LogMessage("CreateTemporaryGraphics ...", "Puime's Add-in"));
-
-            Station station = Project.ActiveProject as Station;
-
-            double Xvalue = numericTextBoxLength.Value / 1000;
-            double Yvalue = numericTextBoxWidth.Value / 1000;
-            double Zvalue = numericTextBoxHeight.Value / 1000;
-            var Xvalue_cero = (Xvalue == 0);
-            var Yvalue_cero = (Yvalue == 0);
-            var Zvalue_cero = (Zvalue == 0);
-
-            Logger.AddMessage(new LogMessage("Xvalue_cero" + Xvalue_cero, "Puime's Add-in"));
-            Logger.AddMessage(new LogMessage("Yvalue_cero" + Yvalue_cero, "Puime's Add-in"));
-            Logger.AddMessage(new LogMessage("Zvalue_cero" + Zvalue_cero, "Puime's Add-in"));
-
-            //if (Xvalue_cero && Yvalue_cero && Zvalue_cero);
-
-            Vector3 vect_pos_input = new Vector3(positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
-            Vector3 vect_ori_input = new Vector3(orientationControlOC.Value.x, orientationControlOC.Value.y, orientationControlOC.Value.z);
-            Matrix4 matrix_origo = new Matrix4(vect_pos_input, vect_ori_input);
-            Vector3 vect_size = new Vector3(Xvalue, Yvalue, Zvalue);
-            TemporaryGraphicCollection coll = new TemporaryGraphicCollection();
-
-            //Station station = Project.ActiveProject as Station;
-            // Create a part to contain the bodies.
-            //Part p = new Part();
-            //p.Name = "ABB_Box_" + numericTextBoxLength.Value.ToString() + "x" + numericTextBoxWidth.Value.ToString() + "x" + numericTextBoxHeight.Value.ToString();
-            //station.GraphicComponents.Add(p);
-
-            //tgBox = station.TemporaryGraphics.DrawBox(matrix_origo,vect_size, Color.Gray);
-            //tgBox = GraphicControl.ActiveGraphicControl.TemporaryGraphics.DrawBox(matrix_origo, vect_size, Color.FromArgb(128,Color.Gray));
-            //tgBox = coll.DrawBox(matrix_origo, vect_size, Color.FromArgb(128, Color.Gray));
-
-
-            //ClearGfx();
-            //tgBox.Add(coll.DrawBox(matrix_origo, vect_size, Color.FromArgb(128, Color.Gray)));
-
-            Part part = new Part();
-            Body box = Body.CreateSolidBox(matrix_origo, vect_size);
-            part.Bodies.Add(box);
-            //station.GraphicComponents.Add(part);
-
-            //TemporaryGraphic tgBox = station.TemporaryGraphics.DrawBox(matrix_origo, vect_size, Color.Gray);
-
-            TemporaryGraphic tgBox = station.TemporaryGraphics.DrawPart(new Matrix4(new Vector3(0, 0, 0)), part, 0.5);
-
+            double value = numericTextBoxLength.Value;
+            double value2 = numericTextBoxWidth.Value;
+            double value3 = numericTextBoxHeight.Value;
+            bool flag = value > 0.0 && value <= 100000000.0 && value2 >= 0.0 && value2 <= 100000000.0 && value3 >= 0.0 && value3 <= 100000000.0;
+            UpdatePreview(valid: flag);
+            return flag;
         }
-        
+
+        private void UpdatePreview(bool valid)
+        {
+            if (previewBox != null)
+            {
+                previewBox.Delete();
+                previewBox = null;
+            }
+            if (valid)
+            {
+                CreateABBBox(preview: true);
+            }
+        }
+
+        private void CreateABBBox_Deactivate(object sender, EventArgs e)
+        {
+            UpdatePreview(valid: false);
+        }
+
         private void InitializeComponent()
         {
             int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width -25;
-            //Logger.AddMessage(new LogMessage("control size: " + UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width.ToString()));
-            //Logger.AddMessage(new LogMessage("tw_width size: " + tw_width));
 
             pictureBoxCreateBox = new PictureBox();
             labelReference = new Label();
@@ -308,10 +299,6 @@ namespace Puime_s_Addin
 
             pictureBoxCreateBox.SuspendLayout();
             SuspendLayout();
-
-            //
-            //Add elements
-            //
 
             pictureBoxCreateBox.Location = new Point(8, 8);
             pictureBoxCreateBox.Name = "pictureBoxCB";
@@ -402,7 +389,7 @@ namespace Puime_s_Addin
             numericTextBoxWidth.Text = "numericTextBox2";
             numericTextBoxWidth.UserEdited = false;
             numericTextBoxWidth.Value = 0D;
-            numericTextBoxWidth.TextChanged += new EventHandler(size_TextChanged);
+            numericTextBoxWidth.ValueChanged += new EventHandler(size_TextChanged);
 
             numericTextBoxHeight.ErrorProviderControl = null;
             numericTextBoxHeight.ExpressionErrorString = "Bad Expression";
@@ -469,20 +456,11 @@ namespace Puime_s_Addin
             base.Controls.Add(numericTextBoxHeight);
             base.Name = "frmCreateBoxBuilder";
             base.Size = new Size(tw_width, 330);
+            base.Apply += new System.EventHandler(btn_create_clicked);
+            base.Deactivate += new System.EventHandler(CreateABBBox_Deactivate);
             pictureBoxCreateBox.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
-
-
-        internal void ClearGfx()
-        {
-            foreach (TemporaryGraphic tmpBox in tgBoxList)
-            {
-                tmpBox.Delete();
-            }
-            tgBoxList.Clear();
-        }
-
     }
 }

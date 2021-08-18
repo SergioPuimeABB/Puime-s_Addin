@@ -34,15 +34,18 @@ namespace Puime_s_Addin
         private Label labelColor;
         private Label labelClipStandard;
         private Label labelFirstlabelname;
+        private Label labelAllwaysOnTop;
 
         private Button buttonClear;
         private Button buttonCreate;
         private Button buttonClose;
-
         private Button buttonColor;
+        
         private ColorDialog colorDialogColor;
 
         private PictureBox pictureboxNutImage;
+
+        private CheckBox checkboxAllwaysOnTop;
 
         //private Markup markupWText;
 
@@ -84,6 +87,16 @@ namespace Puime_s_Addin
             markupWText.Name = markupWText.Text;
             markupWText.BackgroundColor = buttonColor.BackColor;
             markupWText.TextColor = Color.Black;
+
+            if (checkboxAllwaysOnTop.Checked)
+            {
+                markupWText.Topmost = true;
+            }
+            else
+            {
+                markupWText.Topmost = false;
+            }
+            
             switch (comboBoxClipStandard.SelectedItem)
             {
                 case "Grommet":
@@ -128,6 +141,133 @@ namespace Puime_s_Addin
             return inc;
         }
 
+        private void ComboboxIncrementSteps_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxIncrementSteps.SelectedIndex == -1)
+            {
+                numericUpDownStartWith.Value = decimal.Zero;
+            }
+            else
+            {
+                numericUpDownStartWith.Value = Convert.ToDecimal(comboBoxIncrementSteps.SelectedItem.ToString());
+            }
+        }
+
+        private void TextValueChanged(object sender, EventArgs e)
+        {
+            labelResultname.Text = textBoxPrefix.Text + numericUpDownStartWith.Value + textBoxSuffix.Text;
+        }
+
+
+        private void buttonColor_Click(object sender, EventArgs e)
+        {
+            colorDialogColor.ShowDialog();
+            buttonColor.BackColor = colorDialogColor.Color;
+        }
+
+        private void ClipValueChanged(object sender, EventArgs e)
+        {
+            switch (comboBoxClipStandard.SelectedItem)
+            {
+                case "Panzer":
+                    buttonColor.BackColor = Color.FromArgb(128, 128, 0);
+                    pictureboxNutImage.BorderStyle = BorderStyle.FixedSingle;
+                    pictureboxNutImage.Image = Resources.Panzer;
+                    textBoxPrefix.Text = "Panzer";
+                    break;
+                case "Snap":
+                    buttonColor.BackColor = Color.FromArgb(255, 127, 0);
+                    pictureboxNutImage.BorderStyle = BorderStyle.FixedSingle;
+                    pictureboxNutImage.Image = Resources.Snap;
+                    textBoxPrefix.Text = "Snap";
+                    break;
+                case "Grommet":
+                    buttonColor.BackColor = Color.FromArgb(0, 0, 255);
+                    pictureboxNutImage.Image = Resources.Grommet;
+                    textBoxPrefix.Text = "Grommet";
+                    break;
+                case "Metnut/C_Nut":
+                    buttonColor.BackColor = Color.FromArgb(255, 0, 255);
+                    pictureboxNutImage.Image = Resources.Metnut;
+                    textBoxPrefix.Text = "Metnut";
+                    break;
+                case "Nut":
+                    buttonColor.BackColor = Color.FromArgb(247, 191, 190);
+                    pictureboxNutImage.Image = Resources.Nut;
+                    textBoxPrefix.Text = "Nut";
+                    break;
+                case "Big MetNut":
+                    buttonColor.BackColor = Color.FromArgb(104, 36, 109);
+                    pictureboxNutImage.Image = Resources.BigMetNut;
+                    textBoxPrefix.Text = "BigNetNut";
+                    break;
+                case "Trim Fastener":
+                    buttonColor.BackColor = Color.FromArgb(255, 215, 0);
+                    pictureboxNutImage.Image = Resources.TrimFastener;
+                    textBoxPrefix.Text = "TrimFastener";
+                    break;
+                case "Small Snap Clip":
+                    buttonColor.BackColor = Color.FromArgb(0, 0, 0);
+                    pictureboxNutImage.Image = Resources.SmallSnapClip;
+                    textBoxPrefix.Text = "SmallSnapClip";
+                    break;
+                case "Ret Clip":
+                    buttonColor.BackColor = Color.FromArgb(245, 245, 220);
+                    pictureboxNutImage.Image = Resources.RetClip;
+                    textBoxPrefix.Text = "RetClip";
+                    break;
+                case "S-Clip":
+                    buttonColor.BackColor = Color.FromArgb(150, 75, 0);
+                    pictureboxNutImage.Image = Resources.SClip;
+                    textBoxPrefix.Text = "SClip";
+                    break;
+                case "Klammer":
+                    buttonColor.BackColor = Color.FromArgb(128, 0, 32);
+                    pictureboxNutImage.Image = Resources.Klammer;
+                    textBoxPrefix.Text = "Klammer";
+                    break;
+                case "TrimClip Plastic":
+                    buttonColor.BackColor = Color.FromArgb(195, 176, 145);
+                    pictureboxNutImage.Image = Resources.TrimClipPlastic;
+                    textBoxPrefix.Text = "TrimClipPlastic";
+                    break;
+                case "Plastic Nut":
+                    buttonColor.BackColor = Color.FromArgb(208, 255, 20);
+                    pictureboxNutImage.Image = Resources.PlasticNut;
+                    textBoxPrefix.Text = "PlasticNut";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void btn_reset_clicked(object sender, EventArgs e)
+        {
+            positionControlPos.Value = new Vector3(0, 0, 0);
+            textBoxPrefix.Text = "";
+            textBoxSuffix.Text = "";
+            comboBoxIncrementSteps.SelectedItem = "1";
+            numericUpDownStartWith.Value = 1;
+            buttonColor.BackColor = Color.FromArgb(255, 255, 192);
+            comboBoxClipStandard.SelectedItem = null;
+            pictureboxNutImage.Image = null;
+            pictureboxNutImage.BorderStyle = BorderStyle.None;
+            _markNumber = 0;
+        }
+
+        private void btn_create_clicked(object sender, EventArgs e)
+        {
+            CreateMarkUp(positionControlPos.Value);
+            _firstClick = false;
+            positionControlPos.SetFocus();
+        }
+
+        private void btn_close_clicked(object sender, EventArgs e)
+        {
+            GraphicPicker.GraphicPick -= GraphicPicker_GraphicPick;
+            CloseTool();
+        }
+
 
         private void InitializeComponent()
         {
@@ -143,6 +283,8 @@ namespace Puime_s_Addin
             labelStartnumber = new Label();
             labelFirstlabelname = new Label();
             labelColor = new Label();
+            labelAllwaysOnTop = new Label();
+            checkboxAllwaysOnTop = new CheckBox();
             buttonColor = new Button();
             colorDialogColor = new ColorDialog();
             labelClipStandard = new Label();
@@ -174,7 +316,7 @@ namespace Puime_s_Addin
             positionControlPos.TabIndex = 1;
             positionControlPos.Text = "positionControl1";
             positionControlPos.VerticalLayout = false;
-            
+
             labelPrefix.Text = "Name Prefix";
             labelPrefix.Location = new Point(8, 60);
             labelPrefix.Size = new Size(100, 14);
@@ -237,8 +379,17 @@ namespace Puime_s_Addin
             buttonColor.BackColor = Color.FromArgb(255, 255, 192);
             buttonColor.Click += new System.EventHandler(buttonColor_Click);
 
+            checkboxAllwaysOnTop.Location = new Point(8, 150);
+            checkboxAllwaysOnTop.TabIndex = 7;
+            checkboxAllwaysOnTop.Size = new Size(14, 14);
+            checkboxAllwaysOnTop.Checked = true;
+
+            labelAllwaysOnTop.Text = "Allways on top";
+            labelAllwaysOnTop.Location = new Point(25, 150);
+            labelAllwaysOnTop.Size = new Size(120, 14);
+
             labelClipStandard.Text = "Clipping Standard Color";
-            labelClipStandard.Location = new Point(8, 176);
+            labelClipStandard.Location = new Point(8, 180);
             labelClipStandard.Size = new Size(150, 14);
 
             comboBoxClipStandard.Location = new Point(8, 196);
@@ -318,10 +469,12 @@ namespace Puime_s_Addin
             base.Controls.Add(labelColor);
             base.Controls.Add(buttonColor);
             base.Controls.Add(numericUpDownStartWith);
+            base.Controls.Add(checkboxAllwaysOnTop);
+            base.Controls.Add(labelAllwaysOnTop);
             base.Controls.Add(labelClipStandard);
             base.Controls.Add(comboBoxClipStandard);
             base.Controls.Add(pictureboxNutImage);
-            base.Controls.Add(labelFirstlabelname); 
+            base.Controls.Add(labelFirstlabelname);
             base.Controls.Add(labelResultname);
             base.Controls.Add(buttonClear);
             base.Controls.Add(buttonCreate);
@@ -331,120 +484,6 @@ namespace Puime_s_Addin
             positionControlPos.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
-        }
-
-        private void ComboboxIncrementSteps_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (comboBoxIncrementSteps.SelectedIndex == -1)
-            {
-                numericUpDownStartWith.Value = decimal.Zero;
-            }
-            else
-            {
-                numericUpDownStartWith.Value = Convert.ToDecimal(comboBoxIncrementSteps.SelectedItem.ToString());
-            }
-        }
-
-        private void TextValueChanged(object sender, EventArgs e)
-        {
-            labelResultname.Text = textBoxPrefix.Text + numericUpDownStartWith.Value + textBoxSuffix.Text;
-        }
-
-
-        private void buttonColor_Click(object sender, EventArgs e)
-        {
-            colorDialogColor.ShowDialog();
-            buttonColor.BackColor = colorDialogColor.Color;
-        }
-
-        private void ClipValueChanged(object sender, EventArgs e)
-        {
-            switch (comboBoxClipStandard.SelectedItem)
-            {
-                case "Panzer":
-                    buttonColor.BackColor = Color.FromArgb(128, 128, 0);
-                    pictureboxNutImage.BorderStyle = BorderStyle.FixedSingle;
-                    pictureboxNutImage.Image = Resources.Panzer;
-                    break;
-                case "Snap":
-                    buttonColor.BackColor = Color.FromArgb(255, 127, 0);
-                    pictureboxNutImage.BorderStyle = BorderStyle.FixedSingle;
-                    pictureboxNutImage.Image = Resources.Snap;
-                    break;
-                case "Grommet":
-                    buttonColor.BackColor = Color.FromArgb(0, 0, 255);
-                    pictureboxNutImage.Image = Resources.Grommet;
-                    break;
-                case "Metnut/C_Nut":
-                    buttonColor.BackColor = Color.FromArgb(255, 0, 255);
-                    pictureboxNutImage.Image = Resources.Metnut;
-                    break;
-                case "Nut":
-                    buttonColor.BackColor = Color.FromArgb(247, 191, 190);
-                    pictureboxNutImage.Image = Resources.Nut;
-                    break;
-                case "Big MetNut":
-                    buttonColor.BackColor = Color.FromArgb(104, 36, 109);
-                    pictureboxNutImage.Image = Resources.BigMetNut;
-                    break;
-                case "Trim Fastener":
-                    buttonColor.BackColor = Color.FromArgb(255, 215, 0);
-                    pictureboxNutImage.Image = Resources.TrimFastener;
-                    break;
-                case "Small Snap Clip":
-                    buttonColor.BackColor = Color.FromArgb(0, 0, 0);
-                    pictureboxNutImage.Image = Resources.SmallSnapClip;
-                    break;
-                case "Ret Clip":
-                    buttonColor.BackColor = Color.FromArgb(245, 245, 220);
-                    pictureboxNutImage.Image = Resources.RetClip;
-                    break;
-                case "S-Clip":
-                    buttonColor.BackColor = Color.FromArgb(150, 75, 0);
-                    pictureboxNutImage.Image = Resources.SClip;
-                    break;
-                case "Klammer":
-                    buttonColor.BackColor = Color.FromArgb(128, 0, 32);
-                    pictureboxNutImage.Image = Resources.Klammer;
-                    break;
-                case "TrimClip Plastic":
-                    buttonColor.BackColor = Color.FromArgb(195, 176, 145);
-                    pictureboxNutImage.Image = Resources.TrimClipPlastic;
-                    break;
-                case "Plastic Nut":
-                    buttonColor.BackColor = Color.FromArgb(208, 255, 20);
-                    pictureboxNutImage.Image = Resources.PlasticNut;
-                    break;
-                default:
-                    break;
-        }
-        }
-
-        private void btn_reset_clicked(object sender, EventArgs e)
-        {
-            positionControlPos.Value = new Vector3(0, 0, 0);
-            textBoxPrefix.Text = "";
-            textBoxSuffix.Text = "";
-            comboBoxIncrementSteps.SelectedItem = "1";
-            numericUpDownStartWith.Value = 1;
-            buttonColor.BackColor = Color.FromArgb(255, 255, 192);
-            comboBoxClipStandard.SelectedItem = null;
-            pictureboxNutImage.Image = null;
-            pictureboxNutImage.BorderStyle = BorderStyle.None;
-            _markNumber = 0;
-        }
-
-        private void btn_create_clicked(object sender, EventArgs e)
-        {
-            CreateMarkUp(positionControlPos.Value);
-            _firstClick = false;
-            positionControlPos.SetFocus();
-        }
-
-        private void btn_close_clicked(object sender, EventArgs e)
-        {
-            GraphicPicker.GraphicPick -= GraphicPicker_GraphicPick;
-            CloseTool();
         }
 
 
