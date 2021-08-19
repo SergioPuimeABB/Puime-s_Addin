@@ -210,12 +210,12 @@ namespace Puime_s_Addin
                 myFace5.Visible = true;
 
                 // Set the material for each face of the box
-                Bitmap bmp0 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Textures\\top.jpg");
-                Bitmap bmp1 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Textures\\bottom.jpg");
-                Bitmap bmp2 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Textures\\long_side.jpg");
-                Bitmap bmp3 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Textures\\short_side2.jpg");
-                Bitmap bmp4 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Textures\\long_side2.jpg");
-                Bitmap bmp5 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Textures\\short_side.jpg");
+                Bitmap bmp0 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Textures\\top.jpg");
+                Bitmap bmp1 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Textures\\bottom.jpg");
+                Bitmap bmp2 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Textures\\long_side.jpg");
+                Bitmap bmp3 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Textures\\short_side2.jpg");
+                Bitmap bmp4 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Textures\\long_side2.jpg");
+                Bitmap bmp5 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Textures\\short_side.jpg");
                 Texture texture0 = new Texture(bmp0);
                 Texture texture1 = new Texture(bmp1);
                 Texture texture2 = new Texture(bmp2);

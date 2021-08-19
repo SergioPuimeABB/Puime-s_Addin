@@ -163,7 +163,7 @@ namespace Puime_s_Addin
                             Station station = Project.ActiveProject as Station;
 
                             // Import the BasePlateTypeA library                                                                                                             
-                            GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeA.rslib", true, null, false);
+                            GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeA.rslib", true, null, false);
 
                             Part myPart1 = BasePlateTypeALib.RootComponent.CopyInstance() as Part;
                             myPart1.Name = "BasePlateTypeA";
@@ -182,7 +182,7 @@ namespace Puime_s_Addin
                             myPart3.Bodies.Add(b1);
 
                             // Import the TopPlateTypeA library
-                            GraphicComponentLibrary TopPlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\TopPlate\\TopPlateTypeA.rslib", true, null, false);
+                            GraphicComponentLibrary TopPlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\TopPlate\\TopPlateTypeA.rslib", true, null, false);
                             Part myPart2 = TopPlateTypeALib.RootComponent.CopyInstance() as Part;
                             myPart2.Name = "TopPlateTypeA";
                             myPart2.DisconnectFromLibrary();
@@ -252,7 +252,7 @@ namespace Puime_s_Addin
                             Station station = Project.ActiveProject as Station;
 
                             // Import the BasePlateTypeB library
-                            GraphicComponentLibrary BasePlateTypeBLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeB.rslib", true, null, false);
+                            GraphicComponentLibrary BasePlateTypeBLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeB.rslib", true, null, false);
                             Part myPart1 = BasePlateTypeBLib.RootComponent.CopyInstance() as Part;
                             myPart1.Name = "BasePlateTypeB";
                             myPart1.DisconnectFromLibrary();
@@ -270,7 +270,7 @@ namespace Puime_s_Addin
                             myPart3.Bodies.Add(b1);
 
                             // Import the TopPlateTypeB library
-                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\TopPlate\\TopPlateTypeB.rslib", true, null, false);
+                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\TopPlate\\TopPlateTypeB.rslib", true, null, false);
                             Part myPart2 = TopPlateTypeBLib.RootComponent.CopyInstance() as Part;
                             myPart2.Name = "TopPlateTypeB";
                             myPart2.DisconnectFromLibrary();
@@ -347,7 +347,7 @@ namespace Puime_s_Addin
                             {
                                 case "300": case "400": case "500": case "600": case "700": case "800": case "900": case "1000":
                                     // Import the BasePlateTypeC library for 300-100 height
-                                    GraphicComponentLibrary BasePlateTypeBLiba = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_300-1000.rslib", true, null, false);
+                                    GraphicComponentLibrary BasePlateTypeBLiba = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_300-1000.rslib", true, null, false);
                                     Part myParta = BasePlateTypeBLiba.RootComponent.CopyInstance() as Part;
                                     myParta.Name = "BasePlateTypeC";
                                     myParta.DisconnectFromLibrary();
@@ -356,7 +356,7 @@ namespace Puime_s_Addin
 
                                 case "1100": case "1200": case "1300": case "1400": case "1500":
                                     // Import the BasePlateTypeC library for 1100-1500 height
-                                    GraphicComponentLibrary BasePlateTypeBLibb = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_1000-1500.rslib", true, null, false);
+                                    GraphicComponentLibrary BasePlateTypeBLibb = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_1000-1500.rslib", true, null, false);
                                     Part myPartb = BasePlateTypeBLibb.RootComponent.CopyInstance() as Part;
                                     myPartb.Name = "BasePlateTypeC";
                                     myPartb.DisconnectFromLibrary();
@@ -365,7 +365,7 @@ namespace Puime_s_Addin
 
                                 case "1600": case "1700": case "1800": case "1900": case "2000":
                                     // Import the BasePlateTypeC library for 1600-2000 height
-                                    GraphicComponentLibrary BasePlateTypeBLibc = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_1600-2000.rslib", true, null, false);
+                                    GraphicComponentLibrary BasePlateTypeBLibc = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_1600-2000.rslib", true, null, false);
                                     Part myPartc = BasePlateTypeBLibc.RootComponent.CopyInstance() as Part;
                                     myPartc.Name = "BasePlateTypeC";
                                     myPartc.DisconnectFromLibrary();
@@ -390,7 +390,7 @@ namespace Puime_s_Addin
                             myPart3.Bodies.Add(b1);
 
                             // Import the TopPlateTypeC library
-                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-1.0\\RobotStudio\\Add-In\\Library\\TopPlate\\TopPlateTypeC.rslib", true, null, false);
+                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\TopPlate\\TopPlateTypeC.rslib", true, null, false);
                             Part myPart2 = TopPlateTypeBLib.RootComponent.CopyInstance() as Part;
                             myPart2.Name = "TopPlateTypeC";
                             myPart2.DisconnectFromLibrary();
