@@ -6,7 +6,7 @@ using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
-using Puime_s_Addin.Properties;
+using PuimesAddin.Properties;
 
 namespace Puime_s_Addin
 {
