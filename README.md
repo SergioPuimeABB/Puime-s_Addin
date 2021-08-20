@@ -3,8 +3,7 @@
 ###### Version 2.0
 
 
-
-**Overview.**
+**Overview.** 
 The Puime’s Addin is a RobotStudio add-in that extends RobotStudio with some useful tools. Use the add-in to copy objects position, to create a station floor, ABB boxes, ABB raisers and auto markups.
 
 **Installation.**
@@ -13,22 +12,11 @@ From the Add-Ins tab in RobotStudio, click on “Install Package” and select t
 **How it works.**
 After the installation, a new ribbon group will be added at the Create group in the Modeling ribbon tab.
 
-
-
-
-
 ![Add-in screen position](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/01.png)
-
 *Add-in screen position*
 
-
-
-
 ![Add-in main screen](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/02.png)
-
 *Add-in main screen*
-
-
 
 * **Copy Position.** ![copy position](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/03.png) Copy the position and orientation of the selected object. It only woks with Parts, Targets or WorkObjects.
 
@@ -61,12 +49,15 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 **Version History.**
 
 **# 2.0 (2021 Aug)**
-	* Access to the tool changed to the Ribbon tab.
-	* ABB Box creator tool had some improvements.
-	* Auto markup creator tool added.
+
+- Access to the tool changed to the Ribbon tab.
+- ABB Box creator tool had some improvements.
+- Auto markup creator tool added.
 
 **# 1.0**
-	* First available Package
+
+- First available Package
+ 
  
  
  
