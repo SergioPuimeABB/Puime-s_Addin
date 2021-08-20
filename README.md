@@ -17,12 +17,14 @@ After the installation, a new ribbon group will be added at the Create group in 
 
 
 ![Add-in screen position](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/01.png)
+
 *Add-in screen position*
 
 
 
 
 ![Add-in main screen](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/02.png)
+
 *Add-in main screen*
 
 
@@ -58,13 +60,11 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 **Version History.**
 
 **# 2.0 (2021 Aug)**
-
 	* Access to the tool changed to the Ribbon tab.
 	* ABB Box creator tool had some improvements.
 	* Auto markup creator tool added.
 
 **# 1.0**
-
 	* First available Package
  
  
