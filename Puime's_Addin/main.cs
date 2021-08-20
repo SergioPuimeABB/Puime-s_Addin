@@ -13,7 +13,7 @@ namespace Puime_s_Addin
     public class main
     {
 
-        private static RibbonGroup rgPA;
+        private static RibbonGroup rgPA; 
         private static CommandBarGalleryPopup galleryPA;
         private static CommandBarButton btnCP; // Copy Position
         private static CommandBarButton btnSP; // Set Position
