@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <RobotStudioAddIn xmlns="urn:abb-robotics-robotstudio-addin"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                  xsi:schemaLocation="urn:abb-robotics-robotstudio-addin file:///C:\Program%20Files%20(x86)\ABB%20Industrial%20IT\Robotics%20IT\SDK\RobotStudio%20SDK%206.08\RobotStudioAddin.xsd"
+                  xsi:schemaLocation="urn:abb-robotics-robotstudio-addin file:///C:\Program%20Files%20(x86)\ABB\SDK\RobotStudio%202022%20SDK\RobotStudioAddin.xsd"
                   autoLoad="true">
 
   <ApplicationId>com.abb.es.PuimesAddin</ApplicationId>
   <DisplayName>Puime's Addin</DisplayName>
-  <DisplayVersion>1.0</DisplayVersion>
+  <DisplayVersion>3.0 beta</DisplayVersion>
   
   <AddInType>General</AddInType>
 
