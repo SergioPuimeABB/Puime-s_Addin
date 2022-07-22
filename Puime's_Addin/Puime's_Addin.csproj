@@ -173,7 +173,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Program Files (x86)\ABB\RobotStudio 2021\Bin\Addins\PuimesAddin\"</PostBuildEvent>
+    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\ProgramData\ABB\DistributionPackages\PuimesAddin-2.0\RobotStudio\Add-In"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
