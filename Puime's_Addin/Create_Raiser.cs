@@ -113,7 +113,7 @@ namespace Puime_s_Addin
 
         public static void Raiser(string name, string type, double xpos, double ypos, double orientation, double height)
         {
-            if (height < 300)
+            if (height < 300 )
             {
             MessageBox.Show(name + "\n\n" + "Not supported Robot position." + "\n" + "Minium position must be 300mm." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
