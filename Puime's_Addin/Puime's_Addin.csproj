@@ -79,6 +79,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasePlate_constructor.cs" />
+    <Compile Include="Create_BasePlate.cs" />
     <Compile Include="frmAutoMarkUpBuilder.cs">
       <SubType>UserControl</SubType>
     </Compile>

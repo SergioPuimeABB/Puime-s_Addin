@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -10,18 +11,18 @@ using ABB.Robotics.RobotStudio.Stations;
 
 namespace Puime_s_Addin
 {
-    class Create_Raiser
+    class Create_BasePlate
     {
-        public static void Create_ABB_Raiser()
+        public static void Create_ABB_BasePlate()
         {
             #region try
             Project.UndoContext.BeginUndoStep("RotateBasedOnAxis");
             try
             {
                 Station stn = Station.ActiveStation;
-                    if (stn == null) return;
+                if (stn == null) return;
 
-                var StationRaisers = new List<Raiser_constructor>(); // List to store all the raisers to create
+                var StationBasePlates = new List<BasePlate_constructor>(); // List to store all the raisers to create
 
                 var StationElements = stn.GraphicComponents.ToList(); // List of all Station GraphisComponents
 
@@ -52,11 +53,11 @@ namespace Puime_s_Addin
                                     case "IRB2600":
                                     case "IRB2600ID":
                                     case "IRB4600":
-                                        StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeA", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
+                                        StationBasePlates.Add(new BasePlate_constructor(name.ToString(), "TypeA", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
                                         break;
 
                                     case "IRB2400":
-                                        StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeB", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
+                                        StationBasePlates.Add(new BasePlate_constructor(name.ToString(), "TypeB", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
                                         break;
 
                                     case "IRB6400R":
@@ -69,11 +70,11 @@ namespace Puime_s_Addin
                                     case "IRB660":
                                     case "IRB760":
                                     case "IRB460":
-                                        StationRaisers.Add(new Raiser_constructor(name.ToString(), "TypeC", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
+                                        StationBasePlates.Add(new BasePlate_constructor(name.ToString(), "TypeC", item.Transform.X * 1000, item.Transform.Y * 1000, item.Transform.Z * 1000, item.Transform.RZ));
                                         break;
 
                                     default:
-                                        MessageBox.Show(name + "\n\n" + "Not supported Robot model.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        MessageBox.Show(name + "\n\n" + "Not supported Robot model.", "Puime's Addin - Create ABB BasePlate", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         break;
                                 }
                             }
@@ -82,52 +83,52 @@ namespace Puime_s_Addin
 
                     if (!RobotInStation) // if none of the elements in the station is a Robot, sends a message
                     {
-                        MessageBox.Show("No valid Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("No valid Robots detected in the station.", "Puime's Addin - Create ABB BasePlate", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                 }
                 else // if no elements in the station sends a message 
                 {
-                    MessageBox.Show("No valid Robots detected in the station.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No valid Robots detected in the station.", "Puime's Addin - Create ABB BasePlate", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-              
-                foreach (var item in StationRaisers)
+
+                foreach (var item in StationBasePlates)
                 {
-                    Raiser(item.Name, item.Type, item.Xpos, item.Ypos, item.Orientation, item.Zpos);
+                    BasePlate(item.Name, item.Type, item.Xpos, item.Ypos, item.Orientation, item.Zpos);
                 }
             }
             #endregion try
 
             catch (Exception execption)
-                {
-                    Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
-                    Logger.AddMessage(new LogMessage(execption.Message.ToString()));
-                    throw;
-                }
+            {
+                Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+                Logger.AddMessage(new LogMessage(execption.Message.ToString()));
+                throw;
+            }
             finally
-                {
-                     Project.UndoContext.EndUndoStep();
-                }
+            {
+                Project.UndoContext.EndUndoStep();
+            }
 
         }
 
-        public static void Raiser(string name, string type, double xpos, double ypos, double orientation, double height)
+        public static void BasePlate(string name, string type, double xpos, double ypos, double orientation, double height)
         {
-            switch (height)
-            {
-                case 60:
-                case 70:
-                case 80:
-                case 90:
-                case 100:
+            //switch (height)
+            //{
+            //    case 60:
+            //    case 70:
+            //    case 80:
+            //    case 90:
+            //    case 100:
 
-                    //BasePlate
-                    break;
-            }
+            //        //BasePlate
+            //        break;
+            //}
 
             if (height < 300)
             {
-            MessageBox.Show(name + "\n\n" + "Not supported Robot position." + "\n" + "Minium position must be 300mm." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(name + "\n\n" + "Not supported Robot position." + "\n" + "Minium position must be 300mm." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             else
@@ -140,7 +141,7 @@ namespace Puime_s_Addin
                         // Checks if the raiser allready exists
                         var allreadyexists = false;
                         Station stn2 = Station.ActiveStation;
-                            if (stn2 == null) return;
+                        if (stn2 == null) return;
 
                         foreach (GraphicComponent item in stn2.GraphicComponents)
                         {
@@ -159,7 +160,7 @@ namespace Puime_s_Addin
                         }
 
                         // Checks if the z position of the Robot is in the maximum allowed
-                        if (height>1600) // maximum allowed height
+                        if (height > 1600) // maximum allowed height
                         {
                             MessageBox.Show(name + "\n\n" + "Not supported Robot position." + "\n" + "Maximum position is 1600mm." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
@@ -189,7 +190,7 @@ namespace Puime_s_Addin
                             Vector3 vect_position = new Vector3(0, 0, 0.030); //Creates the cylinder in the 0,0,30 to transfor the position later.
                             Vector3 vect_orientation = new Vector3(0, 0, 0);
                             Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
-                            Body b1 = Body.CreateSolidCylinder(matrix_origo, 0.33, height / 1000-0.088);
+                            Body b1 = Body.CreateSolidCylinder(matrix_origo, 0.33, height / 1000 - 0.088);
                             b1.Name = "Raiser_body";
                             myPart3.Bodies.Add(b1);
 
@@ -198,7 +199,7 @@ namespace Puime_s_Addin
                             Part myPart2 = TopPlateTypeALib.RootComponent.CopyInstance() as Part;
                             myPart2.Name = "TopPlateTypeA";
                             myPart2.DisconnectFromLibrary();
-                            myPart2.Transform.Z = height/1000 - 0.058;
+                            myPart2.Transform.Z = height / 1000 - 0.058;
 
                             GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
                             myGCGroup.Name = "ABB_Raiser_" + name;
@@ -206,7 +207,7 @@ namespace Puime_s_Addin
                             myGCGroup.GraphicComponents.Add(myPart1);
                             myGCGroup.GraphicComponents.Add(myPart2);
                             myGCGroup.GraphicComponents.Add(myPart3);
-                            myGCGroup.Color = Color.FromArgb(255,255,128,0);
+                            myGCGroup.Color = Color.FromArgb(255, 255, 128, 0);
 
                             // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
                             myGCGroup.Transform.X = xpos / 1000;
@@ -357,7 +358,14 @@ namespace Puime_s_Addin
                             Part PartType = new Part(); // The part to add later depending of the baseplate choosed.
                             switch (height.ToString())
                             {
-                                case "300": case "400": case "500": case "600": case "700": case "800": case "900": case "1000":
+                                case "300":
+                                case "400":
+                                case "500":
+                                case "600":
+                                case "700":
+                                case "800":
+                                case "900":
+                                case "1000":
                                     // Import the BasePlateTypeC library for 300-100 height
                                     GraphicComponentLibrary BasePlateTypeBLiba = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_300-1000.rslib", true, null, false);
                                     Part myParta = BasePlateTypeBLiba.RootComponent.CopyInstance() as Part;
@@ -366,7 +374,11 @@ namespace Puime_s_Addin
                                     PartType = myParta;
                                     break;
 
-                                case "1100": case "1200": case "1300": case "1400": case "1500":
+                                case "1100":
+                                case "1200":
+                                case "1300":
+                                case "1400":
+                                case "1500":
                                     // Import the BasePlateTypeC library for 1100-1500 height
                                     GraphicComponentLibrary BasePlateTypeBLibb = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_1000-1500.rslib", true, null, false);
                                     Part myPartb = BasePlateTypeBLibb.RootComponent.CopyInstance() as Part;
@@ -375,7 +387,11 @@ namespace Puime_s_Addin
                                     PartType = myPartb;
                                     break;
 
-                                case "1600": case "1700": case "1800": case "1900": case "2000":
+                                case "1600":
+                                case "1700":
+                                case "1800":
+                                case "1900":
+                                case "2000":
                                     // Import the BasePlateTypeC library for 1600-2000 height
                                     GraphicComponentLibrary BasePlateTypeBLibc = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlate\\BasePlateTypeC_1600-2000.rslib", true, null, false);
                                     Part myPartc = BasePlateTypeBLibc.RootComponent.CopyInstance() as Part;
@@ -428,7 +444,7 @@ namespace Puime_s_Addin
                             break;
                         }
 
-                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + " created.", "Puime's Add-in"));
+                        Logger.AddMessage(new LogMessage("ABB_BasePlate_" + name + " created.", "Puime's Add-in"));
                         break;
                     #endregion Type C
 
@@ -437,6 +453,6 @@ namespace Puime_s_Addin
                 }
             }
         }
-    } 
+    }
 }
 
