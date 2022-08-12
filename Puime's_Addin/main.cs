@@ -20,6 +20,7 @@ namespace Puime_s_Addin
         private static CommandBarButton btnCF; // Create Floor
         private static CommandBarButton btnCB; // Create ABB Box
         private static CommandBarButton btnCR; // Create ABB Raiser
+        private static CommandBarButton btnCBP; // Create ABB Base plate
         private static CommandBarButton btnCM; // Create Markups
 
         public static void AddinMain()
@@ -79,6 +80,12 @@ namespace Puime_s_Addin
             btnCR.UpdateCommandUI += btnCR_UpdateCommandUI;
             btnCR.ExecuteCommand += btnCR_ExecuteCommand;
 
+            btnCBP = new CommandBarButton("ABB Base plate", "ABB Base plate creator");
+            btnCBP.Image = Resources.BT_baseplate;
+            galleryPA.GalleryControls.Add(btnCBP);
+            btnCBP.UpdateCommandUI += btnCBP_UpdateCommandUI;
+            btnCBP.ExecuteCommand += btnCBP_ExecuteCommand;
+
             btnCM = new CommandBarButton("Marks", "Auto markup creator");
             btnCM.Image = Resources.BT_marks;
             galleryPA.GalleryControls.Add(btnCM);
@@ -136,10 +143,20 @@ namespace Puime_s_Addin
         {
             e.Enabled = Project.ActiveProject is Station;
         }
-        
+
+        private static void btnCBP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+
         static void btnCR_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
             Create_Raiser.Create_ABB_Raiser();
+        }
+
+        static void btnCBP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            Create_BasePlate.Create_ABB_BasePlate();
         }
 
         private static void btnCM_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
