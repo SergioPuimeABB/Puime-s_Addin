@@ -206,7 +206,7 @@ namespace Puime_s_Addin
                             myGCGroup.GraphicComponents.Add(myPart1);
                             myGCGroup.GraphicComponents.Add(myPart2);
                             myGCGroup.GraphicComponents.Add(myPart3);
-                            myGCGroup.Color = Color.FromArgb(255,255,128,0);
+                            myGCGroup.Color = Color.FromArgb(255,96,96,96);
 
                             // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
                             myGCGroup.Transform.X = xpos / 1000;
@@ -294,7 +294,7 @@ namespace Puime_s_Addin
                             myGCGroup.GraphicComponents.Add(myPart1);
                             myGCGroup.GraphicComponents.Add(myPart2);
                             myGCGroup.GraphicComponents.Add(myPart3);
-                            myGCGroup.Color = Color.FromArgb(255, 255, 128, 0);
+                            myGCGroup.Color = Color.FromArgb(255,96,96,96);
 
                             // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
                             myGCGroup.Transform.X = xpos / 1000;
@@ -372,7 +372,7 @@ namespace Puime_s_Addin
                                     Part myPartb = BasePlateTypeBLibb.RootComponent.CopyInstance() as Part;
                                     myPartb.Name = "BasePlateTypeC";
                                     myPartb.DisconnectFromLibrary();
-                                    PartType = myPartb;
+                                    PartType = myPartb; 
                                     break;
 
                                 case "1600": case "1700": case "1800": case "1900": case "2000":
@@ -385,7 +385,7 @@ namespace Puime_s_Addin
                                     break;
 
                                 default:
-                                    break;
+                                    break; 
                             }
 
 
@@ -414,7 +414,7 @@ namespace Puime_s_Addin
                             myGCGroup.GraphicComponents.Add(PartType);
                             myGCGroup.GraphicComponents.Add(myPart2);
                             myGCGroup.GraphicComponents.Add(myPart3);
-                            myGCGroup.Color = Color.FromArgb(255, 255, 128, 0);
+                            myGCGroup.Color = Color.FromArgb(255,96,96,96);
 
                             // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
                             myGCGroup.Transform.X = xpos / 1000;

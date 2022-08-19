@@ -22,6 +22,7 @@ namespace Puime_s_Addin
         private static CommandBarButton btnCR; // Create ABB Raiser
         private static CommandBarButton btnCBP; // Create ABB Base plate
         private static CommandBarButton btnCM; // Create Markups
+        private static CommandBarButton btnRT; // Rename Targets
 
         public static void AddinMain()
         {
@@ -94,6 +95,14 @@ namespace Puime_s_Addin
             ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
 
 
+            btnRT = new CommandBarButton("Rename targets", "Auto rename targets");
+            btnRT.Image = Resources.BT_rename;
+            galleryPA.GalleryControls.Add(btnRT);
+            btnRT.UpdateCommandUI += btnRT_UpdateCommandUI;
+            btnRT.ExecuteCommand += btnRT_ExecuteCommand;
+            //ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
+
+
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
 
@@ -143,16 +152,17 @@ namespace Puime_s_Addin
         {
             e.Enabled = Project.ActiveProject is Station;
         }
+        static void btnCR_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            Create_Raiser.Create_ABB_Raiser();
+        }
 
         private static void btnCBP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
         {
             e.Enabled = Project.ActiveProject is Station;
         }
 
-        static void btnCR_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
-        {
-            Create_Raiser.Create_ABB_Raiser();
-        }
+        
 
         static void btnCBP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
@@ -167,6 +177,16 @@ namespace Puime_s_Addin
         static void btnCM_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
             ToolControlManager.ShowTool(typeof(frmAutoMarkUpBuilder), e.Id);
+        }
+
+        private static void btnRT_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        static void btnRT_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            //Create_Raiser.Create_ABB_Raiser();
+            RenameMoveTargets.CheckPathSelected();
         }
     }
 }

@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Create_Raiser.cs" />
     <Compile Include="Raiser_constructor.cs" />
+    <Compile Include="RenameMoveTargets.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Puime_s_Addin.rsaddin">
@@ -171,6 +172,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BT_baseplate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Image1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\BT_rename.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

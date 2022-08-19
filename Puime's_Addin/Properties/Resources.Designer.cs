@@ -153,6 +153,16 @@ namespace PuimesAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BT_rename {
+            get {
+                object obj = ResourceManager.GetObject("BT_rename", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Grommet {
             get {
                 object obj = ResourceManager.GetObject("Grommet", resourceCulture);
