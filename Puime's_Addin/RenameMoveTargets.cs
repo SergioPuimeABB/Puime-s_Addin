@@ -55,10 +55,11 @@ namespace Puime_s_Addin
             #endregion CheckPathSelected
         }
 
+
         public static List<RsRobTarget> GetTargetsfromPath(RsPathProcedure pathProcedure)
         {
             List<RsRobTarget> listTarget = new List<RsRobTarget>();
-            
+
             if (pathProcedure != null)
             {
                 //Get RsTask object reference from pathProcedure.
@@ -85,7 +86,7 @@ namespace Puime_s_Addin
 
                             string name = robTarget.Name.ToString();
                             if (name.Trim().StartsWith("Target_"))
-                              {
+                            {
                                 listTarget.Add(robTarget);
                                 //listTarget.ToString();
                                 //Logger.AddMessage(new LogMessage(robTarget.Name.ToString(), "Puime's Add-in"));
@@ -97,6 +98,22 @@ namespace Puime_s_Addin
 
                 }
             }
+
+            int pointnumber = 1;
+
+            foreach (var item in listTarget)
+            {
+
+                Logger.AddMessage(new LogMessage("Before ->" + item.Name.ToString(), "Puime's Add-in"));
+                //item.Name = "p" + pointnumber.ToString();
+                item.Name = Station.ActiveStation.ActiveTask.GetValidRapidName("p", "", 10);
+                pointnumber++;
+                Logger.AddMessage(new LogMessage("After ->" + item.Name.ToString(), "Puime's Add-in"));
+                //Station.ActiveStation.ActiveTask.DataDeclarations.Add(item);
+                Logger.AddMessage(new LogMessage("After 00->" + item.Parent.ToString(), "Puime's Add-in")); 
+
+            }
+
             return listTarget;
 
         }
