@@ -58,8 +58,7 @@ namespace Puime_s_Addin
 
         public static List<RsRobTarget> GetTargetsfromPath(RsPathProcedure pathProcedure)
         {
-            List<RsRobTarget> listTarget = new List<RsRobTarget>();
-
+            List<RsRobTarget> listRsRobTarget = new List<RsRobTarget>();
             if (pathProcedure != null)
             {
                 //Get RsTask object reference from pathProcedure.
@@ -80,42 +79,34 @@ namespace Puime_s_Addin
 
                             //Get RsRobTarget from RsMoveInstruction. 
                             string strToPoint = moveInstruction.GetToPointArgument().Value;
-                            RsRobTarget robTarget =
+                            RsRobTarget rsrobTarget =
                                 task.FindDataDeclarationFromModuleScope(strToPoint, pathProcedure.ModuleName)
                                 as RsRobTarget;
 
-                            string name = robTarget.Name.ToString();
+                            string name = rsrobTarget.Name.ToString();
                             if (name.Trim().StartsWith("Target_"))
                             {
-                                listTarget.Add(robTarget);
+                                listRsRobTarget.Add(rsrobTarget);
                                 //listTarget.ToString();
                                 //Logger.AddMessage(new LogMessage(robTarget.Name.ToString(), "Puime's Add-in"));
                                 //Logger.AddMessage(new LogMessage(string.Join(", ",listTarget)));
                             }
                         }
                     }
-
-
                 }
             }
-
             int pointnumber = 1;
 
-            foreach (var item in listTarget)
+            foreach (var item in listRsRobTarget)
             {
-
                 Logger.AddMessage(new LogMessage("Before ->" + item.Name.ToString(), "Puime's Add-in"));
                 //item.Name = "p" + pointnumber.ToString();
                 item.Name = Station.ActiveStation.ActiveTask.GetValidRapidName("p", "", 10);
                 pointnumber++;
                 Logger.AddMessage(new LogMessage("After ->" + item.Name.ToString(), "Puime's Add-in"));
                 //Station.ActiveStation.ActiveTask.DataDeclarations.Add(item);
-                Logger.AddMessage(new LogMessage("After 00->" + item.Parent.ToString(), "Puime's Add-in")); 
-
             }
-
-            return listTarget;
-
+            return listRsRobTarget;
         }
     }
 }
