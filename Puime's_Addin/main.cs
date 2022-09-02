@@ -23,6 +23,7 @@ namespace Puime_s_Addin
         private static CommandBarButton btnCBP; // Create ABB Base plate
         private static CommandBarButton btnCM; // Create Markups
         private static CommandBarButton btnRT; // Rename Targets
+        private static CommandBarButton btnJP; // Join Parts
 
         public static void AddinMain()
         {
@@ -100,8 +101,12 @@ namespace Puime_s_Addin
             galleryPA.GalleryControls.Add(btnRT);
             btnRT.UpdateCommandUI += btnRT_UpdateCommandUI;
             btnRT.ExecuteCommand += btnRT_ExecuteCommand;
-            //ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
 
+            btnJP = new CommandBarButton("Join parts", "Join parts");
+            btnJP.Image = Resources.BT_joinparts;
+            galleryPA.GalleryControls.Add(btnJP);
+            btnJP.UpdateCommandUI += btnJP_UpdateCommandUI;
+            btnJP.ExecuteCommand += btnJP_ExecuteCommand;
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
@@ -185,8 +190,20 @@ namespace Puime_s_Addin
         }
         static void btnRT_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            //Create_Raiser.Create_ABB_Raiser();
             RenameMoveTargets.CheckPathSelected();
         }
+
+        private static void btnJP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        static void btnJP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            JoinParts.CheckPathSelected();
+        }
+
+
+
+
     }
 }
