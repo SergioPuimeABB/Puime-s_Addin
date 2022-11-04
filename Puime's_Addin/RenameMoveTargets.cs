@@ -5,6 +5,13 @@ using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
 
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// It doesn't works at all. If a Move to Target_xxx is duplicate at the Path (same target), it can't be changed.
+//
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 namespace Puime_s_Addin
@@ -59,9 +66,6 @@ namespace Puime_s_Addin
         // Sugested by Johannes Weiman in RobotStudio/Developers Team group https://teams.microsoft.com/l/message/19:fc87de66a8304ab7ad3bf639d12477a9@thread.skype/1662028694687?tenantId=372ee9e0-9ce0-4033-a64a-c07073a91ecd&groupId=77cfb933-c26c-4def-bb9f-893725a4f6b1&parentMessageId=1662028694687&teamName=RobotStudio&channelName=Developers&createdTime=1662028694687&allowXTenantAccess=false
         static IEnumerable<RsRobTarget> GetTargetsfromPath(RsPathProcedure pathProcedure)
         {
-
-            // No funciona bien del todo. Cabia el nombre a los RsRobTargets y los robTargets, pero si hay repetidos en el path ya no los renombra.
-
             if (pathProcedure?.Parent is RsTask task)
             {
                 foreach (var moveInstruction in pathProcedure.Instructions.OfType<RsMoveInstruction>())
@@ -102,20 +106,19 @@ namespace Puime_s_Addin
         //            for (int count = 0; count < pathProcedure.Instructions.Count; count++)
         //            {
         //                RsInstruction instruction = pathProcedure.Instructions[count];
-
+        //
         //                //Get RsInstruction from pathProcedure and check for the type of instruction.
         //                //If instruction type is RsMoveInstruction then execute the further steps.
         //                if (instruction.GetType() == typeof(RsMoveInstruction))
         //                {
         //                    // Convert RsInstruction object to RsMoveInstruction. 
         //                    RsMoveInstruction moveInstruction = instruction as RsMoveInstruction;
-
+        //
         //                    //Get RsRobTarget from RsMoveInstruction. 
         //                    string strToPoint = moveInstruction.GetToPointArgument().Value;
         //                    RsRobTarget rsrobTarget =
-        //                        task.FindDataDeclarationFromModuleScope(strToPoint, pathProcedure.ModuleName)
-        //                        as RsRobTarget;
-
+        //                        task.FindDataDeclarationFromModuleScope(strToPoint, pathProcedure.ModuleName) as RsRobTarget;
+        //
         //                    string name = rsrobTarget.Name.ToString();
         //                    if (name.Trim().StartsWith("Target_"))
         //                    {
