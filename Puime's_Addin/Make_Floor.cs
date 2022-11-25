@@ -219,7 +219,7 @@ namespace Puime_s_Addin
             Matrix4 matrix_origo = new Matrix4(position);
             Body b1 = Body.CreateSolidBox(matrix_origo, size);
             b1.Name = "Box";
-            b1.Color = Color.FromArgb(128, 128, 255);
+            b1.Color = Color.FromArgb(215, 215, 215);
             p.Bodies.Add(b1);
 
             // Define the floor size

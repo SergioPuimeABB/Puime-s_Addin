@@ -6,6 +6,7 @@ using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
+using PuimesAddin;
 using PuimesAddin.Properties;
 
 namespace Puime_s_Addin
@@ -24,10 +25,11 @@ namespace Puime_s_Addin
         private static CommandBarButton btnCM; // Create Markups
         private static CommandBarButton btnRT; // Rename Targets
         private static CommandBarButton btnJP; // Join Parts
+        private static CommandBarButton btnTC; // Text Creator
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2022/11/02 - 11:06", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2022/11/25 - 10:05", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -95,7 +97,6 @@ namespace Puime_s_Addin
             btnCM.ExecuteCommand += btnCM_ExecuteCommand;
             ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
 
-
             btnRT = new CommandBarButton("Rename targets", "Auto rename targets");
             btnRT.Image = Resources.BT_rename;
             galleryPA.GalleryControls.Add(btnRT);
@@ -107,6 +108,12 @@ namespace Puime_s_Addin
             galleryPA.GalleryControls.Add(btnJP);
             btnJP.UpdateCommandUI += btnJP_UpdateCommandUI;
             btnJP.ExecuteCommand += btnJP_ExecuteCommand;
+
+            btnTC = new CommandBarButton("Text creator", "Text creator");
+            btnTC.Image = Resources.BT_textcreator;
+            galleryPA.GalleryControls.Add(btnTC);
+            btnTC.UpdateCommandUI += btnTC_UpdateCommandUI;
+            btnTC.ExecuteCommand += btnTC_ExecuteCommand;
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
@@ -200,6 +207,17 @@ namespace Puime_s_Addin
         static void btnJP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
             JoinParts.CheckPathSelected();
+        }
+
+
+
+        private static void btnTC_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        static void btnTC_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            TextCreator.CreateText();
         }
 
 

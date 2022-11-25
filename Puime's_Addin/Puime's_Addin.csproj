@@ -101,6 +101,7 @@
     <Compile Include="Raiser_constructor.cs" />
     <Compile Include="JoinParts.cs" />
     <Compile Include="RenameMoveTargets.cs" />
+    <Compile Include="TextCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Puime_s_Addin.rsaddin">
@@ -185,6 +186,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BT_joinparts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\BT_textcreator.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
