@@ -29,7 +29,7 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2022/11/25 - 10:05", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2023/02/10 - 12:22", "Puime's Add-in"));
 
             if (rgPA == null)
             {
