@@ -13,13 +13,21 @@ namespace Puime_s_Addin
     class JoinParts
     {
 
-        public static void CheckPathSelected()
+        public static void JointBodies()
         {
-            #region CheckPathSelected
-            Project.UndoContext.BeginUndoStep("CheckPathSelected");
+            #region JointBodies
+            Project.UndoContext.BeginUndoStep("JointBodies"); 
             try
             {
-                // Get the selected Path. 
+                Station station = Station.ActiveStation;
+
+                //Create a new part.
+                Part p = new Part();
+                // poner el nombre válido automático
+                //robTarget.Name = toPointArg.Value = task.GetValidRapidName("p", "", 10);
+
+
+                // Get the selected Parts. 
                 #region SelectParts
                 //RsPathProcedure SelectedPath = Selection.SelectedObjects.SingleSelectedObject as RsPathProcedure;
 
@@ -43,7 +51,7 @@ namespace Puime_s_Addin
 
                 else
                 {
-                    MessageBox.Show("Please, select a Path.");
+                    MessageBox.Show("Please, select a Part.");
                 }
 
             }

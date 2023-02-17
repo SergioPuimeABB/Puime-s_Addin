@@ -206,7 +206,7 @@ namespace Puime_s_Addin
         }
         static void btnJP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            JoinParts.CheckPathSelected();
+            JoinParts.JointBodies();
         }
 
 
