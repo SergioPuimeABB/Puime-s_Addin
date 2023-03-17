@@ -21,8 +21,12 @@ namespace Puime_s_Addin
             {
                 Station station = Station.ActiveStation;
 
+                Part JoinedPart = new Part();
+                JoinedPart.Name = "JoinedPart";
+                station.GraphicComponents.Add(JoinedPart);
+
                 //Create a new part.
-                Part p = new Part();
+                //Part p = new Part();
                 // poner el nombre válido automático
                 //robTarget.Name = toPointArg.Value = task.GetValidRapidName("p", "", 10);
 
@@ -36,23 +40,34 @@ namespace Puime_s_Addin
                 foreach (var item in Selection.SelectedObjects)
                 {
                     Part SelectedPart = item as Part;
-                    Logger.AddMessage(new LogMessage(SelectedPart.ToString() + " Selected -foreach", "Puime's Add-in"));
+                 //   Logger.AddMessage(new LogMessage(SelectedPart.ToString() + " Selected -foreach", "Puime's Add-in"));
                     listParts.Add(SelectedPart);
                 }
-                #endregion SelectParts
-                
+
+
                 if (listParts.Count > 0)
                 {
+                    foreach (var item in listParts)
+                    {
+                        
+                        List<Body> listBodies = new List<Body>();
 
-                    Logger.AddMessage(new LogMessage(listParts.Count.ToString() + " Selected - listParts", "Puime's Add-in"));
-                    //GetBodiesfromPart(SelectedParts);
-                    //return;
+                        foreach (var bodiesList in item.Bodies.AsParallel()) //// No funciona, ver que hace "AsParallel" - Tiene que listar los bodies
+                        {
+                            listBodies.Add(bodiesList);
+                        }
+                    }
                 }
 
                 else
                 {
                     MessageBox.Show("Please, select a Part.");
                 }
+
+
+                #endregion SelectParts
+
+
 
             }
             catch
@@ -71,9 +86,25 @@ namespace Puime_s_Addin
         public static void GetBodiesfromPart(Part partselected)
         {
             //List<RsRobTarget> listRsRobTarget = new List<RsRobTarget>();
+            
+
             if (partselected != null)
             {
                 Logger.AddMessage(new LogMessage("GetBodiesFromPart", "Puime's Add-in"));
+                
+                //Body selectedbody = partselected as Body;
+
+                List<Body> listBodies = new List<Body>();
+
+               
+
+
+
+                foreach (var body in listBodies)
+                {
+
+                }
+
 
                 ////Get RsTask object reference from pathProcedure.
                 //RsTask task = pathProcedure.Parent as RsTask;
@@ -121,7 +152,7 @@ namespace Puime_s_Addin
                 //    //Station.ActiveStation.ActiveTask.DataDeclarations.Add(item);
                 //}
                 //return null;
-     
+
             }
         }
 
