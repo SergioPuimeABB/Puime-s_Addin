@@ -175,9 +175,9 @@ namespace Puime_s_Addin
                             Station station = Project.ActiveProject as Station;
 
                             // Import the BasePlateTypeA library                                                                                                             
-                            GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Raisers\\BasePlate\\BasePlateTypeA.rslib", true, null, false);
+                            GraphicComponentLibrary RaiserBasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Raisers\\BasePlate\\BasePlateTypeA.rslib", true, null, false);
 
-                            Part myPart1 = BasePlateTypeALib.RootComponent.CopyInstance() as Part;
+                            Part myPart1 = RaiserBasePlateTypeALib.RootComponent.CopyInstance() as Part;
                             myPart1.Name = "BasePlateTypeA";
                             myPart1.DisconnectFromLibrary();
 
@@ -186,7 +186,7 @@ namespace Puime_s_Addin
                             myPart3.Name = "Body";
                             station.GraphicComponents.Add(myPart3);
                             // Create a Cylinder.
-                            Vector3 vect_position = new Vector3(0, 0, 0.030); //Creates the cylinder in the 0,0,30 to transfor the position later.
+                            Vector3 vect_position = new Vector3(0, 0, 0.030); //Creates the cylinder in the 0,0,30 to transform the position later.
                             Vector3 vect_orientation = new Vector3(0, 0, 0);
                             Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
                             Body b1 = Body.CreateSolidCylinder(matrix_origo, 0.33, height / 1000-0.088);

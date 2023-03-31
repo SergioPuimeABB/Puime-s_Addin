@@ -161,19 +161,19 @@ namespace Puime_s_Addin
                         switch (height)
                         {
                             case 60:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type A - 60.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA-60.rslib", true, null, false);
                                 break;
                             case 70:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type A - 70.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA-70.rslib", true, null, false);
                                 break;
                             case 80:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type A - 80.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA-80.rslib", true, null, false);
                                 break;
                             case 90:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type A - 90.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA-90.rslib", true, null, false);
                                 break;
                             case 100:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type A - 100.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA-100.rslib", true, null, false);
                                 break;
                             default:
                                 break;
@@ -245,7 +245,7 @@ namespace Puime_s_Addin
                         Station station = Project.ActiveProject as Station;
 
                         // Import the BasePlateTypeA library                                                                                                             
-                        GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type B - 50.rslib", true, null, false);
+                        GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeB-50.rslib", true, null, false);
 
                         Part myPart1 = BasePlateTypeALib.RootComponent.CopyInstance() as Part;
                         myPart1.Name = "BasePlateTypeA";
@@ -318,19 +318,19 @@ namespace Puime_s_Addin
                         switch (height)
                         {
                             case 60:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type C - 60.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC-60.rslib", true, null, false);
                                 break;
                             case 70:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type C - 70.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC-70.rslib", true, null, false);
                                 break;
                             case 80:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type C - 80.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC-80.rslib", true, null, false);
                                 break;
                             case 90:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type C - 90.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC-90.rslib", true, null, false);
                                 break;
                             case 100:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\Base Plates\\Base Plate Type C - 100.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC-100.rslib", true, null, false);
                                 break;
                             default:
                                 break;
