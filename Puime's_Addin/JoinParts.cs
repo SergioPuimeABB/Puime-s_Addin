@@ -13,7 +13,6 @@ namespace Puime_s_Addin
 {
     class JoinParts
     {
-
         public static void JointBodies()
         {
             Project.UndoContext.BeginUndoStep("JointBodies"); 
@@ -21,11 +20,8 @@ namespace Puime_s_Addin
             {
                 Station station = Station.ActiveStation;
 
-                //Vars to store the objects position and orientation
-                //double PosX, PosY, PosZ, DegX, DegY, DegZ;
-
-
-
+                //Vars to store the objects position
+                double PosX, PosY, PosZ;
 
                 // Get the selected Parts. 
                 #region SelectParts
@@ -41,7 +37,6 @@ namespace Puime_s_Addin
                         }
                 }
 
-
                 if (listParts.Count > 0)
                 {
                     List<Body> listBodies = new List<Body>();
@@ -51,26 +46,18 @@ namespace Puime_s_Addin
                             { 
                                 Body MyBodie = item_bodies as Body;
                                 if (MyBodie != null)
-
                                 {
-                                //Body MyresBodie = MyBodie as Body;
-                                //MyBodie.MoveToPart(JoinedPart);
-                                //item.Bodies.Remove(MyBodie);
-                                //listBodies.Add(MyBodie);
-                                //listBodies.Add((Body)MyBodie);
-                                //listBodies.Insert(0, MyBodie);
-                                
-                                Logger.AddMessage(new LogMessage("Transform: X: " + MyBodie.Transform.X.ToString() +
-                                                    " Y: " + MyBodie.Transform.Y.ToString() +
-                                                    " Z: " + MyBodie.Transform.Z.ToString() +
-                                                    " || Rx: " + MyBodie.Transform.RX.ToString() +
-                                                    " Ry: " + MyBodie.Transform.RY.ToString() +
-                                                    " Rz: " + MyBodie.Transform.RZ.ToString()));
-                                listBodies.Add(MyBodie);
-                            }
-                            }
+                                PosX = MyBodie.Transform.X;
+                                PosY = MyBodie.Transform.Y;
+                                PosZ = MyBodie.Transform.Z;
 
-                            //station.GraphicComponents.Remove(item);
+                                MyBodie.Transform.X = item.Transform.X + PosX;
+                                MyBodie.Transform.Y = item.Transform.Y + PosY;
+                                MyBodie.Transform.Z = item.Transform.Z + PosZ;
+
+                                listBodies.Add(MyBodie);
+                                }
+                            }
                     }
 
                     ////Resultant part with all the parts bodies
@@ -81,7 +68,7 @@ namespace Puime_s_Addin
                     ////Transfert all the Bodies to the part JoinedPart
                     foreach (var item in listBodies)
                     {
-                        JoinedPart.Bodies.Add(item);
+                       JoinedPart.Bodies.Add(item);
                     }
 
                     ////Delete the selected Parts
