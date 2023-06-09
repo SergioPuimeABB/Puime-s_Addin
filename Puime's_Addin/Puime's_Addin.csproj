@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Array.cs" />
     <Compile Include="BasePlate_constructor.cs" />
     <Compile Include="Create_BasePlate.cs" />
     <Compile Include="frmAutoMarkUpBuilder.cs">
@@ -180,9 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BT_rename.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\BT_joinTarget.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BT_joinparts.png" />

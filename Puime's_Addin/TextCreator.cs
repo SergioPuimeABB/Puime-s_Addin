@@ -7,6 +7,85 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+//
+//
+//Sample from the help.
+//file:///C:/Program%20Files%20(x86)/ABB/SDK/RobotStudio%202022%20SDK/Help/api/ABB.Robotics.RobotStudio.Stations.Body.html
+//file:///C:/Program%20Files%20(x86)/ABB/SDK/RobotStudio%202022%20SDK/Help/api/ABB.Robotics.RobotStudio.Stations.Body.html#ABB_Robotics_RobotStudio_Stations_Body_CreateBorderAroundFace_ABB_Robotics_RobotStudio_Stations_Face_
+//
+//
+//Project.UndoContext.BeginUndoStep("BodyAdvancedCurves");
+//try
+//{
+//    Station station = Station.ActiveStation;
+
+//    // Create a part to contain the bodies.
+//    #region BodyAdvancedCurvesStep1
+//    Part p = new Part();
+//    p.Name = "My_Advanced_Curves";
+//    station.GraphicComponents.Add(p);
+//    #endregion
+
+//    // Create border around face.
+//    // First create a box.
+//    #region BodyAdvancedCurvesStep2
+//    Matrix4 origin = new Matrix4(new Vector3(Axis.X), 0.0);
+//    Vector3 size = new Vector3(0.5, 0.5, 0.5);
+//    Body box = Body.CreateSolidBox(origin, size);
+//    box.Name = "Box";
+//    p.Bodies.Add(box);
+//    #endregion
+
+//    // Then create the border curve.
+//    #region BodyAdvancedCurvesStep3
+//    Body b1 = Body.CreateBorderAroundFace(box.Shells[0].Faces[0]);
+//    b1.Name = "Face Border";
+//    p.Bodies.Add(b1);
+//    #endregion
+
+//    // Create border from points.
+//    // Create an array of points of the box.
+//    #region BodyAdvancedCurvesStep4
+//    Vector3 p1 = new Vector3(0.0, 0.0, 0.0);
+//    Vector3 p2 = new Vector3(0.5, 0.0, 0.0);
+//    Vector3 p3 = new Vector3(0.5, 0.5, 0.0);
+//    Vector3 p4 = new Vector3(0.5, 0.5, 0.5);
+//    Vector3[] points = new Vector3[4] { p1, p2, p3, p4 };
+//    #endregion
+//    #region BodyAdvancedCurvesStep5
+//    Body b2 = Body.CreateBorderFromPoints(box, points);
+//    b2.Name = "Border from Points";
+//    p.Bodies.Add(b2);
+//    #endregion
+
+//    // Create Intersection Curve.
+//    // Create a SolidSphere.
+//    #region BodyAdvancedCurvesStep6
+//    Body sphere = Body.CreateSolidSphere(new Vector3(0.25, 0.25, 0.25), 0.3);
+//    p.Bodies.Add(sphere);
+//    #endregion
+//    #region BodyAdvancedCurvesStep7
+//    Body intersectionCurve = Body.CreateIntersectionCurve(box, sphere);
+//    p.Bodies.Add(intersectionCurve);
+//    #endregion
+
+//    // Create the same curve using the non static intersection curve method.
+//    Body intersectionCurve2 = box.CreateIntersectionCurve(sphere);
+//    p.Bodies.Add(intersectionCurve2);
+//}
+//catch
+//{
+//    Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+//    throw;
+//}
+//finally
+//{
+//    Project.UndoContext.EndUndoStep();
+//}
+
+
+
 namespace PuimesAddin
 {
     internal class TextCreator
