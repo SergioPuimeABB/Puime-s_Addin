@@ -26,10 +26,11 @@ namespace Puime_s_Addin
         private static CommandBarButton btnRT; // Rename Targets
         private static CommandBarButton btnJP; // Join Parts
         private static CommandBarButton btnTC; // Text Creator
+        private static CommandBarButton btnMP; // Auto move parameters
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2023/06/09 - 12:51", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2023/06/16 - 13:51", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -115,6 +116,12 @@ namespace Puime_s_Addin
             btnTC.UpdateCommandUI += btnTC_UpdateCommandUI;
             btnTC.ExecuteCommand += btnTC_ExecuteCommand;
 
+            btnMP = new CommandBarButton("Auto move parameters", "Auto move parameters");
+            btnMP.Image = Resources.BT_move;
+            galleryPA.GalleryControls.Add(btnMP);
+            btnMP.UpdateCommandUI += btnMP_UpdateCommandUI;
+            btnMP.ExecuteCommand += btnMP_ExecuteCommand;
+
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
 
@@ -174,8 +181,6 @@ namespace Puime_s_Addin
             e.Enabled = Project.ActiveProject is Station;
         }
 
-        
-
         static void btnCBP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
             Create_BasePlate.Create_ABB_BasePlate();
@@ -209,8 +214,6 @@ namespace Puime_s_Addin
             JoinParts.JointBodies();
         }
 
-
-
         private static void btnTC_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
         {
             e.Enabled = Project.ActiveProject is Station;
@@ -220,7 +223,15 @@ namespace Puime_s_Addin
             TextCreator.CreateText();
         }
 
-
+        private static void btnMP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        static void btnMP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            frmAutoMoveParam frm1 = new frmAutoMoveParam();
+            frm1.Show();
+        }
 
 
     }

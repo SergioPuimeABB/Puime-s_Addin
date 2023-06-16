@@ -80,10 +80,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Array.cs" />
+    <Compile Include="AutoMoveParam.cs" />
     <Compile Include="BasePlate_constructor.cs" />
     <Compile Include="Create_BasePlate.cs" />
     <Compile Include="frmAutoMarkUpBuilder.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="frmAutoMoveParam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAutoMoveParam.Designer.cs">
+      <DependentUpon>frmAutoMoveParam.cs</DependentUpon>
     </Compile>
     <Compile Include="frmCreateBoxBuilder.cs">
       <SubType>UserControl</SubType>
@@ -110,6 +117,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmAutoMoveParam.resx">
+      <DependentUpon>frmAutoMoveParam.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -187,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\BT_textcreator.png" />
+    <None Include="Resources\move.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
