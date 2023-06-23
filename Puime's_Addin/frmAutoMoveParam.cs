@@ -79,7 +79,7 @@ namespace PuimesAddin
                     if (SelectedMove != null)
                     {
                         SelectedMove.Name = "MoveL";
-                        SelectedMove.Color = Color.YellowGreen;
+                        SelectedMove.Color = Color.Green;
                         SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "z200";
                     }
@@ -117,7 +117,7 @@ namespace PuimesAddin
                     if (SelectedMove != null)
                     {
                         SelectedMove.Name = "MoveJ";
-                        SelectedMove.Color = Color.LightYellow;
+                        SelectedMove.Color = Color.Brown;
                         SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "z10";
                     }
@@ -155,7 +155,7 @@ namespace PuimesAddin
                     if (SelectedMove != null)
                     {
                         SelectedMove.Name = "MoveL";
-                        SelectedMove.Color = Color.LightGoldenrodYellow;
+                        SelectedMove.Color = Color.White;
                         SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "z10";
                     }
@@ -193,7 +193,7 @@ namespace PuimesAddin
                     if (SelectedMove != null)
                     {
                         SelectedMove.Name = "MoveJ";
-                        SelectedMove.Color = Color.AliceBlue;
+                        SelectedMove.Color = Color.Orange;
                         SelectedMove.InstructionArguments.ElementAt(3).Value = "v200";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "fine";
                     }
