@@ -44,6 +44,7 @@ namespace PuimesAddin
                         SelectedMove.Color = Color.Yellow;
                         SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "z200";
+
                     }
                     else
                     {
