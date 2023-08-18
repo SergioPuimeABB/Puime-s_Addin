@@ -35,9 +35,32 @@ namespace PuimesAddin
                 // Get the selected Move instructions
                 #region SelectMoveInstructions
 
+                //foreach (var item in Selection.SelectedObjects)
+                //{
+                //    RsMoveInstruction SelectedMove = item as RsMoveInstruction;
+                //    if (SelectedMove != null)
+                //    {
+                //        SelectedMove.Name = "MoveJ";
+                //        SelectedMove.Color = Color.Yellow;
+                //        SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
+                //        SelectedMove.InstructionArguments.ElementAt(6).Value = "z200";
+
+                //    }
+                //    else
+                //    {
+                //        MessageBox.Show("Please, select a Move instruction.");
+                //    }
+                //}
+
                 foreach (var item in Selection.SelectedObjects)
                 {
-                    RsMoveInstruction SelectedMove = item as RsMoveInstruction;
+                    RsInstruction SelectedMove = item as RsInstruction;
+                    RsInstructionTemplate MyMoveTemplate = new RsInstructionTemplate();    
+                    MyMoveTemplate.
+                    
+                    SelectedMove.SetInstructionTemplate(MyMoveTemplate);
+
+
                     if (SelectedMove != null)
                     {
                         SelectedMove.Name = "MoveJ";
