@@ -54,16 +54,17 @@ namespace PuimesAddin
 
                 foreach (var item in Selection.SelectedObjects)
                 {
-                    RsInstruction SelectedMove = item as RsInstruction;
-                    RsInstructionTemplate MyMoveTemplate = new RsInstructionTemplate();    
-                    MyMoveTemplate.
-                    
-                    SelectedMove.SetInstructionTemplate(MyMoveTemplate);
+                    RsMoveInstruction SelectedMove = (RsMoveInstruction)((item is RsMoveInstruction) ? item : null);
+                    //RsInstructionTemplate MyMoveTemplate = new RsInstructionTemplate();    
+                    //MyMoveTemplate.
+
+                    //SelectedMove.SetInstructionTemplate(MyMoveTemplate);
 
 
                     if (SelectedMove != null)
                     {
-                        SelectedMove.Name = "MoveJ";
+                        //SelectedMove.Name = "MoveJ";
+                        ((ProjectObject)(object)item).Name = "MoveJ";
                         SelectedMove.Color = Color.Yellow;
                         SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "z200";
