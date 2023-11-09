@@ -30,7 +30,7 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2023/08/25 - 14:04", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's Addin Loaded ... 2023/11/09 - 11:56", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -77,7 +77,7 @@ namespace Puime_s_Addin
             galleryPA.GalleryControls.Add(btnCB);
             btnCB.UpdateCommandUI += btnCB_UpdateCommandUI;
             btnCB.ExecuteCommand += btnCB_ExecuteCommand;
-            ToolControlManager.RegisterToolCommand("ABBBox", ToolControlManager.FindToolHost("ElementBrowser"));
+            //ToolControlManager.RegisterToolCommand("ABBBox", ToolControlManager.FindToolHost("ElementBrowser"));
 
             btnCR = new CommandBarButton("ABB Raiser", "ABB Raiser creator");
             btnCR.Image = Resources.BT_raiser;
@@ -96,7 +96,7 @@ namespace Puime_s_Addin
             galleryPA.GalleryControls.Add(btnCM);
             btnCM.UpdateCommandUI += btnCM_UpdateCommandUI;
             btnCM.ExecuteCommand += btnCM_ExecuteCommand;
-            ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
+            //ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
 
             btnRT = new CommandBarButton("Rename targets", "Auto rename targets");
             btnRT.Image = Resources.BT_rename;
