@@ -6,7 +6,7 @@
 
   <ApplicationId>com.abb.es.PuimesAddin</ApplicationId>
   <DisplayName>Puime's Addin</DisplayName>
-  <DisplayVersion>3.0 beta</DisplayVersion>
+  <DisplayVersion>3.0</DisplayVersion>
   
   <AddInType>General</AddInType>
 
