@@ -30,7 +30,7 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v3 loaded ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 23/11/2023 - 12:55 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -110,17 +110,17 @@ namespace Puime_s_Addin
             btnJP.UpdateCommandUI += btnJP_UpdateCommandUI;
             btnJP.ExecuteCommand += btnJP_ExecuteCommand;
 
-            //btnTC = new CommandBarButton("Text creator", "Text creator");
-            //btnTC.Image = Resources.BT_textcreator;
-            //galleryPA.GalleryControls.Add(btnTC);
-            //btnTC.UpdateCommandUI += btnTC_UpdateCommandUI;
-            //btnTC.ExecuteCommand += btnTC_ExecuteCommand;
+            btnTC = new CommandBarButton("Text creator", "Text creator");
+            btnTC.Image = Resources.BT_textcreator;
+            galleryPA.GalleryControls.Add(btnTC);
+            btnTC.UpdateCommandUI += btnTC_UpdateCommandUI;
+            btnTC.ExecuteCommand += btnTC_ExecuteCommand;
 
-            //btnMP = new CommandBarButton("Auto move parameters", "Auto move parameters");
-            //btnMP.Image = Resources.BT_move;
-            //galleryPA.GalleryControls.Add(btnMP);
-            //btnMP.UpdateCommandUI += btnMP_UpdateCommandUI;
-            //btnMP.ExecuteCommand += btnMP_ExecuteCommand;
+            btnMP = new CommandBarButton("Auto move parameters", "Auto move parameters");
+            btnMP.Image = Resources.BT_move;
+            galleryPA.GalleryControls.Add(btnMP);
+            btnMP.UpdateCommandUI += btnMP_UpdateCommandUI;
+            btnMP.ExecuteCommand += btnMP_ExecuteCommand;
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
