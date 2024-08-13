@@ -147,7 +147,7 @@ namespace Puime_s_Addin
                             bool rai = item.DisplayName == "ABB_Raiser_" + name + "_h" + height;
                             if (rai)
                             {
-                                MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("ABB_Raiser_" + name + "_h" + height + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 allreadyexists = true;
                             }
                         }
@@ -220,7 +220,7 @@ namespace Puime_s_Addin
                             break;
                         }
 
-                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + " created.", "Puime's Add-in"));
+                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + "_h" + height + " created.", "Puime's Add-in"));
                         break;
                     #endregion TypeA
 
@@ -237,7 +237,7 @@ namespace Puime_s_Addin
                             bool rai = item.DisplayName == "ABB_Raiser_" + name + "_h" + height;
                             if (rai)
                             {
-                                MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("ABB_Raiser_" + name + "_h" + height + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 allreadyexistsb = true;
                             }
                         }
@@ -308,7 +308,7 @@ namespace Puime_s_Addin
                             break;
                         }
 
-                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + " created.", "Puime's Add-in"));
+                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + "_h" + height + " created.", "Puime's Add-in"));
                         break;
                     #endregion Type B
 
@@ -325,7 +325,7 @@ namespace Puime_s_Addin
                             bool rai = item.DisplayName == "ABB_Raiser_" + name + "_h" + height;
                             if (rai)
                             {
-                                MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("ABB_Raiser_" + name + "_h" + height + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                 allreadyexistsc = true;
                             }
                         }
@@ -428,7 +428,7 @@ namespace Puime_s_Addin
                             break;
                         }
 
-                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + " created.", "Puime's Add-in"));
+                        Logger.AddMessage(new LogMessage("ABB_Raiser_" + name + "_h" + height + " created.", "Puime's Add-in"));
                         break;
                     #endregion Type C
 

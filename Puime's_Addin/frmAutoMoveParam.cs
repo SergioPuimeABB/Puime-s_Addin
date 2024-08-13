@@ -35,31 +35,9 @@ namespace PuimesAddin
                 // Get the selected Move instructions
                 #region SelectMoveInstructions
 
-                //foreach (var item in Selection.SelectedObjects)
-                //{
-                //    RsMoveInstruction SelectedMove = item as RsMoveInstruction;
-                //    if (SelectedMove != null)
-                //    {
-                //        SelectedMove.Name = "MoveJ";
-                //        SelectedMove.Color = Color.Yellow;
-                //        SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
-                //        SelectedMove.InstructionArguments.ElementAt(6).Value = "z200";
-
-                //    }
-                //    else
-                //    {
-                //        MessageBox.Show("Please, select a Move instruction.");
-                //    }
-                //}
-
                 foreach (var item in Selection.SelectedObjects)
                 {
                     RsMoveInstruction SelectedMove = (RsMoveInstruction)((item is RsMoveInstruction) ? item : null);
-                    //RsInstructionTemplate MyMoveTemplate = new RsInstructionTemplate();    
-                    //MyMoveTemplate.
-
-                    //SelectedMove.SetInstructionTemplate(MyMoveTemplate);
-
 
                     if (SelectedMove != null)
                     {
@@ -219,7 +197,7 @@ namespace PuimesAddin
                     {
                         SelectedMove.Name = "MoveJ";
                         SelectedMove.Color = Color.Orange;
-                        SelectedMove.InstructionArguments.ElementAt(3).Value = "v200";
+                        SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "fine";
                     }
                     else
@@ -257,6 +235,82 @@ namespace PuimesAddin
                     if (SelectedMove != null)
                     {
                         SelectedMove.Name = "MoveL";
+                        SelectedMove.Color = Color.Magenta;
+                        SelectedMove.InstructionArguments.ElementAt(3).Value = "vmax";
+                        SelectedMove.InstructionArguments.ElementAt(6).Value = "fine";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please, select a Move instruction.");
+                    }
+                }
+
+                #endregion SelectMoveInstructions
+            }
+
+            catch
+            {
+                Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+                throw;
+            }
+            finally
+            {
+                Project.UndoContext.EndUndoStep();
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Project.UndoContext.BeginUndoStep("Auto move parameters");
+            try
+            {
+                // Get the selected Move instructions
+                #region SelectMoveInstructions
+
+                foreach (var item in Selection.SelectedObjects)
+                {
+                    RsMoveInstruction SelectedMove = item as RsMoveInstruction;
+                    if (SelectedMove != null)
+                    {
+                        SelectedMove.Name = "MoveJ";
+                        SelectedMove.Color = Color.Lime;
+                        SelectedMove.InstructionArguments.ElementAt(3).Value = "v200";
+                        SelectedMove.InstructionArguments.ElementAt(6).Value = "fine";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please, select a Move instruction.");
+                    }
+                }
+
+                #endregion SelectMoveInstructions
+            }
+
+            catch
+            {
+                Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+                throw;
+            }
+            finally
+            {
+                Project.UndoContext.EndUndoStep();
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Project.UndoContext.BeginUndoStep("Auto move parameters");
+            try
+            {
+                // Get the selected Move instructions
+                #region SelectMoveInstructions
+
+                foreach (var item in Selection.SelectedObjects)
+                {
+                    RsMoveInstruction SelectedMove = item as RsMoveInstruction;
+                    if (SelectedMove != null)
+                    {
+                        SelectedMove.Name = "MoveL";
                         SelectedMove.Color = Color.Blue;
                         SelectedMove.InstructionArguments.ElementAt(3).Value = "v200";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "fine";
@@ -281,7 +335,8 @@ namespace PuimesAddin
             }
         }
 
-        private void button7_Click(object sender, EventArgs e)
+
+        private void button9_Click(object sender, EventArgs e)
         {
             Project.UndoContext.BeginUndoStep("Auto move parameters");
             try
@@ -319,7 +374,7 @@ namespace PuimesAddin
             }
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void button10_Click(object sender, EventArgs e)
         {
             Project.UndoContext.BeginUndoStep("Auto move parameters");
             try
@@ -333,7 +388,7 @@ namespace PuimesAddin
                     if (SelectedMove != null)
                     {
                         SelectedMove.Name = "MoveL";
-                        SelectedMove.Color = Color.SkyBlue;
+                        SelectedMove.Color = Color.Crimson;
                         SelectedMove.InstructionArguments.ElementAt(3).Value = "v200";
                         SelectedMove.InstructionArguments.ElementAt(6).Value = "z10";
                     }
