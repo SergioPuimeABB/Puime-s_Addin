@@ -144,7 +144,7 @@ namespace Puime_s_Addin
 
                         foreach (GraphicComponent item in stn2.GraphicComponents)
                         {
-                            bool rai = item.DisplayName == "ABB_Raiser_" + name;
+                            bool rai = item.DisplayName == "ABB_Raiser_" + name + "_h" + height;
                             if (rai)
                             {
                                 MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -201,7 +201,7 @@ namespace Puime_s_Addin
                             myPart2.Transform.Z = height/1000 - 0.058;
 
                             GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
-                            myGCGroup.Name = "ABB_Raiser_" + name;
+                            myGCGroup.Name = "ABB_Raiser_" + name + "_h" + height;
                             station.GraphicComponents.Add(myGCGroup);
                             myGCGroup.GraphicComponents.Add(myPart1);
                             myGCGroup.GraphicComponents.Add(myPart2);
@@ -234,7 +234,7 @@ namespace Puime_s_Addin
 
                         foreach (GraphicComponent item in stn2b.GraphicComponents)
                         {
-                            bool rai = item.DisplayName == "ABB_Raiser_" + name;
+                            bool rai = item.DisplayName == "ABB_Raiser_" + name + "_h" + height;
                             if (rai)
                             {
                                 MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -289,7 +289,7 @@ namespace Puime_s_Addin
                             myPart2.Transform.Z = height / 1000 - 0.060;
 
                             GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
-                            myGCGroup.Name = "ABB_Raiser_" + name;
+                            myGCGroup.Name = "ABB_Raiser_" + name + "_h" + height;
                             station.GraphicComponents.Add(myGCGroup);
                             myGCGroup.GraphicComponents.Add(myPart1);
                             myGCGroup.GraphicComponents.Add(myPart2);
@@ -322,7 +322,7 @@ namespace Puime_s_Addin
 
                         foreach (GraphicComponent item in stn2c.GraphicComponents)
                         {
-                            bool rai = item.DisplayName == "ABB_Raiser_" + name;
+                            bool rai = item.DisplayName == "ABB_Raiser_" + name + "_h" + height;
                             if (rai)
                             {
                                 MessageBox.Show("Raiser " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Raiser", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -409,7 +409,7 @@ namespace Puime_s_Addin
                             myPart2.Transform.Z = height / 1000 - 0.060;
 
                             GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
-                            myGCGroup.Name = "ABB_Raiser_" + name;
+                            myGCGroup.Name = "ABB_Raiser_" + name + "_h" + height;
                             station.GraphicComponents.Add(myGCGroup);
                             myGCGroup.GraphicComponents.Add(PartType);
                             myGCGroup.GraphicComponents.Add(myPart2);
