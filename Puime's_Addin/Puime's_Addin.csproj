@@ -85,6 +85,7 @@
     <Compile Include="Array.cs" />
     <Compile Include="AutoMoveParam.cs" />
     <Compile Include="BasePlate_constructor.cs" />
+    <Compile Include="Camera_Zoom.cs" />
     <Compile Include="Create_BasePlate.cs" />
     <Compile Include="frmAutoMarkUpBuilder.cs">
       <SubType>UserControl</SubType>
@@ -199,6 +200,7 @@
     <None Include="Resources\BT_joinparts.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\BT_camera.png" />
     <Content Include="Resources\BT_textcreator.png" />
     <None Include="Resources\move.png" />
   </ItemGroup>

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-
+using ABB.Robotics.Controllers.RapidDomain;
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
@@ -113,6 +113,10 @@ namespace Puime_s_Addin
 
         public static void Raiser(string name, string type, double xpos, double ypos, double orientation, double height)
         {
+
+            // Eliminate the height decimals
+            //int height = (int)heightd;
+
             switch (height)
             {
                 case 60:
@@ -165,9 +169,11 @@ namespace Puime_s_Addin
                             break;
                         }
 
+                        // Eliminate the height decimals
+                        int heightInt = (int)height;
 
                         // checks if the height is in the allowed range
-                        var a = height == 300 || height == 400 || height == 500 || height == 600 || height == 700 || height == 800 || height == 900 || height == 1000
+                        var a = height == 300 || height == 400 || height == 500 || height == 600 || heightInt == 700 || height == 800 || height == 900 || height == 1000
                              || height == 1100 || height == 1200 || height == 1300 || height == 1400 || height == 1500 || height == 1600;
 
                         if (a) // if heght is in the allowed range, creates the raiser 
@@ -255,8 +261,11 @@ namespace Puime_s_Addin
                             break;
                         }
 
+                        // Eliminate the height decimals
+                        heightInt = (int)height;
+
                         // checks if the height is in the allowed range
-                        var b = height == 300 || height == 400 || height == 500 || height == 600 || height == 700 || height == 800 || height == 900 || height == 1000
+                        var b = height == 300 || height == 400 || height == 500 || height == 600 || heightInt == 700 || height == 800 || height == 900 || height == 1000
                              || height == 1100 || height == 1200 || height == 1300 || height == 1400 || height == 1500 || height == 1600;
 
                         if (b) // if heght is in the allowed range, creates the raiser
@@ -343,9 +352,11 @@ namespace Puime_s_Addin
                             break;
                         }
 
+                        // Eliminate the height decimals
+                        heightInt = (int)height;
 
                         // checks if the height is in the allowed range
-                        var c = height == 300 || height == 400 || height == 500 || height == 600 || height == 700 || height == 800 || height == 900 || height == 1000
+                        var c = height == 300 || height == 400 || height == 500 || height == 600 || heightInt == 700 || height == 800 || height == 900 || height == 1000
                              || height == 1100 || height == 1200 || height == 1300 || height == 1400 || height == 1500 || height == 1600 || height == 1700 || height == 1800
                              || height == 1900 || height == 2000;
 

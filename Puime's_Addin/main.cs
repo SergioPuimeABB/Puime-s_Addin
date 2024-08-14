@@ -27,10 +27,11 @@ namespace Puime_s_Addin
         private static CommandBarButton btnJP; // Join Parts
         private static CommandBarButton btnTC; // Text Creator
         private static CommandBarButton btnMP; // Auto move parameters
+        private static CommandBarButton btnCZ; // Camera zoom
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 13/08/2024 - 12:01 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 14/08/2024 - 12:08 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -121,6 +122,12 @@ namespace Puime_s_Addin
             galleryPA.GalleryControls.Add(btnMP);
             btnMP.UpdateCommandUI += btnMP_UpdateCommandUI;
             btnMP.ExecuteCommand += btnMP_ExecuteCommand;
+
+            btnCZ = new CommandBarButton("Camera zoom", "Camera zoom");
+            btnCZ.Image = Resources.BT_camera;
+            galleryPA.GalleryControls.Add(btnCZ);
+            btnCZ.UpdateCommandUI += btnCZ_UpdateCommandUI;
+            btnCZ.ExecuteCommand += btnCZ_ExecuteCommand;
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
@@ -231,6 +238,15 @@ namespace Puime_s_Addin
         {
             frmAutoMoveParam frm1 = new frmAutoMoveParam();
             frm1.Show();
+        }
+
+        private static void btnCZ_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        static void btnCZ_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            Camera_Zoom.Create_Zoom();
         }
 
 

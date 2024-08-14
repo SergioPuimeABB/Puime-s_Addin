@@ -59,7 +59,7 @@ namespace Puime_s_Addin
         {
             if (_firstClick | positionControlPos.Focused)
             {
-                Logger.AddMessage(new LogMessage("PickTargets"));
+                Logger.AddMessage(new LogMessage("Pick targets", "Puime's Addin - Auto markup creator"));
                 GraphicPicker.GraphicPick += new GraphicPickEventHandler(GraphicPicker_GraphicPick);
             }
         }
@@ -71,7 +71,7 @@ namespace Puime_s_Addin
 
         private void GraphicPicker_GraphicPick(object sender, GraphicPickEventArgs e)
         {
-            Logger.AddMessage(new LogMessage("GraphicPicker_GraphicPick ."));
+            //Logger.AddMessage(new LogMessage("GraphicPicker_GraphicPick ."));
 
             CreateMarkUp(e.PickedPosition);
             _firstClick = false;
