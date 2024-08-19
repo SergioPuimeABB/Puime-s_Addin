@@ -1,6 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
+﻿using System.Drawing;
 
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
@@ -31,7 +29,7 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 14/08/2024 - 12:08 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 19/08/2024 - 12:08 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -123,7 +121,7 @@ namespace Puime_s_Addin
             btnMP.UpdateCommandUI += btnMP_UpdateCommandUI;
             btnMP.ExecuteCommand += btnMP_ExecuteCommand;
 
-            btnCZ = new CommandBarButton("Camera zoom", "Camera zoom");
+            btnCZ = new CommandBarButton("Zoom view", "Zoom view");
             btnCZ.Image = Resources.BT_camera;
             galleryPA.GalleryControls.Add(btnCZ);
             btnCZ.UpdateCommandUI += btnCZ_UpdateCommandUI;
@@ -246,7 +244,9 @@ namespace Puime_s_Addin
         }
         static void btnCZ_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            Camera_Zoom.Create_Zoom();
+            //Camera_Zoom.Create_Zoom();
+            frmZoom frm1 = new frmZoom();
+            frm1.Show();
         }
 
 

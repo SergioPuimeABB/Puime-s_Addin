@@ -85,7 +85,6 @@
     <Compile Include="Array.cs" />
     <Compile Include="AutoMoveParam.cs" />
     <Compile Include="BasePlate_constructor.cs" />
-    <Compile Include="Camera_Zoom.cs" />
     <Compile Include="Create_BasePlate.cs" />
     <Compile Include="frmAutoMarkUpBuilder.cs">
       <SubType>UserControl</SubType>
@@ -98,6 +97,12 @@
     </Compile>
     <Compile Include="frmCreateBoxBuilder.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="frmZoom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmZoom.Designer.cs">
+      <DependentUpon>frmZoom.cs</DependentUpon>
     </Compile>
     <Compile Include="Hide_CS.cs" />
     <Compile Include="Copy_Position.cs" />
@@ -123,6 +128,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmAutoMoveParam.resx">
       <DependentUpon>frmAutoMoveParam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmZoom.resx">
+      <DependentUpon>frmZoom.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -200,6 +208,10 @@
     <None Include="Resources\BT_joinparts.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\more.png" />
+    <None Include="Resources\less.png" />
+    <None Include="Resources\menos.png" />
+    <None Include="Resources\mas.png" />
     <None Include="Resources\BT_camera.png" />
     <Content Include="Resources\BT_textcreator.png" />
     <None Include="Resources\move.png" />
