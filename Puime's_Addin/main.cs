@@ -26,6 +26,7 @@ namespace Puime_s_Addin
         private static CommandBarButton btnTC; // Text Creator
         private static CommandBarButton btnMP; // Auto move parameters
         private static CommandBarButton btnCZ; // Camera zoom
+        private static CommandBarButton btnCD; // CAD Export
 
         public static void AddinMain()
         {
@@ -126,6 +127,12 @@ namespace Puime_s_Addin
             galleryPA.GalleryControls.Add(btnCZ);
             btnCZ.UpdateCommandUI += btnCZ_UpdateCommandUI;
             btnCZ.ExecuteCommand += btnCZ_ExecuteCommand;
+
+            btnCD = new CommandBarButton("CAD Export", "CAD Export");
+            btnCD.Image = Resources.BT_cadexport;
+            galleryPA.GalleryControls.Add(btnCD);
+            btnCD.UpdateCommandUI += btnCD_UpdateCommandUI;
+            btnCD.ExecuteCommand += btnCD_ExecuteCommand;
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
@@ -249,6 +256,14 @@ namespace Puime_s_Addin
             frm1.Show();
         }
 
+        private static void btnCD_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        static void btnCD_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            CADExport.ExportCAD();
+        }
 
     }
 }

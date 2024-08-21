@@ -85,6 +85,7 @@
     <Compile Include="Array.cs" />
     <Compile Include="AutoMoveParam.cs" />
     <Compile Include="BasePlate_constructor.cs" />
+    <Compile Include="CADExport.cs" />
     <Compile Include="Create_BasePlate.cs" />
     <Compile Include="frmAutoMarkUpBuilder.cs">
       <SubType>UserControl</SubType>
@@ -213,6 +214,7 @@
     <None Include="Resources\menos.png" />
     <None Include="Resources\mas.png" />
     <None Include="Resources\BT_camera.png" />
+    <None Include="Resources\BT_cadexport.png" />
     <Content Include="Resources\BT_textcreator.png" />
     <None Include="Resources\move.png" />
   </ItemGroup>
