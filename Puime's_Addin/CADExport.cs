@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ABB.Robotics.Math;
+using RobotStudio.API.Internal;
 
 namespace PuimesAddin
 {
     internal class CADExport
     {
-        public static void ExportCAD()
+        public static void ExportCADmain()
         {
 
             // look at the SDK Help - Class GraphicConverter
@@ -27,8 +28,19 @@ namespace PuimesAddin
 
                 Logger.AddMessage(new LogMessage("Station :" + stn.ToString(), "Puime's Add-in"));
                
+                //GraphicConverter converter = new GraphicConverter();
+                DxfDwgConverter converter = new DxfDwgConverter();
+                converter.GetExportExtensions(stn);
+
+
+
+
 
                 
+                //converter.Export(stn);
+
+                //ExportCAD(stn, converter);
+                //RobotStudioAPI.Internal.ExportCAD(stn, converter);
             }
 
             catch

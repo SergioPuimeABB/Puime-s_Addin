@@ -262,7 +262,7 @@ namespace Puime_s_Addin
         }
         static void btnCD_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            CADExport.ExportCAD();
+            CADExport.ExportCADmain();
         }
 
     }
