@@ -108,7 +108,7 @@ namespace PuimesAddin
                 p.Name = "Letter";
                 station.GraphicComponents.Add(p);
 
-                string text = "A";
+                string text = "F";
 
                 //Bitmap bmp = new Bitmap(400, 400);
                 //GraphicsPath gp = new GraphicsPath();
@@ -204,7 +204,7 @@ namespace PuimesAddin
                                     Vector3 vEnd2 = new Vector3(points[0].X / 1000, points[0].Y / 1000, 0.0);
 
                                     Body b1b = Body.CreateLine(vStart2, vEnd2);
-                                    b1b.Name = ("Line" + i.ToString());
+                                    b1b.Name = ("Line" + i.ToString() + " 129 First Jump");
                                     b1b.Color = Color.Red;
                                     p.Bodies.Add(b1b);
                                     
@@ -214,7 +214,7 @@ namespace PuimesAddin
                                     {
                                         Vector3 vStart2 = new Vector3(points[i].X / 1000, points[i].Y / 1000, 0.0);
                                         Body b1c = Body.CreateLine(vStart2, vTempStart);
-                                        b1c.Name = ("Line" + i.ToString());
+                                        b1c.Name = ("Line" + i.ToString() + " 129 NO First Jump");
                                         b1c.Color = Color.Red;
                                         p.Bodies.Add(b1c);
                                     }
@@ -229,7 +229,7 @@ namespace PuimesAddin
                                         Vector3 vEnd = new Vector3(points[i].X / 1000, points[i].Y / 1000, 0.0);
 
                                         Body b1 = Body.CreateLine(vStart, vEnd);
-                                        b1.Name = ("Line" + i.ToString());
+                                        b1.Name = ("Line" + i.ToString() + " End");
                                         b1.Color = Color.Red;
                                         p.Bodies.Add(b1);
 
@@ -237,7 +237,7 @@ namespace PuimesAddin
                                         Vector3 vEnd2 = new Vector3(points[0].X / 1000, points[0].Y / 1000, 0.0);
 
                                         Body b1b = Body.CreateLine(vStart2, vEnd2);
-                                        b1b.Name = ("Line Close");
+                                        b1b.Name = ("Line" + i.ToString() + "Line Close");
                                         b1b.Color = Color.Red;
                                         p.Bodies.Add(b1b);
                                     }
@@ -246,8 +246,8 @@ namespace PuimesAddin
                                         Vector3 vStart = new Vector3(points[i - 1].X / 1000, points[i - 1].Y / 1000, 0.0);
                                         Vector3 vEnd = new Vector3(points[i].X / 1000, points[i].Y / 1000, 0.0);
 
-                                        Body b1 = Body.CreateLine(vStart, vTempStart);
-                                        b1.Name = ("Line" + i.ToString());
+                                        Body b1 = Body.CreateLine(vStart, vEnd);
+                                        b1.Name = ("Line" + i.ToString() + " End with Jump");
                                         b1.Color = Color.Red;
                                         p.Bodies.Add(b1);
 
@@ -255,7 +255,7 @@ namespace PuimesAddin
                                         //Vector3 vEnd2 = new Vector3(points[0].X / 1000, points[0].Y / 1000, 0.0);
 
                                         Body b1b = Body.CreateLine(vStart2, vTempStart);
-                                        b1b.Name = ("Line Close with Jump");
+                                        b1b.Name = ("Line" + i.ToString() + "Line Close with Jump");
                                         b1b.Color = Color.Red;
                                         p.Bodies.Add(b1b);
                                     }

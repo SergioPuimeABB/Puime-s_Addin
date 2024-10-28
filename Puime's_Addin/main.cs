@@ -232,7 +232,8 @@ namespace Puime_s_Addin
         }
         static void btnTC_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            TextCreator.CreateText();
+            //TextCreator.CreateText();
+            ToolControlManager.ShowTool(typeof(frmCreateTextBuilder), e.Id);
         }
 
         private static void btnMP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
