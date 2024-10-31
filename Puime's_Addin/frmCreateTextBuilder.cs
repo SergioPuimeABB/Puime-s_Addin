@@ -16,6 +16,7 @@ namespace Puime_s_Addin
     {
         private ComboBox comboBox1;
         private TextBox textBox1;
+        private TextBox textBox2;
 
         public frmCreateTextBuilder()
         {
@@ -55,11 +56,11 @@ namespace Puime_s_Addin
         }
 
 
-        private void btn_create_clicked(object sender, EventArgs e)
+        private void Btn_create_clicked(object sender, EventArgs e)
         {
         }
 
-        private void btn_close_clicked(object sender, EventArgs e)
+        private void Btn_close_clicked(object sender, EventArgs e)
         {
             CloseTool();
         }
@@ -74,9 +75,31 @@ namespace Puime_s_Addin
                 return;
             }
 
-
+            //Font DaFont = comboBox1.SelectedItem as Font;
             string selectedFontName = comboBox1.SelectedItem.ToString();
+
+            Font DaFont = new Font(selectedFontName, Convert.ToUInt32(textBox2.Text));
             string text = textBox1.Text;
+
+            // Create a bitmap to measure the text
+            using (Bitmap bitmap = new Bitmap(1, 1))
+            using (Graphics graphics = Graphics.FromImage(bitmap))
+            {
+                // Measure the string
+                SizeF size = graphics.MeasureString(text, DaFont);
+
+                // Get the advance width and left side bearing
+                float advanceWidth = size.Width;
+                float leftSideBearing = graphics.MeasureString(" "+text, DaFont).Width - advanceWidth;
+
+                Logger.AddMessage(new LogMessage(""));
+                Logger.AddMessage(new LogMessage($"AdvanceWith: {advanceWidth}", "Puime's Add-in"));
+                Logger.AddMessage(new LogMessage($"leftSideBearing: {leftSideBearing}", "Puime's Add-in"));
+                Logger.AddMessage(new LogMessage(""));
+
+            }
+
+            FontMetrics fm = g.GetFontMetrics(font);
 
 
             Project.UndoContext.BeginUndoStep("CreateText");
@@ -85,14 +108,13 @@ namespace Puime_s_Addin
                 Station station = Station.ActiveStation;
 
 
-                Part p = new Part();
-                p.Name = "Text";
+                Part p = new Part() { Name = "Text" };
                 station.GraphicComponents.Add(p);
 
                 //string text = "F";
 
                 //using (Font f = new Font("Tahoma", 40f))
-                using (Font f = new Font(selectedFontName, 12))
+                using (Font f = new Font(selectedFontName, Convert.ToUInt32(textBox2.Text)))
 
                 {
                     foreach (char c in text)
@@ -102,6 +124,10 @@ namespace Puime_s_Addin
                             path.AddString(c.ToString(), f.FontFamily, (int)f.Style, f.Size, new PointF(0, 0), StringFormat.GenericDefault);
                             PointF[] points = path.PathPoints;
                             byte[] types = path.PathTypes;
+
+                            Logger.AddMessage(new LogMessage("--"));
+                            Logger.AddMessage(new LogMessage($"Character: {path.GetBounds().Size}", "Puime's Add-in"));
+                            Logger.AddMessage(new LogMessage("--"));
 
                             bool bFirstJump = true;
 
@@ -122,6 +148,8 @@ namespace Puime_s_Addin
                                     //detailsListBox.Items.Add("");
 
 
+
+
                                     Logger.AddMessage(new LogMessage($"Character: {c}", "Puime's Add-in"));
                                     Logger.AddMessage(new LogMessage($"Size: {charSize.Width} x {charSize.Height}"));
                                     Logger.AddMessage(new LogMessage($"Glyph Points: {string.Join(", ", points)}"));
@@ -129,12 +157,11 @@ namespace Puime_s_Addin
                                     Logger.AddMessage(new LogMessage(""));
 
 
-
-
+                                    
                                 }
                             }
 
-
+                            
 
                             Logger.AddMessage(new LogMessage("Character:" + c.ToString(), "Puime's Add-in"));
                             for (int i = 0; i < points.Length; i++)
@@ -152,7 +179,7 @@ namespace Puime_s_Addin
                                 if (types[i] == 1) // Line
                                 {
                                     Vector3 vStart = new Vector3(points[i - 1].X / 1000, points[i - 1].Y / 1000, 0.0);
-                                    Vector3 vEnd = new Vector3(points[i].X / 1000, points[i].Y / 1000, 0.0);
+                                    Vector3 vEnd = new Vector3(points[i].X / 1000, points[i].Y / 1001, 0.0);
 
                                     Body b1 = Body.CreateLine(vStart, vEnd);
                                     b1.Name = "Line" + i.ToString();
@@ -258,11 +285,10 @@ namespace Puime_s_Addin
                                         b1b.Color = Color.Red;
                                         p.Bodies.Add(b1b);
                                     }
-
-
-
                                 }
                             }
+
+                            
                         }
                     }
                 }
@@ -285,27 +311,38 @@ namespace Puime_s_Addin
         private void InitializeComponent()
         {
 
-            comboBox1 = new ComboBox();
+            //comboBox1 = new ComboBox();
 
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
 
             SuspendLayout();
             // 
-            // comboBox1
+            // comboBox1 - Font selection
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(49, 63);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 0;
+            this.comboBox1.SelectedText = "Arial";
             // 
-            // textBox1
+            // textBox1 - Text to Create
             // 
             this.textBox1.Location = new System.Drawing.Point(49, 126);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 1;
+            this.textBox1.Focus();
+            // 
+            // textBox2 - Text size
+            // 
+            this.textBox2.Location = new System.Drawing.Point(49, 156);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 1;
+            this.textBox2.Text = "12";
 
             AutoScroll = true;
             base.AdjustableHeight = true;
@@ -313,8 +350,9 @@ namespace Puime_s_Addin
             base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             base.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             base.Caption = "Text Creator";
-            base.Controls.Add(comboBox1);
             base.Controls.Add(textBox1);
+            base.Controls.Add(comboBox1);
+            base.Controls.Add(textBox2);
             base.Name = "frmCreateTextBuilder";
             base.Size = new System.Drawing.Size(242, 340);
             ResumeLayout(false);
