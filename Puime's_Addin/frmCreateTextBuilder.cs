@@ -99,7 +99,7 @@ namespace Puime_s_Addin
 
             }
 
-            FontMetrics fm = g.GetFontMetrics(font);
+            FontMetrics fm = g.GetFontMetrics(selectedFontName);
 
 
             Project.UndoContext.BeginUndoStep("CreateText");
