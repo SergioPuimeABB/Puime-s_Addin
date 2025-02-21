@@ -86,6 +86,7 @@
     <Compile Include="AutoMoveParam.cs" />
     <Compile Include="BasePlate_constructor.cs" />
     <Compile Include="CADExport.cs" />
+    <Compile Include="Create_AluminiumProfile.cs" />
     <Compile Include="Create_BasePlate.cs" />
     <Compile Include="frmCreateTextBuilder.cs">
       <SubType>UserControl</SubType>

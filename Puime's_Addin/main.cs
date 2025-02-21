@@ -27,6 +27,7 @@ namespace Puime_s_Addin
         private static CommandBarButton btnMP; // Auto move parameters
         private static CommandBarButton btnCZ; // Camera zoom
         private static CommandBarButton btnCD; // CAD Export
+        private static CommandBarButton btnAP; // Create Aluminium Profile
 
         public static void AddinMain()
         {
@@ -133,6 +134,12 @@ namespace Puime_s_Addin
             galleryPA.GalleryControls.Add(btnCD);
             btnCD.UpdateCommandUI += btnCD_UpdateCommandUI;
             btnCD.ExecuteCommand += btnCD_ExecuteCommand;
+
+            btnAP = new CommandBarButton("Aluminum Profile", "Aluminum Profile creator");
+            //btnAP.Image = Resources.BT_cadexport;
+            galleryPA.GalleryControls.Add(btnAP);
+            btnAP.UpdateCommandUI += btnAP_UpdateCommandUI;
+            btnAP.ExecuteCommand += btnAP_ExecuteCommand;
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
@@ -266,5 +273,13 @@ namespace Puime_s_Addin
             CADExport.ExportCADmain();
         }
 
+        private static void btnAP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        static void btnAP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            Create_AluminiumProfile.CreateAluminiumProfile();
+        }
     }
 }
