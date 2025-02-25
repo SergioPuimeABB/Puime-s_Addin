@@ -8,6 +8,7 @@ using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
 using static System.Collections.Specialized.BitVector32;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace PuimesAddin
@@ -33,20 +34,40 @@ namespace PuimesAddin
                 Part myPart = ProfileLib.RootComponent.CopyInstance() as Part;
                 myPart.Name = "20Profile";
                 myPart.DisconnectFromLibrary();
-                //stn.GraphicComponents.Add(myPart);
+                stn.GraphicComponents.Add(myPart);
+                
+                Part myPart2 = new Part();
+                myPart2.Name = "20ProfileCopy";
+                stn.GraphicComponents.Add(myPart2);
 
                 ABB.Robotics.RobotStudio.Stations.Body b = myPart.Bodies.First();
 
-                Wire w = b.Shells[0].Wires[0];
+                myPart2.Bodies.Add(b);
+
+                Face f = b.Shells[0].Faces[0]; 
+
+                //Wire[] w = new Wire[1] { b.Shells[0].Wires[0] };
+
+                //ABB.Robotics.RobotStudio.Stations.Body [] wireunion = ABB.Robotics.RobotStudio.Stations.Body.JoinCurves(w);
+
+                //foreach (ABB.Robotics.RobotStudio.Stations.Body b1 in wireunion)
+                //{
+                //    b1.Name = "Semicircle from cirle and line";
+                //    myPart2.Bodies.Add(b1);
+                //}
+
+                //myPart2.Bodies.Add(wireunion);
 
                 Vector3 vec = new Vector3(0,0,1000);
 
-                ABB.Robotics.RobotStudio.Stations.Body[] bds = ABB.Robotics.RobotStudio.Stations.Body.Extrude(w, vec, null, null);
-                foreach (ABB.Robotics.RobotStudio.Stations.Body bd in bds)
-                {
-                    //bd.Name = "Face extruded along wire";
-                    myPart.Bodies.Add(bd);
-                }
+                
+
+                ABB.Robotics.RobotStudio.Stations.Body[] bds = ABB.Robotics.RobotStudio.Stations.Body.Extrude(f, vec, null, null);
+                //foreach (ABB.Robotics.RobotStudio.Stations.Body bd in bds)
+                //{
+                //    //bd.Name = "Face extruded along wire";
+                //    myPart.Bodies.Add(bd);
+                //}
 
 
 
