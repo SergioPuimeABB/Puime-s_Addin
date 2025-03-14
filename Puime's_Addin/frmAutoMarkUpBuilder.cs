@@ -313,7 +313,7 @@ namespace Puime_s_Addin
             positionControlPos.ReadOnly = false;
             positionControlPos.RefCoordSys = null;
             positionControlPos.ShowLabel = true;
-            positionControlPos.Size = new Size(tw_width, 34);
+            positionControlPos.Size = new Size(tw_width, 34);            
             positionControlPos.TabIndex = 1;
             positionControlPos.Text = "positionControl1";
             positionControlPos.VerticalLayout = false;
@@ -445,7 +445,7 @@ namespace Puime_s_Addin
             buttonCreate.TabIndex = 9;
             buttonCreate.Click += new EventHandler(btn_create_clicked);
 
-            buttonClose.Location = new Point(tw_width - 50, 300);
+            buttonClose.Location = new Point(tw_width - 50, 300);            
             buttonClose.Size = new Size(53, 25);
             buttonClose.Text = "Close";
             buttonClose.FlatStyle = FlatStyle.Flat;

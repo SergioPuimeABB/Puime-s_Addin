@@ -88,6 +88,12 @@
     <Compile Include="CADExport.cs" />
     <Compile Include="Create_AluminiumProfile.cs" />
     <Compile Include="Create_BasePlate.cs" />
+    <Compile Include="frmCreateAluminiumProfile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="frmCreateAluminiumProfile.Designer.cs">
+      <DependentUpon>frmCreateAluminiumProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCreateTextBuilder.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -133,6 +139,9 @@
   <ItemGroup>
     <EmbeddedResource Include="frmAutoMoveParam.resx">
       <DependentUpon>frmAutoMoveParam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCreateAluminiumProfile.resx">
+      <DependentUpon>frmCreateAluminiumProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmZoom.resx">
       <DependentUpon>frmZoom.cs</DependentUpon>

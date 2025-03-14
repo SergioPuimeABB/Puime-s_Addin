@@ -12,6 +12,7 @@ using static System.Collections.Specialized.BitVector32;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace PuimesAddin
 {
@@ -103,7 +104,17 @@ namespace PuimesAddin
                             b12.Name = "Body2";
                             part2.Bodies.Add(b12);
                         }
+
                     }
+
+
+                    Body[] b3 = b11.Join(b12, false);
+                    foreach (Body b11 in b3)
+                    {
+                        b11.Name = "Body1";
+                        part2.Bodies.Add(b11);
+                    }
+
 
                     stn.GraphicComponents.Remove(part);
                     stn.GraphicComponents.Add(part2);
