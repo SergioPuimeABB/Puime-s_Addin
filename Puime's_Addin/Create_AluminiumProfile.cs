@@ -13,6 +13,7 @@ using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 //using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace PuimesAddin
 {
@@ -60,18 +61,17 @@ namespace PuimesAddin
 
                 SweepOptions sweepOptions = new SweepOptions();
                 sweepOptions.MakeSolid = true;
-                Body[] array = null;
-                Part part = new Part();
-                //part.Name = "tmpPart";//"20Profile";
+                //Body[] array = null;
+                Part part = new Part(); //First step
+                Part part2 = new Part(); //Scond step
+                Part part3 = new Part(); //Final step
+                part3.Name = "20Profile";
 
-                Part part2 = new Part();
-                part2.Name = "20Profile";
-
-                array = Body.Extrude(MyWire2, projection, alongWire, sweepOptions);
-                if (array.Length != 0)
+                Body[] bodyarray = Body.Extrude(MyWire2, projection, alongWire, sweepOptions);
+                if (bodyarray.Length != 0)
                 {
-                    Body[] array2 = array;
-                    foreach (Body bbody in array2)
+                    //Fist step
+                    foreach (Body bbody in bodyarray)
                     {
                         bbody.Name = "Body1";
                         part.Bodies.Add(bbody);
@@ -91,6 +91,7 @@ namespace PuimesAddin
                         bbodycopy4.Transform.RZ = Globals.DegToRad(270);
                         part.Bodies.Add(bbodycopy4);
 
+                        //Scond step
                         Body[] b1 = bbody.Join(bbodycopy2, false);
                         foreach (Body b11 in b1)
                         {
@@ -105,37 +106,22 @@ namespace PuimesAddin
                             part2.Bodies.Add(b12);
                         }
 
+                        //Final step
+                        Body[] b7 = b1[0].Join(b2[0], false);
+                        foreach (Body b in b7)
+                        {
+                            b.Name = "Body2";
+                            b.Color = Color.FromArgb(224, 224, 224);
+                            part3.Bodies.Add(b);
+                        }
+
                     }
-
-
-                    Body[] b3 = b11.Join(b12, false);
-                    foreach (Body b11 in b3)
-                    {
-                        b11.Name = "Body1";
-                        part2.Bodies.Add(b11);
-                    }
-
 
                     stn.GraphicComponents.Remove(part);
-                    stn.GraphicComponents.Add(part2);
+                    stn.GraphicComponents.Remove(part2);
+                    stn.GraphicComponents.Add(part3);
                     return;
                 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

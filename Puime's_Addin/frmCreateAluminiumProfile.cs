@@ -21,8 +21,6 @@ namespace PuimesAddin
         private Button buttonCreate;
         private Button buttonClose;
         private NumericTextBox numericTextBoxLength;
-        private NumericTextBox numericTextBoxWidth;
-        private NumericTextBox numericTextBoxHeight;
         private TemporaryGraphic previewBox;
 
         public frmCreateAluminiumProfile()
@@ -81,15 +79,13 @@ namespace PuimesAddin
             this.buttonCreate = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.numericTextBoxLength = new ABB.Robotics.RobotStudio.Stations.Forms.NumericTextBox();
-            this.numericTextBoxWidth = new ABB.Robotics.RobotStudio.Stations.Forms.NumericTextBox();
-            this.numericTextBoxHeight = new ABB.Robotics.RobotStudio.Stations.Forms.NumericTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxModel)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBoxCreateBox
+            // pictureBoxModel
             // 
             this.pictureBoxModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxModel.Image = global::PuimesAddin.Properties.Resources.BT_box_65;
+            this.pictureBoxModel.Image = global::PuimesAddin.Properties.Resources.Alum Prof_65;
             this.pictureBoxModel.Location = new System.Drawing.Point(8, 8);
             this.pictureBoxModel.Name = "pictureBoxModel";
             this.pictureBoxModel.Size = new System.Drawing.Size(65, 65);
@@ -214,50 +210,6 @@ namespace PuimesAddin
             this.numericTextBoxLength.UserEdited = false;
             this.numericTextBoxLength.Value = 0D;
             // 
-            // numericTextBoxWidth
-            // 
-            this.numericTextBoxWidth.AccessibleName = "Width (mm)";
-            this.numericTextBoxWidth.ErrorProviderControl = null;
-            this.numericTextBoxWidth.ExpressionErrorString = "Bad Expression";
-            this.numericTextBoxWidth.LabelText = "Width (mm)";
-            this.numericTextBoxWidth.Location = new System.Drawing.Point(8, 205);
-            this.numericTextBoxWidth.MaxValue = 1000000000D;
-            this.numericTextBoxWidth.MaxValueErrorString = "Value exceeds maximum";
-            this.numericTextBoxWidth.MinValue = -1000000000D;
-            this.numericTextBoxWidth.MinValueErrorString = "Value is below minimum";
-            this.numericTextBoxWidth.Name = "numericTextBoxWidth";
-            this.numericTextBoxWidth.Quantity = ABB.Robotics.RobotStudio.BuiltinQuantity.None;
-            this.numericTextBoxWidth.ReadOnly = false;
-            this.numericTextBoxWidth.ShowLabel = true;
-            this.numericTextBoxWidth.Size = new System.Drawing.Size(200, 34);
-            this.numericTextBoxWidth.StepSize = 1D;
-            this.numericTextBoxWidth.TabIndex = 4;
-            this.numericTextBoxWidth.Text = "numericTextBox2";
-            this.numericTextBoxWidth.UserEdited = false;
-            this.numericTextBoxWidth.Value = 0D;
-            // 
-            // numericTextBoxHeight
-            // 
-            this.numericTextBoxHeight.AccessibleName = "Height (mm)";
-            this.numericTextBoxHeight.ErrorProviderControl = null;
-            this.numericTextBoxHeight.ExpressionErrorString = "Bad Expression";
-            this.numericTextBoxHeight.LabelText = "Height (mm)";
-            this.numericTextBoxHeight.Location = new System.Drawing.Point(8, 245);
-            this.numericTextBoxHeight.MaxValue = 1000000000D;
-            this.numericTextBoxHeight.MaxValueErrorString = "Value exceeds maximum";
-            this.numericTextBoxHeight.MinValue = -1000000000D;
-            this.numericTextBoxHeight.MinValueErrorString = "Value is below minimum";
-            this.numericTextBoxHeight.Name = "numericTextBoxHeight";
-            this.numericTextBoxHeight.Quantity = ABB.Robotics.RobotStudio.BuiltinQuantity.None;
-            this.numericTextBoxHeight.ReadOnly = false;
-            this.numericTextBoxHeight.ShowLabel = true;
-            this.numericTextBoxHeight.Size = new System.Drawing.Size(200, 34);
-            this.numericTextBoxHeight.StepSize = 1D;
-            this.numericTextBoxHeight.TabIndex = 5;
-            this.numericTextBoxHeight.Text = "numericTextBox3";
-            this.numericTextBoxHeight.UserEdited = false;
-            this.numericTextBoxHeight.Value = 0D;
-            // 
             // frmCreateAluminiumProfile
             // 
             this.AdjustableHeight = true;
@@ -275,8 +227,6 @@ namespace PuimesAddin
             this.Controls.Add(this.buttonCreate);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.numericTextBoxLength);
-            this.Controls.Add(this.numericTextBoxWidth);
-            this.Controls.Add(this.numericTextBoxHeight);
             this.Name = "frmCreateAluminiumProfile";
             this.Size = new System.Drawing.Size(228, 339);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxModel)).EndInit();
@@ -291,28 +241,28 @@ namespace PuimesAddin
             switch (comboBoxReference.SelectedItem)
             {
                 case "20 x 20":
-                    pictureBoxModel.Image = Resources.BT_box_65;
+                    pictureBoxModel.Image = Resources.Alum Prof_65;
                     break;
                 case "30 x 30":
-                    pictureBoxModel.Image = Resources.BT_box_65;
+                    pictureBoxModel.Image = Resources.Alum Prof_65;
                     break;
                 case "40 x 40":
-                    pictureBoxModel.Image = Resources.BT_box_65;
+                    pictureBoxModel.Image = Resources.Alum Prof_65;
                     break;
                 case "50 x 50":
-                    pictureBoxModel.Image = Resources.BT_box_65;
+                    pictureBoxModel.Image = Resources.Alum Prof_65;
                     break;
                 case "60 x 60":
-                    pictureBoxModel.Image = Resources.BT_box_65;
+                    pictureBoxModel.Image = Resources.Alum Prof_65;
                     break;
                 case "80 x 80":
-                    pictureBoxModel.Image = Resources.BT_box_65;
+                    pictureBoxModel.Image = Resources.Alum Prof_65;
                     break;
                 case "90 x 90":
-                    pictureBoxModel.Image = Resources.BT_box_65;
+                    pictureBoxModel.Image = Resources.Alum Prof_65;
                     break;
                 case "100 x 100":
-                    pictureBoxModel.Image = Resources.BT_box_65;
+                    pictureBoxModel.Image = Resources.Alum Prof_65;
                     break;
                 default:
                     break;
