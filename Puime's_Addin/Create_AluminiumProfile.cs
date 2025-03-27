@@ -30,7 +30,7 @@ namespace PuimesAddin
                 if (stn == null) return;
 
 
-                // Import the Profile librery
+                // Import the Profile library
                 //TODO: Realizar cases según medida seleccioanda en el menú
                 GraphicComponentLibrary ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
 
@@ -63,7 +63,7 @@ namespace PuimesAddin
                 sweepOptions.MakeSolid = true;
                 //Body[] array = null;
                 Part part = new Part(); //First step
-                Part part2 = new Part(); //Scond step
+                Part part2 = new Part(); //Second step
                 Part part3 = new Part(); //Final step
                 part3.Name = "20Profile";
 
@@ -91,7 +91,7 @@ namespace PuimesAddin
                         bbodycopy4.Transform.RZ = Globals.DegToRad(270);
                         part.Bodies.Add(bbodycopy4);
 
-                        //Scond step
+                        //Second step
                         Body[] b1 = bbody.Join(bbodycopy2, false);
                         foreach (Body b11 in b1)
                         {
@@ -102,7 +102,7 @@ namespace PuimesAddin
                         Body[] b2 = bbodycopy3.Join(bbodycopy4, false);
                         foreach (Body b12 in b2)
                         {
-                            b12.Name = "Body2";
+                            b12.Name = "Body";
                             part2.Bodies.Add(b12);
                         }
 
@@ -110,7 +110,7 @@ namespace PuimesAddin
                         Body[] b7 = b1[0].Join(b2[0], false);
                         foreach (Body b in b7)
                         {
-                            b.Name = "Body2";
+                            b.Name = "Body";
                             b.Color = Color.FromArgb(224, 224, 224);
                             part3.Bodies.Add(b);
                         }

@@ -229,13 +229,13 @@
     <None Include="Resources\BT_camera.png" />
     <None Include="Resources\BT_cadexport.png" />
     <None Include="Resources\Alum_Prof_20_65.png" />
+    <None Include="Resources\Alum_Prof_100_65.png" />
     <None Include="Resources\Alum_Prof_30_65.png" />
     <None Include="Resources\Alum_Prof_40_65.png" />
     <None Include="Resources\Alum_Prof_50_65.png" />
     <None Include="Resources\Alum_Prof_60_65.png" />
     <None Include="Resources\Alum_Prof_80_65.png" />
     <None Include="Resources\Alum_Prof_90_65.png" />
-    <None Include="Resources\Alum_Prof_100_65.png" />
     <Content Include="Resources\BT_textcreator.png" />
     <None Include="Resources\move.png" />
   </ItemGroup>
