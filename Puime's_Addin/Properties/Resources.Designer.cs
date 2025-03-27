@@ -63,9 +63,79 @@ namespace PuimesAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Alum_Prof_65 {
+        internal static System.Drawing.Bitmap Alum_Prof_100_65 {
             get {
-                object obj = ResourceManager.GetObject("Alum_Prof_65", resourceCulture);
+                object obj = ResourceManager.GetObject("Alum_Prof_100_65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Alum_Prof_20_65 {
+            get {
+                object obj = ResourceManager.GetObject("Alum_Prof_20_65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Alum_Prof_30_65 {
+            get {
+                object obj = ResourceManager.GetObject("Alum_Prof_30_65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Alum_Prof_40_65 {
+            get {
+                object obj = ResourceManager.GetObject("Alum_Prof_40_65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Alum_Prof_50_65 {
+            get {
+                object obj = ResourceManager.GetObject("Alum_Prof_50_65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Alum_Prof_60_65 {
+            get {
+                object obj = ResourceManager.GetObject("Alum_Prof_60_65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Alum_Prof_80_65 {
+            get {
+                object obj = ResourceManager.GetObject("Alum_Prof_80_65", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Alum_Prof_90_65 {
+            get {
+                object obj = ResourceManager.GetObject("Alum_Prof_90_65", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,7 +173,7 @@ namespace PuimesAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Alum Prof_65 {
+        internal static System.Drawing.Bitmap BT_box_65 {
             get {
                 object obj = ResourceManager.GetObject("BT_box_65", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

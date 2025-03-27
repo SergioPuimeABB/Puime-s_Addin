@@ -85,7 +85,7 @@ namespace PuimesAddin
             // pictureBoxModel
             // 
             this.pictureBoxModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxModel.Image = global::PuimesAddin.Properties.Resources.Alum Prof_65;
+            this.pictureBoxModel.Image = global::PuimesAddin.Properties.Resources.Alum_Prof_20_65;
             this.pictureBoxModel.Location = new System.Drawing.Point(8, 8);
             this.pictureBoxModel.Name = "pictureBoxModel";
             this.pictureBoxModel.Size = new System.Drawing.Size(65, 65);
@@ -109,11 +109,13 @@ namespace PuimesAddin
             "50 x 50",
             "60 x 60",
             "80 x 80",
-            "90 x 90"});
+            "90 x 90",
+            "100 x 100"});
             this.comboBoxReference.Location = new System.Drawing.Point(80, 52);
             this.comboBoxReference.Name = "comboBoxReference";
             this.comboBoxReference.Size = new System.Drawing.Size(133, 21);
             this.comboBoxReference.TabIndex = 0;
+            this.comboBoxReference.SelectedIndex = 0;
             this.comboBoxReference.SelectedIndexChanged += new System.EventHandler(this.comboBoxReference_SelectedIndexChanged);
             // 
             // positionControlPC
@@ -241,28 +243,28 @@ namespace PuimesAddin
             switch (comboBoxReference.SelectedItem)
             {
                 case "20 x 20":
-                    pictureBoxModel.Image = Resources.Alum Prof_65;
+                    pictureBoxModel.Image = Resources.Alum_Prof_20_65;
                     break;
                 case "30 x 30":
-                    pictureBoxModel.Image = Resources.Alum Prof_65;
+                    pictureBoxModel.Image = Resources.Alum_Prof_30_65;
                     break;
                 case "40 x 40":
-                    pictureBoxModel.Image = Resources.Alum Prof_65;
+                    pictureBoxModel.Image = Resources.Alum_Prof_40_65;
                     break;
                 case "50 x 50":
-                    pictureBoxModel.Image = Resources.Alum Prof_65;
+                    pictureBoxModel.Image = Resources.Alum_Prof_50_65;
                     break;
                 case "60 x 60":
-                    pictureBoxModel.Image = Resources.Alum Prof_65;
+                    pictureBoxModel.Image = Resources.Alum_Prof_60_65;
                     break;
                 case "80 x 80":
-                    pictureBoxModel.Image = Resources.Alum Prof_65;
+                    pictureBoxModel.Image = Resources.Alum_Prof_80_65;
                     break;
                 case "90 x 90":
-                    pictureBoxModel.Image = Resources.Alum Prof_65;
+                    pictureBoxModel.Image = Resources.Alum_Prof_90_65;
                     break;
                 case "100 x 100":
-                    pictureBoxModel.Image = Resources.Alum Prof_65;
+                    pictureBoxModel.Image = Resources.Alum_Prof_100_65;
                     break;
                 default:
                     break;

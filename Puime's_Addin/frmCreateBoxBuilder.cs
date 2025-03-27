@@ -304,7 +304,7 @@ namespace Puime_s_Addin
             pictureBoxCreateBox.Name = "pictureBoxCB";
             pictureBoxCreateBox.Size = new Size(65, 65);
             pictureBoxCreateBox.BorderStyle = BorderStyle.FixedSingle;
-            pictureBoxCreateBox.Image = Resources.Alum Prof_65;
+            pictureBoxCreateBox.Image = Resources.Alum_Prof_20_65;
             pictureBoxCreateBox.TabStop = false;
 
             labelReference.Location = new Point(79, 30);
