@@ -1,33 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using ABB.Robotics.Controllers.RapidDomain;
+using System.Drawing.Drawing2D;
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using static System.Collections.Specialized.BitVector32;
-using static System.Net.Mime.MediaTypeNames;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-//using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using Puime_s_Addin.frmCreateAluminiumProfile;
 
-namespace PuimesAddin
+namespace Puime_s_Addin
 {
     class Create_AluminiumProfile
     {
-        public static void CreateAluminiumProfile()
+        public static void CreateAluminiumProfile(bool preview)
         {
-
-            #region try
-            Project.UndoContext.BeginUndoStep("CreateAluminiumProfile");
+        #region try
+        Project.UndoContext.BeginUndoStep("CreateAluminiumProfile");
             try
             {
                 Station stn = Station.ActiveStation;
                 if (stn == null) return;
+
+                if (preview)
+                {
+                    previewBox = station.TemporaryGraphics.DrawBox(matrix, size, Color.FromArgb(128, Color.Gray));
+                    return;
+                }
 
 
                 // Import the Profile library
@@ -55,8 +53,11 @@ namespace PuimesAddin
                         MyWire2 = MyBody.Shells[0].Wires[0];
                     }
                 }
-
-                Vector3 projection = new Vector3(0.0, 0.0, 0.1);
+                
+                //Vector3 size = new Vector3(Xvalue / 1000, Yvalue / 1000, Zvalue / 1000);
+                
+                Vector3 projection = new Vector3(0.0, 0.0, numericTextBoxLength/1000);
+                
                 Wire alongWire = null;
 
                 SweepOptions sweepOptions = new SweepOptions();
