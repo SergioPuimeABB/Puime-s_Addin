@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using ABB.Robotics.Controllers.RapidDomain;
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
@@ -9,11 +10,13 @@ using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using PuimesAddin.Properties;
 using static System.Collections.Specialized.BitVector32;
+using System.ComponentModel;
 
 namespace Puime_s_Addin
 {
     public partial class frmCreateAluminiumProfile : ToolControlBase
     {
+        private Container components;
         private PictureBox pictureBoxModel;
         private Label labelReference;
         private ComboBox comboBoxReference;
@@ -28,9 +31,9 @@ namespace Puime_s_Addin
         public frmCreateAluminiumProfile()
         {
 
-        //InitializeComponent();
+            //InitializeComponent();
 
-        Project.UndoContext.BeginUndoStep("AddToolWindow");
+            Project.UndoContext.BeginUndoStep("AddToolWindow");
 
             #region add toolwindow and elements
             try
@@ -110,36 +113,8 @@ namespace Puime_s_Addin
         }
 
 
-        protected override bool ValidateToolControl()
-        {
-            double value = numericTextBoxLength.Value;
-            //double value2 = numericTextBoxWidth.Value;
-            //double value3 = numericTextBoxHeight.Value;
-            bool flag = value > 0.0 && value <= 100000000.0;
-            UpdatePreview(valid: flag);
-            return flag;
-        }
+ 
 
-
-        private void UpdatePreview(bool valid)
-        {
-            if (previewBox != null)
-            {
-                previewBox.Delete();
-                previewBox = null;
-            }
-            if (valid)
-            {
-
-                CreateAluminiumProfile(preview: true);
-                //CreateABBBox(preview: true);
-            }
-        }
-
-        private void __CreateABBBox_Deactivate(object sender, EventArgs e)
-        {
-            UpdatePreview(valid: false);
-        }
 
 
 
@@ -156,20 +131,85 @@ namespace Puime_s_Addin
                 Station stn = Station.ActiveStation;
                 if (stn == null) return;
 
-                Vector3 projection = new Vector3(0.0, 0.0, numericTextBoxLength / 1000);
 
+                int Xvalue = 0;
+                int Yvalue = 0;
+                double Zvalue = numericTextBoxLength.Value;
+                Vector3 value = positionControlPC.Value;
+                Vector3 value2 = orientationControlOC.Value;
+
+                Vector3 projection = new Vector3(0.0, 0.0, Zvalue / 1000);
+                
+                Matrix4 PosOrient = new Matrix4(value, value2);
+
+                switch (comboBoxReference.SelectedItem)
+                {
+                    case "20 x 20":
+                        Xvalue = 20; Yvalue = 20;
+                        break;
+                    case "30 x 30":
+                        Xvalue = 30; Yvalue = 30;
+                        break;
+                    case "40 x 40":
+                        Xvalue = 40; Yvalue = 40;
+                        break;
+                    case "50 x 50":
+                        Xvalue = 50; Yvalue = 50;
+                        break;
+                    case "60 x 60":
+                        Xvalue = 60; Yvalue = 60;
+                        break;
+                    case "80 x 80":
+                        Xvalue = 80; Yvalue = 80;
+                        break;
+                    case "90 x 90":
+                        Xvalue = 90; Yvalue = 90;
+                        break;
+                    default:
+                        break;
+                }
+
+                Vector3 size = new Vector3(Xvalue / 1000, Yvalue / 1000, Zvalue / 1000);
 
                 if (preview)
                 {
-                    previewBox = stn.TemporaryGraphics.DrawBox(matrix, size, Color.FromArgb(128, Color.Gray));
+                    previewBox = stn.TemporaryGraphics.DrawBox(PosOrient, size, Color.FromArgb(128, Color.Gray));
                     return;
                 }
 
 
                 // Import the Profile library
                 //TODO: Realizar cases según medida seleccioanda en el menú
-                GraphicComponentLibrary ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
+                //GraphicComponentLibrary ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
 
+                GraphicComponentLibrary ProfileLib = new GraphicComponentLibrary();
+
+                switch (comboBoxReference.SelectedItem)
+                {
+                    case "20 x 20":
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
+                        break;
+                    case "30 x 30":
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30.rslib", true, null, true);
+                        break;
+                    case "40 x 40":
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40.rslib", true, null, true);
+                        break;
+                    case "50 x 50":
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50.rslib", true, null, true);
+                        break;
+                    case "60 x 60":
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60.rslib", true, null, true);
+                        break;
+                    case "80 x 80":
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80.rslib", true, null, true);
+                        break;
+                    case "90 x 90":
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90.rslib", true, null, true);
+                        break;
+                    default:
+                        break;
+                }
 
 
                 //Part myPart = new Part();
@@ -278,8 +318,36 @@ namespace Puime_s_Addin
             #endregion try
         }
 
+        protected override bool ValidateToolControl()
+        {
+            double value = numericTextBoxLength.Value;
+            //double value2 = numericTextBoxWidth.Value;
+            //double value3 = numericTextBoxHeight.Value;
+            bool flag = value > 0.0 && value <= 100000000.0;
+            UpdatePreview(valid: flag);
+            return flag;
+        }
 
 
+        private void UpdatePreview(bool valid)
+        {
+            if (previewBox != null)
+            {
+                previewBox.Delete();
+                previewBox = null;
+            }
+            if (valid)
+            {
+
+                CreateAluminiumProfile(preview: true);
+                //CreateABBBox(preview: true);
+            }
+        }
+
+        private void CreateAluminiumProfile_Desactivate(object sender, EventArgs e)
+        {
+            UpdatePreview(valid: false);
+        }
 
 
 
@@ -395,6 +463,7 @@ namespace Puime_s_Addin
             buttonClear.TabIndex = 6;
             buttonClear.Text = "Clear";
             buttonClear.UseVisualStyleBackColor = true;
+            buttonClear.Click += new EventHandler(btn_clear_clicked);
             // 
             // buttonCreate
             // 
@@ -406,6 +475,7 @@ namespace Puime_s_Addin
             buttonCreate.TabIndex = 7;
             buttonCreate.Text = "Create";
             buttonCreate.UseVisualStyleBackColor = true;
+            buttonCreate.Click += new EventHandler(btn_create_clicked);
             // 
             // buttonClose
             // 
@@ -416,6 +486,7 @@ namespace Puime_s_Addin
             buttonClose.TabIndex = 8;
             buttonClose.Text = "Close";
             buttonClose.UseVisualStyleBackColor = true;
+            buttonClose.Click += new EventHandler(btn_close_clicked);
             // 
             // numericTextBoxLength
             // 
@@ -438,6 +509,7 @@ namespace Puime_s_Addin
             numericTextBoxLength.Text = "numericTextBox1";
             numericTextBoxLength.UserEdited = false;
             numericTextBoxLength.Value = 0D;
+            numericTextBoxLength.ValueChanged += new EventHandler(size_TextChanged);
             // 
             // frmCreateAluminiumProfile
             // 

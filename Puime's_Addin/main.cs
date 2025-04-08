@@ -279,9 +279,8 @@ namespace Puime_s_Addin
         }
         static void btnAP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            Create_AluminiumProfile.CreateAluminiumProfile();
+            //Create_AluminiumProfile.CreateAluminiumProfile();
             ToolControlManager.ShowTool(typeof(frmCreateAluminiumProfile), e.Id);
         }
-
     }
 }
