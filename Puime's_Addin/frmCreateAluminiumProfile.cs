@@ -179,130 +179,172 @@ namespace Puime_s_Addin
 
 
                 // Import the Profile library
-                //TODO: Realizar cases según medida seleccioanda en el menú
-                //GraphicComponentLibrary ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
+                
+                GraphicComponentLibrary ProfileLib = new GraphicComponentLibrary(); //First part
+                GraphicComponentLibrary ProfileLib2 = new GraphicComponentLibrary(); //Second part
+                GraphicComponentLibrary ProfileLib3 = new GraphicComponentLibrary(); //Third part
 
-                GraphicComponentLibrary ProfileLib = new GraphicComponentLibrary();
+                string sProfileName="";
+                int nProfiles = 1;
 
                 switch (comboBoxReference.SelectedItem)
                 {
                     case "20 x 20":
                         ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
+                        sProfileName = "Aluminum profile 20x20";
+                        nProfiles = 1;
                         break;
                     case "30 x 30":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30B.rslib", true, null, true);
+                        sProfileName = "Aluminum profile 30x30";
+                        nProfiles = 2;
                         break;
                     case "40 x 40":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40B.rslib", true, null, true);
+                        sProfileName = "Aluminum profile 40x40";
+                        nProfiles = 2;
                         break;
                     case "50 x 50":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50B.rslib", true, null, true);
+                        sProfileName = "Aluminum profile 50x50";
+                        nProfiles = 2;
                         break;
                     case "60 x 60":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60C.rslib", true, null, true);
+                        sProfileName = "Aluminum profile 60x60";
+                        nProfiles = 3;
                         break;
                     case "80 x 80":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80C.rslib", true, null, true);
+                        sProfileName = "Aluminum profile 80x80";
+                        nProfiles = 3;
                         break;
                     case "90 x 90":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90C.rslib", true, null, true);
+                        sProfileName = "Aluminum profile 90x90";
+                        nProfiles = 3;
                         break;
                     default:
                         break;
                 }
 
 
-                //Part myPart = new Part();
-                Part myPart = ProfileLib.RootComponent.CopyInstance() as Part;
-                //myPart.Name = "20Profile";
-                myPart.DisconnectFromLibrary();
-                //stn.GraphicComponents.Add(myPart);
-                ProfileLib.Close();
+                GraphicComponentLibrary sProfile = new GraphicComponentLibrary();
 
-
-
-                Wire MyWire2 = null;
-
-                foreach (var item in myPart.Bodies)
+                for (int i = 0; i < 2; i++)
                 {
-                    Body MyBody = item as Body;
-                    if (MyBody != null)
+                    switch (i)
                     {
-                        MyWire2 = MyBody.Shells[0].Wires[0];
-                    }
-                }
-
-                //Vector3 size = new Vector3(Xvalue / 1000, Yvalue / 1000, Zvalue / 1000);
-
-               
-
-                Wire alongWire = null;
-
-                SweepOptions sweepOptions = new SweepOptions();
-                sweepOptions.MakeSolid = true;
-                //Body[] array = null;
-                Part part = new Part(); //First step
-                Part part2 = new Part(); //Second step
-                Part part3 = new Part(); //Final step
-                part3.Name = "20Profile";
-
-                Body[] bodyarray = Body.Extrude(MyWire2, projection, alongWire, sweepOptions);
-                if (bodyarray.Length != 0)
-                {
-                    //Fist step
-                    foreach (Body bbody in bodyarray)
-                    {
-                        bbody.Name = "Body1";
-                        part.Bodies.Add(bbody);
-
-                        Body bbodycopy2 = (Body)bbody.Copy();
-                        bbodycopy2.Name = "Body2";
-                        bbodycopy2.Transform.RZ = Globals.DegToRad(90);
-                        part.Bodies.Add(bbodycopy2);
-
-                        Body bbodycopy3 = (Body)bbody.Copy();
-                        bbodycopy3.Name = "Body3";
-                        bbodycopy3.Transform.RZ = Globals.DegToRad(180);
-                        part.Bodies.Add(bbodycopy3);
-
-                        Body bbodycopy4 = (Body)bbody.Copy();
-                        bbodycopy4.Name = "Body4";
-                        bbodycopy4.Transform.RZ = Globals.DegToRad(270);
-                        part.Bodies.Add(bbodycopy4);
-
-                        //Second step
-                        Body[] b1 = bbody.Join(bbodycopy2, false);
-                        foreach (Body b11 in b1)
-                        {
-                            b11.Name = "Body1";
-                            part2.Bodies.Add(b11);
-                        }
-
-                        Body[] b2 = bbodycopy3.Join(bbodycopy4, false);
-                        foreach (Body b12 in b2)
-                        {
-                            b12.Name = "Body";
-                            part2.Bodies.Add(b12);
-                        }
-
-                        //Final step
-                        Body[] b7 = b1[0].Join(b2[0], false);
-                        foreach (Body b in b7)
-                        {
-                            b.Name = "Body";
-                            b.Color = Color.FromArgb(224, 224, 224);
-                            part3.Bodies.Add(b);
-                        }
-
+                        case 0:
+                            sProfile = ProfileLib;
+                            if (nProfiles == 1) i = 2; 
+                            break;
+                        case 1:
+                            sProfile = ProfileLib2;
+                            if (nProfiles == 2) i = 2;
+                            break;
+                        case 3:
+                            sProfile = ProfileLib3;
+                            if (nProfiles == 3) i = 2;
+                            break;
+                        default:
+                            break;
                     }
 
-                    stn.GraphicComponents.Remove(part);
-                    stn.GraphicComponents.Remove(part2);
-                    stn.GraphicComponents.Add(part3);
-                    //return;
+                    
+                    Part myPart = sProfile.RootComponent.CopyInstance() as Part;
+                    myPart.DisconnectFromLibrary();
+                    sProfile.Close();
 
-                    CleanValues();
+                    Wire MyWire2 = null;
+
+                    foreach (var item in myPart.Bodies)
+                    {
+                        Body MyBody = item as Body;
+                        if (MyBody != null)
+                        {
+                            MyWire2 = MyBody.Shells[0].Wires[0];
+                        }
+                    }
+
+                    Wire alongWire = null;
+
+                    SweepOptions sweepOptions = new SweepOptions();
+                    sweepOptions.MakeSolid = true;
+                    Part part = new Part(); //First step
+                    Part part2 = new Part(); //Second step
+                    Part part3 = new Part(); //Final step
+                    part3.Name = sProfileName;
+
+                    Body[] bodyarray = Body.Extrude(MyWire2, projection, alongWire, sweepOptions);
+                    if (bodyarray.Length != 0)
+                    {
+                        //Fist step
+                        foreach (Body bbody in bodyarray)
+                        {
+                            bbody.Name = "Body1";
+                            part.Bodies.Add(bbody);
+
+                            Body bbodycopy2 = (Body)bbody.Copy();
+                            bbodycopy2.Name = "Body2";
+                            bbodycopy2.Transform.RZ = Globals.DegToRad(90);
+                            part.Bodies.Add(bbodycopy2);
+
+                            Body bbodycopy3 = (Body)bbody.Copy();
+                            bbodycopy3.Name = "Body3";
+                            bbodycopy3.Transform.RZ = Globals.DegToRad(180);
+                            part.Bodies.Add(bbodycopy3);
+
+                            Body bbodycopy4 = (Body)bbody.Copy();
+                            bbodycopy4.Name = "Body4";
+                            bbodycopy4.Transform.RZ = Globals.DegToRad(270);
+                            part.Bodies.Add(bbodycopy4);
+
+                            //Second step
+                            Body[] b1 = bbody.Join(bbodycopy2, false);
+                            foreach (Body b11 in b1)
+                            {
+                                b11.Name = "Body1";
+                                part2.Bodies.Add(b11);
+                            }
+
+                            Body[] b2 = bbodycopy3.Join(bbodycopy4, false);
+                            foreach (Body b12 in b2)
+                            {
+                                b12.Name = "Body";
+                                part2.Bodies.Add(b12);
+                            }
+
+                            //Final step
+                            Body[] b7 = b1[0].Join(b2[0], false);
+                            foreach (Body b in b7)
+                            {
+                                b.Name = "Body";
+                                b.Color = Color.FromArgb(224, 224, 224);
+                                part3.Bodies.Add(b);
+                            }
+
+                        }
+
+                        stn.GraphicComponents.Remove(part);
+                        stn.GraphicComponents.Remove(part2);
+                        stn.GraphicComponents.Add(part3);
+
+                        CleanValues();
+                    }
+
                 }
+
+                
             }// End try
 
             catch (Exception execption)
