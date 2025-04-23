@@ -31,7 +31,7 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 03/04/2025 - 16:20 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 23/04/2025 - 16:07 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -280,7 +280,7 @@ namespace Puime_s_Addin
         static void btnAP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
             //Create_AluminiumProfile.CreateAluminiumProfile();
-            ToolControlManager.ShowTool(typeof(frmCreateAluminiumProfile), e.Id);
+            ToolControlManager.ShowTool(typeof(FrmCreateAluminiumProfile), e.Id);
         }
     }
 }

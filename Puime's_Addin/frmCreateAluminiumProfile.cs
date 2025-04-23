@@ -11,10 +11,12 @@ using ABB.Robotics.RobotStudio.Stations.Forms;
 using PuimesAddin.Properties;
 using static System.Collections.Specialized.BitVector32;
 using System.ComponentModel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+using System.Diagnostics;
 
 namespace Puime_s_Addin
 {
-    public partial class frmCreateAluminiumProfile : ToolControlBase
+    public partial class FrmCreateAluminiumProfile : ToolControlBase
     {
         private Container components;
         private PictureBox pictureBoxModel;
@@ -28,11 +30,8 @@ namespace Puime_s_Addin
         private NumericTextBox numericTextBoxLength;
         private TemporaryGraphic previewBox;
 
-        public frmCreateAluminiumProfile()
+        public FrmCreateAluminiumProfile()
         {
-
-            //InitializeComponent();
-
             Project.UndoContext.BeginUndoStep("AddToolWindow");
 
             #region add toolwindow and elements
@@ -71,6 +70,8 @@ namespace Puime_s_Addin
         {
             var bl = (numericTextBoxLength.Value != 0);
             buttonCreate.Enabled = bl;
+
+            //CreateAluminiumProfile(preview: true);
 
             ValidateToolControl();
         }
@@ -128,19 +129,13 @@ namespace Puime_s_Addin
             Project.UndoContext.BeginUndoStep("CreateAluminiumProfile");
             try
             {
-                Station stn = Station.ActiveStation;
-                if (stn == null) return;
+                //Station stn = Station.ActiveStation;
+                //if (stn == null) return;
 
 
-                int Xvalue = 0;
-                int Yvalue = 0;
+                double Xvalue = 0;
+                double Yvalue = 0;
                 double Zvalue = numericTextBoxLength.Value;
-                Vector3 value = positionControlPC.Value;
-                Vector3 value2 = orientationControlOC.Value;
-
-                Vector3 projection = new Vector3(0.0, 0.0, Zvalue / 1000);
-                
-                Matrix4 PosOrient = new Matrix4(value, value2);
 
                 switch (comboBoxReference.SelectedItem)
                 {
@@ -169,11 +164,22 @@ namespace Puime_s_Addin
                         break;
                 }
 
+                Vector3 value = new Vector3 (positionControlPC.Value.x - ((Xvalue/2)/1000), positionControlPC.Value.y - ((Yvalue / 2) / 1000), positionControlPC.Value.z);
+                Vector3 value2 = orientationControlOC.Value;
+                Vector3 projection = new Vector3(0.0, 0.0, Zvalue / 1000);
+                Matrix4 PosOrient = new Matrix4(value, value2);
+
+                Vector3 value3 = new Vector3(positionControlPC.Value.x - (Zvalue / 2), positionControlPC.Value.y, positionControlPC.Value.z);
+
                 Vector3 size = new Vector3(Xvalue / 1000, Yvalue / 1000, Zvalue / 1000);
+
+
+                Station station = Project.ActiveProject as Station;
+                if (station == null) return;
 
                 if (preview)
                 {
-                    previewBox = stn.TemporaryGraphics.DrawBox(PosOrient, size, Color.FromArgb(128, Color.Gray));
+                    previewBox = station.TemporaryGraphics.DrawBox(PosOrient, size, Color.FromArgb(128, Color.Gray));
                     return;
                 }
 
@@ -240,21 +246,34 @@ namespace Puime_s_Addin
 
                 GraphicComponentLibrary sProfile = new GraphicComponentLibrary();
 
-                for (int i = 0; i < 2; i++)
+                string st_count = "A";
+
+                Part part = new Part(); //First step
+                Part part2 = new Part(); //Second step
+                Part part3 = new Part(); //Final step
+                Part part4 = new Part(); //First cut
+                Part part5 = new Part(); //Second cut
+                
+                //part3.Name = sProfileName + "_" + st_count.ToString();
+
+                for (int i = 0; i < 3; i++)
                 {
                     switch (i)
                     {
                         case 0:
                             sProfile = ProfileLib;
-                            if (nProfiles == 1) i = 2; 
+                            st_count = "A";
+                            if (nProfiles == 1) i = 3; 
                             break;
                         case 1:
                             sProfile = ProfileLib2;
-                            if (nProfiles == 2) i = 2;
+                            st_count = "B";
+                            if (nProfiles == 2) i = 3;
                             break;
-                        case 3:
+                        case 2:
                             sProfile = ProfileLib3;
-                            if (nProfiles == 3) i = 2;
+                            st_count = "C";
+                            if (nProfiles == 3) i = 3;
                             break;
                         default:
                             break;
@@ -280,11 +299,7 @@ namespace Puime_s_Addin
 
                     SweepOptions sweepOptions = new SweepOptions();
                     sweepOptions.MakeSolid = true;
-                    Part part = new Part(); //First step
-                    Part part2 = new Part(); //Second step
-                    Part part3 = new Part(); //Final step
-                    part3.Name = sProfileName;
-
+                    
                     Body[] bodyarray = Body.Extrude(MyWire2, projection, alongWire, sweepOptions);
                     if (bodyarray.Length != 0)
                     {
@@ -335,16 +350,81 @@ namespace Puime_s_Addin
 
                         }
 
-                        stn.GraphicComponents.Remove(part);
-                        stn.GraphicComponents.Remove(part2);
-                        stn.GraphicComponents.Add(part3);
-
                         CleanValues();
                     }
 
                 }
 
+                switch (nProfiles)
+                {
+                    case 1:
+                        station.GraphicComponents.Remove(part);
+                        station.GraphicComponents.Remove(part2);
+                        part3.Name = sProfileName + "_h" + Zvalue;
+                        station.GraphicComponents.Add(part3);
+                        break;
+
+                    case 2:
+                        // cut bodies to generate the final body
+                        Body[] b8 = part3.Bodies[0].Cut2(part3.Bodies[1]);
+                        foreach (Body b in b8)
+                        {
+                            b.Name = "Body";
+                            b.Color = Color.FromArgb(224, 224, 224);
+                            part4.Bodies.Add(b);
+                        }
+
+
+                        station.GraphicComponents.Remove(part);
+                        station.GraphicComponents.Remove(part2);
+                        station.GraphicComponents.Remove(part3);
+
+                        part4.Name = sProfileName + "_h" + Zvalue;
+                        station.GraphicComponents.Add(part4);
+                        break;
+
+                    case 3:
+                        // cut bodies to generate the final body
+                        Body[] b9 = part3.Bodies[0].Cut2(part3.Bodies[1]);
+                        foreach (Body b in b9)
+                        {
+                            b.Name = "Body";
+                            b.Color = Color.FromArgb(224, 224, 224);
+                            part4.Bodies.Add(b);
+                        }
+
+                        Body[] b10 = part4.Bodies[0].Cut2(part3.Bodies[2]);
+                        foreach (Body b in b10)
+                        {
+                            b.Name = "Body";
+                            b.Color = Color.FromArgb(224, 224, 224);
+                            part5.Bodies.Add(b); 
+                        }
+
+
+
+                        station.GraphicComponents.Remove(part);
+                        station.GraphicComponents.Remove(part2);
+                        station.GraphicComponents.Remove(part3);
+                        station.GraphicComponents.Remove(part4);
+
+                        part5.Name = sProfileName + "_h" + Zvalue;
+                        station.GraphicComponents.Add(part5);
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+
+
                 
+                
+
+                
+
+
             }// End try
 
             catch (Exception execption)
@@ -560,7 +640,7 @@ namespace Puime_s_Addin
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             AutoScroll = true;
             AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            Caption = "Create ABB Box";
+            Caption = "Create Aluminum Profile";
             Controls.Add(pictureBoxModel);
             Controls.Add(labelReference);
             Controls.Add(comboBoxReference);
@@ -572,8 +652,17 @@ namespace Puime_s_Addin
             Controls.Add(numericTextBoxLength);
             Name = "frmCreateAluminiumProfile";
             Size = new System.Drawing.Size(228, 339);
-            ((System.ComponentModel.ISupportInitialize)(pictureBoxModel)).EndInit();
+
+
+            //base.Size = new Size(tw_width, 330);
+            base.Apply += new System.EventHandler(btn_create_clicked);
+            base.Deactivate += new System.EventHandler(CreateAluminiumProfile_Desactivate);
+            pictureBoxModel.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
+
+            ((System.ComponentModel.ISupportInitialize)(pictureBoxModel)).EndInit();
+            //ResumeLayout(false);
 
         }
 

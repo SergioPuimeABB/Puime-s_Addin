@@ -10,7 +10,7 @@ using PuimesAddin.Properties;
 
 namespace Puime_s_Addin
 {
-    public class frmCreateBoxBuilder : ToolControlBase
+    public partial class frmCreateBoxBuilder : ToolControlBase
     {
         private PictureBox pictureBoxCreateBox;
         private Label labelReference;

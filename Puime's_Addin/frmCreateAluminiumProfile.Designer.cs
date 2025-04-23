@@ -1,6 +1,6 @@
 ﻿namespace Puime_s_Addin
 {
-    partial class frmCreateAluminiumProfile
+    partial class FrmCreateAluminiumProfile
     {
         /// <summary>
         /// Required designer variable.
