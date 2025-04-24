@@ -361,6 +361,7 @@ namespace Puime_s_Addin
                         station.GraphicComponents.Remove(part);
                         station.GraphicComponents.Remove(part2);
                         part3.Name = sProfileName + "_h" + Zvalue;
+                        part3.Transform.Matrix = PosOrient;
                         station.GraphicComponents.Add(part3);
                         break;
 
@@ -380,6 +381,7 @@ namespace Puime_s_Addin
                         station.GraphicComponents.Remove(part3);
 
                         part4.Name = sProfileName + "_h" + Zvalue;
+                        part4.Transform.Matrix = PosOrient;
                         station.GraphicComponents.Add(part4);
                         break;
 
@@ -409,6 +411,8 @@ namespace Puime_s_Addin
                         station.GraphicComponents.Remove(part4);
 
                         part5.Name = sProfileName + "_h" + Zvalue;
+                        part5.Transform.Matrix = PosOrient;
+
                         station.GraphicComponents.Add(part5);
 
                         break;
