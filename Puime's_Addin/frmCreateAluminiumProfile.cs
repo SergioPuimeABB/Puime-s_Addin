@@ -164,12 +164,14 @@ namespace Puime_s_Addin
                         break;
                 }
 
-                Vector3 value = new Vector3 (positionControlPC.Value.x - ((Xvalue/2)/1000), positionControlPC.Value.y - ((Yvalue / 2) / 1000), positionControlPC.Value.z);
+                
+                //Vector3 value = new Vector3 (positionControlPC.Value.x - ((Xvalue/2)/1000), positionControlPC.Value.y - ((Yvalue / 2) / 1000), positionControlPC.Value.z);
+                Vector3 value = new Vector3 (positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
                 Vector3 value2 = orientationControlOC.Value;
                 Vector3 projection = new Vector3(0.0, 0.0, Zvalue / 1000);
-                Matrix4 PosOrient = new Matrix4(value, value2);
+                //Matrix4 PosOrient = new Matrix4(value, value2);
 
-                Vector3 value3 = new Vector3(positionControlPC.Value.x - (Zvalue / 2), positionControlPC.Value.y, positionControlPC.Value.z);
+                //Vector3 value3 = new Vector3(positionControlPC.Value.x - (Zvalue / 2), positionControlPC.Value.y, positionControlPC.Value.z);
 
                 Vector3 size = new Vector3(Xvalue / 1000, Yvalue / 1000, Zvalue / 1000);
 
@@ -199,6 +201,8 @@ namespace Puime_s_Addin
                         ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
                         sProfileName = "Aluminum profile 20x20";
                         nProfiles = 1;
+                        //Matrix4 PosOrient = new Matrix4(value.x +10,value.y +10,value.z, value2);
+
                         break;
                     case "30 x 30":
                         ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30A.rslib", true, null, true);
@@ -254,8 +258,6 @@ namespace Puime_s_Addin
                 Part part4 = new Part(); //First cut
                 Part part5 = new Part(); //Second cut
                 
-                //part3.Name = sProfileName + "_" + st_count.ToString();
-
                 for (int i = 0; i < 3; i++)
                 {
                     switch (i)
