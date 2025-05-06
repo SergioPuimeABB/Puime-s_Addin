@@ -169,7 +169,7 @@ namespace Puime_s_Addin
                 Vector3 value = new Vector3 (positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
                 Vector3 value2 = orientationControlOC.Value;
                 Vector3 projection = new Vector3(0.0, 0.0, Zvalue / 1000);
-                //Matrix4 PosOrient = new Matrix4(value, value2);
+                Matrix4 PosOrient = new Matrix4(value, value2);
 
                 //Vector3 value3 = new Vector3(positionControlPC.Value.x - (Zvalue / 2), positionControlPC.Value.y, positionControlPC.Value.z);
 
@@ -179,6 +179,8 @@ namespace Puime_s_Addin
                 Station station = Project.ActiveProject as Station;
                 if (station == null) return;
 
+                
+                // TODO: Ver una forma de crear el preview en el medio del tubo. Ahora lo crea en la esquina.
                 if (preview)
                 {
                     previewBox = station.TemporaryGraphics.DrawBox(PosOrient, size, Color.FromArgb(128, Color.Gray));
