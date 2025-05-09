@@ -165,10 +165,11 @@ namespace Puime_s_Addin
                 }
 
                 
-                //Vector3 value = new Vector3 (positionControlPC.Value.x - ((Xvalue/2)/1000), positionControlPC.Value.y - ((Yvalue / 2) / 1000), positionControlPC.Value.z);
+                Vector3 valueCorner = new Vector3 (positionControlPC.Value.x + ((Xvalue/2)/1000), positionControlPC.Value.y + ((Yvalue / 2) / 1000), positionControlPC.Value.z);
                 Vector3 value = new Vector3 (positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
                 Vector3 value2 = orientationControlOC.Value;
                 Vector3 projection = new Vector3(0.0, 0.0, Zvalue / 1000);
+                Matrix4 PosOrientCorner = new Matrix4(valueCorner, value2);
                 Matrix4 PosOrient = new Matrix4(value, value2);
 
                 //Vector3 value3 = new Vector3(positionControlPC.Value.x - (Zvalue / 2), positionControlPC.Value.y, positionControlPC.Value.z);
@@ -183,7 +184,7 @@ namespace Puime_s_Addin
                 // TODO: Ver una forma de crear el preview en el medio del tubo. Ahora lo crea en la esquina.
                 if (preview)
                 {
-                    previewBox = station.TemporaryGraphics.DrawBox(PosOrient, size, Color.FromArgb(128, Color.Gray));
+                    previewBox = station.TemporaryGraphics.DrawBox(PosOrient, size, Color.FromArgb(128, Color.Gray)); 
                     return;
                 }
 
@@ -204,7 +205,6 @@ namespace Puime_s_Addin
                         sProfileName = "Aluminum profile 20x20";
                         nProfiles = 1;
                         //Matrix4 PosOrient = new Matrix4(value.x +10,value.y +10,value.z, value2);
-
                         break;
                     case "30 x 30":
                         ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30A.rslib", true, null, true);
@@ -257,6 +257,12 @@ namespace Puime_s_Addin
                 Part part = new Part(); //First step
                 Part part2 = new Part(); //Second step
                 Part part3 = new Part(); //Final step
+                part3.Transform.X = 0;
+                part3.Transform.Y = 0;
+                part3.Transform.Z = 0;
+                part3.Transform.RX = 0;
+                part3.Transform.RY = 0;
+                part3.Transform.RZ = 0;
                 Part part4 = new Part(); //First cut
                 Part part5 = new Part(); //Second cut
                 
@@ -354,7 +360,7 @@ namespace Puime_s_Addin
 
                         }
 
-                        CleanValues();
+                        //CleanValues();
                     }
 
                 }
@@ -365,8 +371,15 @@ namespace Puime_s_Addin
                         station.GraphicComponents.Remove(part);
                         station.GraphicComponents.Remove(part2);
                         part3.Name = sProfileName + "_h" + Zvalue;
-                        part3.Transform.Matrix = PosOrient;
+                        //part3.Transform.Matrix = PosOrientCorner;
+                        part3.Transform.X = positionControlPC.Value.x + ((Xvalue / 2) / 1000);
+                        part3.Transform.Y = positionControlPC.Value.y + ((Yvalue / 2) / 1000);
+                        part3.Transform.Z = positionControlPC.Value.z;
+                        part3.Transform.RX = orientationControlOC.Value.x;
+                        part3.Transform.RY = orientationControlOC.Value.y;
+                        part3.Transform.RZ = orientationControlOC.Value.z;
                         station.GraphicComponents.Add(part3);
+                        CleanValues();
                         break;
 
                     case 2:
@@ -385,7 +398,7 @@ namespace Puime_s_Addin
                         station.GraphicComponents.Remove(part3);
 
                         part4.Name = sProfileName + "_h" + Zvalue;
-                        part4.Transform.Matrix = PosOrient;
+                        part4.Transform.Matrix = PosOrientCorner;
                         station.GraphicComponents.Add(part4);
                         break;
 
@@ -415,7 +428,7 @@ namespace Puime_s_Addin
                         station.GraphicComponents.Remove(part4);
 
                         part5.Name = sProfileName + "_h" + Zvalue;
-                        part5.Transform.Matrix = PosOrient;
+                        part5.Transform.Matrix = PosOrientCorner;
 
                         station.GraphicComponents.Add(part5);
 
