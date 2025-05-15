@@ -165,7 +165,7 @@ namespace Puime_s_Addin
                 }
 
                 
-                Vector3 valueCorner = new Vector3 (positionControlPC.Value.x + ((Xvalue/2)/1000), positionControlPC.Value.y + ((Yvalue / 2) / 1000), positionControlPC.Value.z);
+                Vector3 valueCorner = new Vector3 (positionControlPC.Value.x - ((Xvalue/2)/1000), positionControlPC.Value.y - ((Yvalue / 2) / 1000), positionControlPC.Value.z);
                 Vector3 value = new Vector3 (positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
                 Vector3 value2 = orientationControlOC.Value;
                 Vector3 projection = new Vector3(0.0, 0.0, Zvalue / 1000);
@@ -370,18 +370,24 @@ namespace Puime_s_Addin
                     case 1:
                         station.GraphicComponents.Remove(part);
                         station.GraphicComponents.Remove(part2);
-                        
+
+
                         //part3.Transform.Matrix = PosOrientCorner;
-                        
-                        part3.Transform.X = positionControlPC.Value.x + ((Xvalue / 2) / 1000);
-                        part3.Transform.Y = positionControlPC.Value.y + ((Yvalue / 2) / 1000);
+                        //part3.Name = sProfileName + "_h" + Zvalue;
+                        //station.GraphicComponents.Add(part3);
+
+                        //part3.Transform.Matrix = PosOrientCorner;
+
+                        part3.Transform.X = positionControlPC.Value.x + ((Xvalue) / 1000);
+                        part3.Transform.Y = positionControlPC.Value.y + ((Yvalue) / 1000);
                         part3.Transform.Z = positionControlPC.Value.z;
 
                         Part partEnd = new Part(); //To 
-                        
+
                         //TO DO
 
-                        foreach (Body b in part3.Bodies)
+                        Body[] b19 = part3.Bodies.ToArray();
+                        foreach (Body b in b19)
                         {
                             b.Name = "Body";
                             b.Color = Color.FromArgb(224, 224, 224);
@@ -389,13 +395,21 @@ namespace Puime_s_Addin
                         }
 
                         partEnd.Name = sProfileName + "_h" + Zvalue;
-                        
+                        part3.Name = sProfileName + "_h" + Zvalue + "_start";
+
                         partEnd.Transform.RX = orientationControlOC.Value.x;
                         partEnd.Transform.RY = orientationControlOC.Value.y;
                         partEnd.Transform.RZ = orientationControlOC.Value.z;
 
-                        station.GraphicComponents.Remove(part3);
+                        partEnd.Transform.X = positionControlPC.Value.x + ((Xvalue/2) / 1000);
+                        partEnd.Transform.Y = positionControlPC.Value.y + ((Yvalue/2) / 1000);
+                        partEnd.Transform.Z = positionControlPC.Value.z;
 
+                        
+
+                        //station.GraphicComponents.Remove(part3);
+
+                        station.GraphicComponents.Add(part3);
                         station.GraphicComponents.Add(partEnd);
 
 
