@@ -370,15 +370,35 @@ namespace Puime_s_Addin
                     case 1:
                         station.GraphicComponents.Remove(part);
                         station.GraphicComponents.Remove(part2);
-                        part3.Name = sProfileName + "_h" + Zvalue;
+                        
                         //part3.Transform.Matrix = PosOrientCorner;
+                        
                         part3.Transform.X = positionControlPC.Value.x + ((Xvalue / 2) / 1000);
                         part3.Transform.Y = positionControlPC.Value.y + ((Yvalue / 2) / 1000);
                         part3.Transform.Z = positionControlPC.Value.z;
-                        part3.Transform.RX = orientationControlOC.Value.x;
-                        part3.Transform.RY = orientationControlOC.Value.y;
-                        part3.Transform.RZ = orientationControlOC.Value.z;
-                        station.GraphicComponents.Add(part3);
+
+                        Part partEnd = new Part(); //To 
+                        
+                        //TO DO
+
+                        foreach (Body b in part3.Bodies)
+                        {
+                            b.Name = "Body";
+                            b.Color = Color.FromArgb(224, 224, 224);
+                            partEnd.Bodies.Add(b);
+                        }
+
+                        partEnd.Name = sProfileName + "_h" + Zvalue;
+                        
+                        partEnd.Transform.RX = orientationControlOC.Value.x;
+                        partEnd.Transform.RY = orientationControlOC.Value.y;
+                        partEnd.Transform.RZ = orientationControlOC.Value.z;
+
+                        station.GraphicComponents.Remove(part3);
+
+                        station.GraphicComponents.Add(partEnd);
+
+
                         CleanValues();
                         break;
 

@@ -26,12 +26,12 @@ namespace Puime_s_Addin
         private static CommandBarButton btnTC; // Text Creator
         private static CommandBarButton btnMP; // Auto move parameters
         private static CommandBarButton btnCZ; // Camera zoom
-        private static CommandBarButton btnCD; // CAD Export
+        private static CommandBarButton btnCD; // CAD Export 
         private static CommandBarButton btnAP; // Create Aluminium Profile
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 08/05/2025 - 16:00 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 14/05/2025 - 16:01 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
