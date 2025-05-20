@@ -13,6 +13,7 @@ using static System.Collections.Specialized.BitVector32;
 using System.ComponentModel;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace Puime_s_Addin
 {
@@ -54,6 +55,110 @@ namespace Puime_s_Addin
             }
             #endregion add toolwindow and elements
         }
+
+
+        // Modify Local Origin - SDK Help->Code Sampes->Geometry->Modifying Local Origin
+
+        //  Implement with ApllyLocal
+
+        private static List<Part> GetCADFromStation()
+        {
+            List<Part> partCollection = new List<Part>();
+            Station station = Project.ActiveProject as Station;
+            foreach (GraphicComponent component in station.GraphicComponents)
+            {
+                if (component is Part)
+                {
+                    partCollection.Add((Part)component);
+                }
+            }
+            return partCollection;
+        }
+
+        private static Transform GetRefCoordSysTransforms(Part part)
+        {
+            Transform refTrf = null;
+
+            //Get Parent of part object and store in base type(ProjectObject) variable.
+            ProjectObject poPartParent = part.Parent;
+
+            if (poPartParent != null && poPartParent.Parent is IHasTransform)
+            {
+                IHasTransform parent = poPartParent.Parent as IHasTransform;
+                refTrf = parent.Transform;
+            }
+            else
+                refTrf = null;
+
+            return refTrf;
+        }
+
+        private static void ApplyLocal(Part part, Vector3 position, Vector3 orientation)
+        {
+            Project.UndoContext.BeginUndoStep();
+            try
+            {
+                //Checks if Part variable refers to the instance Part object
+                if (part != null)
+                {
+                    // Save old matrix for the part 
+                    Matrix4 oldGlobalMatrix = part.Transform.GlobalMatrix;
+
+                    //Get reference coordinate system transform value
+                    Transform refTrf = GetRefCoordSysTransforms(part);
+
+                    //Create new Identity matrix and apply position argument to matrix translation and 
+                    //orientation argument to the matrix EulerZYX
+                    Matrix4 mat = Matrix4.Identity;
+                    mat.Translation = position;
+                    mat.EulerZYX = orientation;
+
+                    part.Transform.GlobalMatrix = (refTrf == null) ? mat : (refTrf.GlobalMatrix * mat);
+
+                    // New matrix for the part       
+                    Matrix4 newGlobalMatrix = part.Transform.GlobalMatrix;
+
+                    // Calculate difference for moving back bodies  
+                    newGlobalMatrix.InvertRigid();
+                    Matrix4 diffTrans = newGlobalMatrix * oldGlobalMatrix;
+
+                    // Move all the bodies back
+                    if (part.HasGeometry)
+                    {
+                        foreach (Body bd in part.Bodies)
+                        {
+                            bd.Transform.Matrix = diffTrans * bd.Transform.Matrix;
+                        }
+                    }
+                    else
+                    {
+                        // CQ5356
+                        part.Mesh.Transform(diffTrans);
+                        part.Mesh.Rebuild();
+                    }
+                }
+            }
+            catch
+            {
+                Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
+            }
+            finally
+            {
+                Project.UndoContext.EndUndoStep();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         private void frmCreateAluminiumProfile_Activate(object sender, EventArgs e)
@@ -255,14 +360,17 @@ namespace Puime_s_Addin
                 string st_count = "A";
 
                 Part part = new Part(); //First step
+                part.Transform.X = positionControlPC.Value.x + ((Xvalue / 2) / 1000);
+                part.Transform.Y = positionControlPC.Value.y + ((Yvalue / 2) / 1000);
+                part.Transform.Z = positionControlPC.Value.z;
                 Part part2 = new Part(); //Second step
                 Part part3 = new Part(); //Final step
-                part3.Transform.X = 0;
-                part3.Transform.Y = 0;
-                part3.Transform.Z = 0;
-                part3.Transform.RX = 0;
-                part3.Transform.RY = 0;
-                part3.Transform.RZ = 0;
+                //part3.Transform.X = 0;
+                //part3.Transform.Y = 0;
+                //part3.Transform.Z = 0;
+                //part3.Transform.RX = 0;
+                //part3.Transform.RY = 0;
+                //part3.Transform.RZ = 0;
                 Part part4 = new Part(); //First cut
                 Part part5 = new Part(); //Second cut
                 
@@ -361,6 +469,15 @@ namespace Puime_s_Addin
                         }
 
                         //CleanValues();
+                        
+                        Vector3 vecPosi = new Vector3(0,0,0);
+                        Vector3 vecOri = new Vector3(0,0,0);
+
+                        ApplyLocal (part3, vecPosi, vecOri);
+
+                        __ Ver si funciona bien __
+                        __ Eliminar lo de pasar los bodies de un part a otro __
+
                     }
 
                 }
@@ -368,8 +485,6 @@ namespace Puime_s_Addin
                 switch (nProfiles)
                 {
                     case 1:
-                        station.GraphicComponents.Remove(part);
-                        station.GraphicComponents.Remove(part2);
 
 
                         //part3.Transform.Matrix = PosOrientCorner;
@@ -378,9 +493,12 @@ namespace Puime_s_Addin
 
                         //part3.Transform.Matrix = PosOrientCorner;
 
-                        part3.Transform.X = positionControlPC.Value.x + ((Xvalue) / 1000);
-                        part3.Transform.Y = positionControlPC.Value.y + ((Yvalue) / 1000);
+                        part3.Transform.X = positionControlPC.Value.x + ((Xvalue/2) / 1000);
+                        part3.Transform.Y = positionControlPC.Value.y + ((Yvalue/2) / 1000);
                         part3.Transform.Z = positionControlPC.Value.z;
+
+                        part3.Name = sProfileName + "_h" + Zvalue + "_part3";
+                        station.GraphicComponents.Add(part3);
 
                         Part partEnd = new Part(); //To 
 
@@ -394,22 +512,30 @@ namespace Puime_s_Addin
                             partEnd.Bodies.Add(b);
                         }
 
-                        partEnd.Name = sProfileName + "_h" + Zvalue;
-                        part3.Name = sProfileName + "_h" + Zvalue + "_start";
+
 
                         partEnd.Transform.RX = orientationControlOC.Value.x;
                         partEnd.Transform.RY = orientationControlOC.Value.y;
                         partEnd.Transform.RZ = orientationControlOC.Value.z;
+                        if (positionControlPC.Value.x > 0)
+                            partEnd.Transform.X = positionControlPC.Value.x + ((Xvalue / 2) / 1000);
+                        if (positionControlPC.Value.y > 0) 
+                            partEnd.Transform.Y = positionControlPC.Value.y + ((Yvalue / 2) / 1000);
+                        if (positionControlPC.Value.z > 0) 
+                            partEnd.Transform.Z = positionControlPC.Value.z;
 
-                        partEnd.Transform.X = positionControlPC.Value.x + ((Xvalue/2) / 1000);
-                        partEnd.Transform.Y = positionControlPC.Value.y + ((Yvalue/2) / 1000);
-                        partEnd.Transform.Z = positionControlPC.Value.z;
-
+                        partEnd.Name = sProfileName + "_h" + Zvalue;
                         
+                        part.Name = "part";
+                        part2.Name = "part2";
 
+                        //station.GraphicComponents.Remove(part);
+                        //station.GraphicComponents.Remove(part2);
                         //station.GraphicComponents.Remove(part3);
 
-                        station.GraphicComponents.Add(part3);
+                        station.GraphicComponents.Add(part);
+                        station.GraphicComponents.Add(part2);
+                        
                         station.GraphicComponents.Add(partEnd);
 
 
@@ -475,9 +601,8 @@ namespace Puime_s_Addin
 
 
                 
-                
 
-                
+
 
 
             }// End try
