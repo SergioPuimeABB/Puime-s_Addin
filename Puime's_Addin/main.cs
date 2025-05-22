@@ -1,11 +1,10 @@
-﻿using System.Drawing;
-
-using ABB.Robotics.RobotStudio;
+﻿using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using PuimesAddin;
 using PuimesAddin.Properties;
+using System.Drawing;
 
 namespace Puime_s_Addin
 {
@@ -31,7 +30,7 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 20/05/2025 - 15:26 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 22/05/2025 - 15:56 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -43,7 +42,7 @@ namespace Puime_s_Addin
         {
             rgPA = new RibbonGroup("rgPA", "PA");
             galleryPA = new CommandBarGalleryPopup("Puime's addin");
-            galleryPA.NumberOfColumns = 3;
+            galleryPA.NumberOfColumns = 5;
             galleryPA.GalleryTextPosition = GalleryTextPosition.Below;
             galleryPA.GalleryItemSize = new Size(96, 96);
             galleryPA.Image = Resources.PA;
@@ -52,70 +51,75 @@ namespace Puime_s_Addin
             CommandBarHeader control = new CommandBarHeader("Copy & set position");
             galleryPA.GalleryControls.Add(control);
             
-            btnCP = new CommandBarButton("Copy", "Copy position");
+            btnCP = new CommandBarButton("PuimesAddin Copy position", "Copy position");
             btnCP.Image = Resources.BT_copy;
             galleryPA.GalleryControls.Add(btnCP);
             btnCP.UpdateCommandUI += btnCP_UpdateCommandUI;
             btnCP.ExecuteCommand += btnCP_ExecuteCommand;
 
-            btnSP = new CommandBarButton("Set", "Set position");
+            btnSP = new CommandBarButton("PuimesAddin Set position", "Set position");
             btnSP.Image = Resources.BT_paste;
             galleryPA.GalleryControls.Add(btnSP);
             btnSP.UpdateCommandUI += btnSP_UpdateCommandUI;
             btnSP.ExecuteCommand += btnSP_ExecuteCommand;
             
-            CommandBarHeader control2 = new CommandBarHeader("Helpers");
+            CommandBarHeader control2 = new CommandBarHeader("Creators");
             galleryPA.GalleryControls.Add(control2);
 
-            btnCF = new CommandBarButton("Floor", "Floor creator");
+            btnCF = new CommandBarButton("PuimesAddin Floor creator", "Floor creator");
             btnCF.Image = Resources.BT_floor;
             galleryPA.GalleryControls.Add(btnCF);
             btnCF.UpdateCommandUI += btnCF_UpdateCommandUI;
             btnCF.ExecuteCommand += btnCF_ExecuteCommand;
 
-            btnCB = new CommandBarButton("ABBBox", "ABB Box creator");
+            btnCB = new CommandBarButton("PuimesAddin ABB box creator", "ABB box creator");
             btnCB.Image = Resources.BT_box;
             galleryPA.GalleryControls.Add(btnCB);
             btnCB.UpdateCommandUI += btnCB_UpdateCommandUI;
             btnCB.ExecuteCommand += btnCB_ExecuteCommand;
             //ToolControlManager.RegisterToolCommand("ABBBox", ToolControlManager.FindToolHost("ElementBrowser"));
 
-            btnCR = new CommandBarButton("ABB Raiser", "ABB Raiser creator");
+            btnCR = new CommandBarButton("PuimesAddin ABB raiser creator", "ABB raiser creator");
             btnCR.Image = Resources.BT_raiser;
             galleryPA.GalleryControls.Add(btnCR);
             btnCR.UpdateCommandUI += btnCR_UpdateCommandUI;
             btnCR.ExecuteCommand += btnCR_ExecuteCommand;
 
-            btnCBP = new CommandBarButton("ABB Base plate", "ABB Base plate creator");
+            btnCBP = new CommandBarButton("PuimesAddin ABB baseplate creator", "ABB base plate creator");
             btnCBP.Image = Resources.BT_baseplate;
             galleryPA.GalleryControls.Add(btnCBP);
             btnCBP.UpdateCommandUI += btnCBP_UpdateCommandUI;
             btnCBP.ExecuteCommand += btnCBP_ExecuteCommand;
 
-            btnCM = new CommandBarButton("Marks", "Auto markup creator");
+            btnCM = new CommandBarButton("PuimesAddin Auto markup creator", "Auto markup creator");
             btnCM.Image = Resources.BT_marks;
             galleryPA.GalleryControls.Add(btnCM);
             btnCM.UpdateCommandUI += btnCM_UpdateCommandUI;
             btnCM.ExecuteCommand += btnCM_ExecuteCommand;
             //ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
 
-            btnRT = new CommandBarButton("Rename targets", "Auto rename targets");
+            btnAP = new CommandBarButton("PuimesAddin Aluminum profile creator", "Aluminum profile creator");
+            btnAP.Image = Resources.Alum_Prof_20_65;
+            galleryPA.GalleryControls.Add(btnAP);
+            btnAP.UpdateCommandUI += btnAP_UpdateCommandUI;
+            btnAP.ExecuteCommand += btnAP_ExecuteCommand;
+
+
+            CommandBarHeader control3 = new CommandBarHeader("Helpers");
+            galleryPA.GalleryControls.Add(control3);
+
+
+            btnRT = new CommandBarButton("PuimesAddin Auto rename targets", "Auto rename targets");
             btnRT.Image = Resources.BT_rename;
             galleryPA.GalleryControls.Add(btnRT);
             btnRT.UpdateCommandUI += btnRT_UpdateCommandUI;
             btnRT.ExecuteCommand += btnRT_ExecuteCommand;
 
-            btnJP = new CommandBarButton("Join parts", "Join parts");
+            btnJP = new CommandBarButton("PuimesAddin Join parts", "Join parts");
             btnJP.Image = Resources.BT_joinparts;
             galleryPA.GalleryControls.Add(btnJP);
             btnJP.UpdateCommandUI += btnJP_UpdateCommandUI;
             btnJP.ExecuteCommand += btnJP_ExecuteCommand;
-
-            btnTC = new CommandBarButton("Text creator", "Text creator");
-            btnTC.Image = Resources.BT_textcreator;
-            galleryPA.GalleryControls.Add(btnTC);
-            btnTC.UpdateCommandUI += btnTC_UpdateCommandUI;
-            btnTC.ExecuteCommand += btnTC_ExecuteCommand;
 
             btnMP = new CommandBarButton("Auto move parameters", "Auto move parameters");
             btnMP.Image = Resources.BT_move;
@@ -123,23 +127,30 @@ namespace Puime_s_Addin
             btnMP.UpdateCommandUI += btnMP_UpdateCommandUI;
             btnMP.ExecuteCommand += btnMP_ExecuteCommand;
 
-            btnCZ = new CommandBarButton("Zoom view", "Zoom view");
+            btnCZ = new CommandBarButton("PuimesAddin Zoom view", "Zoom view");
             btnCZ.Image = Resources.BT_camera;
             galleryPA.GalleryControls.Add(btnCZ);
             btnCZ.UpdateCommandUI += btnCZ_UpdateCommandUI;
             btnCZ.ExecuteCommand += btnCZ_ExecuteCommand;
 
-            btnCD = new CommandBarButton("CAD Export", "CAD Export");
-            btnCD.Image = Resources.BT_cadexport;
-            galleryPA.GalleryControls.Add(btnCD);
-            btnCD.UpdateCommandUI += btnCD_UpdateCommandUI;
-            btnCD.ExecuteCommand += btnCD_ExecuteCommand;
+            
 
-            btnAP = new CommandBarButton("Aluminum Profile", "Aluminum Profile creator");
-            //btnAP.Image = Resources.BT_cadexport;
-            galleryPA.GalleryControls.Add(btnAP);
-            btnAP.UpdateCommandUI += btnAP_UpdateCommandUI;
-            btnAP.ExecuteCommand += btnAP_ExecuteCommand;
+            //
+            // TO DO
+            //
+            //btnTC = new CommandBarButton("Text creator", "Text creator");
+            //btnTC.Image = Resources.BT_textcreator;
+            //galleryPA.GalleryControls.Add(btnTC);
+            //btnTC.UpdateCommandUI += btnTC_UpdateCommandUI;
+            //btnTC.ExecuteCommand += btnTC_ExecuteCommand;
+
+            //btnCD = new CommandBarButton("CAD Export", "CAD Export");
+            //btnCD.Image = Resources.BT_cadexport;
+            //galleryPA.GalleryControls.Add(btnCD);
+            //btnCD.UpdateCommandUI += btnCD_UpdateCommandUI;
+            //btnCD.ExecuteCommand += btnCD_ExecuteCommand;
+
+
 
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }

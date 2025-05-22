@@ -59,21 +59,21 @@ namespace Puime_s_Addin
 
         // Modify Local Origin - SDK Help->Code Sampes->Geometry->Modifying Local Origin
 
-        //  Implement with ApllyLocal
+        //  Implement with ApplyLocal
 
-        private static List<Part> GetCADFromStation()
-        {
-            List<Part> partCollection = new List<Part>();
-            Station station = Project.ActiveProject as Station;
-            foreach (GraphicComponent component in station.GraphicComponents)
-            {
-                if (component is Part)
-                {
-                    partCollection.Add((Part)component);
-                }
-            }
-            return partCollection;
-        }
+        //private static List<Part> GetCADFromStation()
+        //{
+        //    List<Part> partCollection = new List<Part>();
+        //    Station station = Project.ActiveProject as Station;
+        //    foreach (GraphicComponent component in station.GraphicComponents)
+        //    {
+        //        if (component is Part)
+        //        {
+        //            partCollection.Add((Part)component);
+        //        }
+        //    }
+        //    return partCollection;
+        //}
 
         private static Transform GetRefCoordSysTransforms(Part part)
         {
@@ -188,7 +188,7 @@ namespace Puime_s_Addin
 
         private void CleanValues()
         {
-            comboBoxReference.SelectedIndex = 0;
+            //comboBoxReference.SelectedIndex = 0;
             positionControlPC.Value = new Vector3(0, 0, 0);
             orientationControlOC.Value = new Vector3(0, 0, 0);
             numericTextBoxLength.Value = 0;
@@ -294,8 +294,10 @@ namespace Puime_s_Addin
                 }
 
 
+                //
                 // Import the Profile library
-                
+                //
+
                 GraphicComponentLibrary ProfileLib = new GraphicComponentLibrary(); //First part
                 GraphicComponentLibrary ProfileLib2 = new GraphicComponentLibrary(); //Second part
                 GraphicComponentLibrary ProfileLib3 = new GraphicComponentLibrary(); //Third part
@@ -357,20 +359,11 @@ namespace Puime_s_Addin
 
                 GraphicComponentLibrary sProfile = new GraphicComponentLibrary();
 
-                string st_count = "A";
+                string st_count;
 
                 Part part = new Part(); //First step
-                part.Transform.X = positionControlPC.Value.x + ((Xvalue / 2) / 1000);
-                part.Transform.Y = positionControlPC.Value.y + ((Yvalue / 2) / 1000);
-                part.Transform.Z = positionControlPC.Value.z;
                 Part part2 = new Part(); //Second step
                 Part part3 = new Part(); //Final step
-                //part3.Transform.X = 0;
-                //part3.Transform.Y = 0;
-                //part3.Transform.Z = 0;
-                //part3.Transform.RX = 0;
-                //part3.Transform.RY = 0;
-                //part3.Transform.RZ = 0;
                 Part part4 = new Part(); //First cut
                 Part part5 = new Part(); //Second cut
                 
@@ -427,6 +420,8 @@ namespace Puime_s_Addin
                             bbody.Name = "Body1";
                             part.Bodies.Add(bbody);
 
+                            //Copy the body 3 times and rotate it to make a square.
+
                             Body bbodycopy2 = (Body)bbody.Copy();
                             bbodycopy2.Name = "Body2";
                             bbodycopy2.Transform.RZ = Globals.DegToRad(90);
@@ -442,7 +437,8 @@ namespace Puime_s_Addin
                             bbodycopy4.Transform.RZ = Globals.DegToRad(270);
                             part.Bodies.Add(bbodycopy4);
 
-                            //Second step
+                            // Second step
+                            // Join all the four rotated parts in one
                             Body[] b1 = bbody.Join(bbodycopy2, false);
                             foreach (Body b11 in b1)
                             {
@@ -456,8 +452,7 @@ namespace Puime_s_Addin
                                 b12.Name = "Body";
                                 part2.Bodies.Add(b12);
                             }
-
-                            //Final step
+                            
                             Body[] b7 = b1[0].Join(b2[0], false);
                             foreach (Body b in b7)
                             {
@@ -469,14 +464,6 @@ namespace Puime_s_Addin
                         }
 
                         //CleanValues();
-                        
-                        Vector3 vecPosi = new Vector3(0,0,0);
-                        Vector3 vecOri = new Vector3(0,0,0);
-
-                        ApplyLocal (part3, vecPosi, vecOri);
-
-                        __ Ver si funciona bien __
-                        __ Eliminar lo de pasar los bodies de un part a otro __
 
                     }
 
@@ -486,59 +473,25 @@ namespace Puime_s_Addin
                 {
                     case 1:
 
-
-                        //part3.Transform.Matrix = PosOrientCorner;
-                        //part3.Name = sProfileName + "_h" + Zvalue;
-                        //station.GraphicComponents.Add(part3);
-
-                        //part3.Transform.Matrix = PosOrientCorner;
-
-                        part3.Transform.X = positionControlPC.Value.x + ((Xvalue/2) / 1000);
-                        part3.Transform.Y = positionControlPC.Value.y + ((Yvalue/2) / 1000);
-                        part3.Transform.Z = positionControlPC.Value.z;
-
-                        part3.Name = sProfileName + "_h" + Zvalue + "_part3";
+                        part3.Name = sProfileName + "_h" + Zvalue;
                         station.GraphicComponents.Add(part3);
 
-                        Part partEnd = new Part(); //To 
+                        Vector3 vecPosi = new Vector3(-(Xvalue / 2) / 1000, -(Yvalue / 2) / 1000, 0);
+                        Vector3 vecOri = new Vector3(0, 0, 0);
 
-                        //TO DO
+                        ApplyLocal(part3, vecPosi, vecOri);
 
-                        Body[] b19 = part3.Bodies.ToArray();
-                        foreach (Body b in b19)
-                        {
-                            b.Name = "Body";
-                            b.Color = Color.FromArgb(224, 224, 224);
-                            partEnd.Bodies.Add(b);
-                        }
+                        part3.Transform.X = positionControlPC.Value.x;
+                        part3.Transform.Y = positionControlPC.Value.y;
+                        part3.Transform.Z = positionControlPC.Value.z;
 
+                        part3.Transform.RX = orientationControlOC.Value.x;
+                        part3.Transform.RY = orientationControlOC.Value.y;
+                        part3.Transform.RZ = orientationControlOC.Value.z;
 
-
-                        partEnd.Transform.RX = orientationControlOC.Value.x;
-                        partEnd.Transform.RY = orientationControlOC.Value.y;
-                        partEnd.Transform.RZ = orientationControlOC.Value.z;
-                        if (positionControlPC.Value.x > 0)
-                            partEnd.Transform.X = positionControlPC.Value.x + ((Xvalue / 2) / 1000);
-                        if (positionControlPC.Value.y > 0) 
-                            partEnd.Transform.Y = positionControlPC.Value.y + ((Yvalue / 2) / 1000);
-                        if (positionControlPC.Value.z > 0) 
-                            partEnd.Transform.Z = positionControlPC.Value.z;
-
-                        partEnd.Name = sProfileName + "_h" + Zvalue;
+                        station.GraphicComponents.Remove(part);
+                        station.GraphicComponents.Remove(part2);
                         
-                        part.Name = "part";
-                        part2.Name = "part2";
-
-                        //station.GraphicComponents.Remove(part);
-                        //station.GraphicComponents.Remove(part2);
-                        //station.GraphicComponents.Remove(part3);
-
-                        station.GraphicComponents.Add(part);
-                        station.GraphicComponents.Add(part2);
-                        
-                        station.GraphicComponents.Add(partEnd);
-
-
                         CleanValues();
                         break;
 
@@ -552,14 +505,30 @@ namespace Puime_s_Addin
                             part4.Bodies.Add(b);
                         }
 
+                
+                        part4.Name = sProfileName + "_h" + Zvalue;
+                        station.GraphicComponents.Add(part4);
+
+                        Vector3 vecPosi2 = new Vector3(-(Xvalue / 2) / 1000, -(Yvalue / 2) / 1000, 0);
+                        Vector3 vecOri2 = new Vector3(0, 0, 0);
+
+                        ApplyLocal(part4, vecPosi2, vecOri2);
+
+                        part4.Transform.X = positionControlPC.Value.x;
+                        part4.Transform.Y = positionControlPC.Value.y;
+                        part4.Transform.Z = positionControlPC.Value.z;
+
+                        part4.Transform.RX = orientationControlOC.Value.x;
+                        part4.Transform.RY = orientationControlOC.Value.y;
+                        part4.Transform.RZ = orientationControlOC.Value.z;
+
+                        //part4.Transform.Matrix = PosOrientCorner;
 
                         station.GraphicComponents.Remove(part);
                         station.GraphicComponents.Remove(part2);
                         station.GraphicComponents.Remove(part3);
 
-                        part4.Name = sProfileName + "_h" + Zvalue;
-                        part4.Transform.Matrix = PosOrientCorner;
-                        station.GraphicComponents.Add(part4);
+                        CleanValues();
                         break;
 
                     case 3:
@@ -580,18 +549,30 @@ namespace Puime_s_Addin
                             part5.Bodies.Add(b); 
                         }
 
+                        part5.Name = sProfileName + "_h" + Zvalue;
+                        station.GraphicComponents.Add(part5);
 
+                        Vector3 vecPosi3 = new Vector3(-(Xvalue / 2) / 1000, -(Yvalue / 2) / 1000, 0);
+                        Vector3 vecOri3 = new Vector3(0, 0, 0);
+
+                        ApplyLocal(part5, vecPosi3, vecOri3);
+
+                        part5.Transform.X = positionControlPC.Value.x;
+                        part5.Transform.Y = positionControlPC.Value.y;
+                        part5.Transform.Z = positionControlPC.Value.z;
+
+                        part5.Transform.RX = orientationControlOC.Value.x;
+                        part5.Transform.RY = orientationControlOC.Value.y;
+                        part5.Transform.RZ = orientationControlOC.Value.z;
+
+                        //part4.Transform.Matrix = PosOrientCorner;
 
                         station.GraphicComponents.Remove(part);
                         station.GraphicComponents.Remove(part2);
                         station.GraphicComponents.Remove(part3);
                         station.GraphicComponents.Remove(part4);
 
-                        part5.Name = sProfileName + "_h" + Zvalue;
-                        part5.Transform.Matrix = PosOrientCorner;
-
-                        station.GraphicComponents.Add(part5);
-
+                        CleanValues();
                         break;
 
                     default:
