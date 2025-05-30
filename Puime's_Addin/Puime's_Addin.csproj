@@ -108,6 +108,9 @@
     <Compile Include="frmCreateBoxBuilder.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="frmMainWindowSize.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="frmZoom.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,4 +1,5 @@
-﻿namespace PuimesAddin
+﻿
+namespace PuimesAddin
 {
     partial class frmZoom
     {

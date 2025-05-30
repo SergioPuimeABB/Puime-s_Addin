@@ -648,7 +648,7 @@ namespace Puime_s_Addin
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            //components = new System.ComponentModel.Container();
             pictureBoxModel = new System.Windows.Forms.PictureBox();
             labelReference = new System.Windows.Forms.Label();
             comboBoxReference = new System.Windows.Forms.ComboBox();

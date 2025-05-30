@@ -26,11 +26,12 @@ namespace Puime_s_Addin
         private static CommandBarButton btnMP; // Auto move parameters
         private static CommandBarButton btnCZ; // Camera zoom
         private static CommandBarButton btnCD; // CAD Export 
-        private static CommandBarButton btnAP; // Create Aluminium Profile
+        private static CommandBarButton btnAP; // Create Aluminum Profile
+        private static CommandBarButton btnWS; // Window Size
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 22/05/2025 - 15:56 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 27/05/2025 - 9:29 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -133,7 +134,11 @@ namespace Puime_s_Addin
             btnCZ.UpdateCommandUI += btnCZ_UpdateCommandUI;
             btnCZ.ExecuteCommand += btnCZ_ExecuteCommand;
 
-            
+            btnWS = new CommandBarButton("PuimesAddin Main window size", "Main window Size");
+            //btnWS.Image = Resources.BT_camera;
+            galleryPA.GalleryControls.Add(btnWS);
+            btnWS.UpdateCommandUI += btnWS_UpdateCommandUI;
+            btnWS.ExecuteCommand += btnWS_ExecuteCommand;
 
             //
             // TO DO
@@ -290,8 +295,16 @@ namespace Puime_s_Addin
         }
         static void btnAP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            //Create_AluminiumProfile.CreateAluminiumProfile();
             ToolControlManager.ShowTool(typeof(FrmCreateAluminiumProfile), e.Id);
+        }
+
+        private static void btnWS_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
+        {
+            e.Enabled = Project.ActiveProject is Station;
+        }
+        static void btnWS_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        {
+            ToolControlManager.ShowTool(typeof(frmMainWindowSize), e.Id);
         }
     }
 }
