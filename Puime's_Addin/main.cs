@@ -31,12 +31,35 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 27/05/2025 - 9:29 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 10/06/2025 - 10:06 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
                 addRibbonGroup();
             }
+
+            //
+            //Mouse Right Click//
+            //
+            // Solo funciona con los targets, ver para añadirlo a otros objetos.
+            // Ver cómo hacer el menú desplegable.
+            // Ver cómo posicionarlo en el lugar correcto.
+            //
+
+            // Add context menu button to target datatype
+            CommandBarContextPopup ctxPopup = UIEnvironment.GetContextMenu(typeof(RsTarget));
+            CommandBarControlCollection cbcc = ctxPopup.Controls;
+            // Create button object
+            CommandBarButton BtnSyncTarget = new CommandBarButton("TwRobotstudioSyncTarget.SyncTarget", "Sync without path");
+            BtnSyncTarget.DefaultEnabled = true;
+            BtnSyncTarget.Image = Resources.PA;
+            //BtnSyncTarget.LargeImage = Properties.Resources.icon_32;
+            //BtnSyncTarget.ExecuteCommand += BtnSyncTarget_ExecuteCommand;
+            //Add button to top. 
+            cbcc.Insert(0, BtnSyncTarget);
+            //
+
+
         }
 
         public static void addRibbonGroup()
@@ -100,7 +123,7 @@ namespace Puime_s_Addin
             //ToolControlManager.RegisterToolCommand("Marks", ToolControlManager.FindToolHost("ElementBrowser"));
 
             btnAP = new CommandBarButton("PuimesAddin Aluminum profile creator", "Aluminum profile creator");
-            btnAP.Image = Resources.Alum_Prof_20_65;
+            btnAP.Image = Resources.Alum_Prof_20_65_b;
             galleryPA.GalleryControls.Add(btnAP);
             btnAP.UpdateCommandUI += btnAP_UpdateCommandUI;
             btnAP.ExecuteCommand += btnAP_ExecuteCommand;

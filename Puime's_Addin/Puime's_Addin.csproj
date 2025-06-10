@@ -238,6 +238,7 @@
     <None Include="Resources\Alum_Prof_50_65.png" />
     <None Include="Resources\Alum_Prof_30_65.png" />
     <None Include="Resources\Alum_Prof_20_65.png" />
+    <None Include="Resources\Alum_Prof_20_65_b.png" />
     <Content Include="Resources\BT_textcreator.png" />
     <None Include="Resources\move.png" />
   </ItemGroup>
