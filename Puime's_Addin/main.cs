@@ -31,7 +31,7 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 10/06/2025 - 10:06 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 12/06/2025 - 16:36 ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -47,18 +47,31 @@ namespace Puime_s_Addin
             //
 
             // Add context menu button to target datatype
-            CommandBarContextPopup ctxPopup = UIEnvironment.GetContextMenu(typeof(RsTarget));
+            //CommandBarContextPopup ctxPopup = UIEnvironment.GetContextMenu(typeof(RsTarget));
+            CommandBarContextPopup ctxPopup = UIEnvironment.GetContextMenu(typeof(RsPathProcedure));
             CommandBarControlCollection cbcc = ctxPopup.Controls;
             // Create button object
-            CommandBarButton BtnSyncTarget = new CommandBarButton("TwRobotstudioSyncTarget.SyncTarget", "Sync without path");
-            BtnSyncTarget.DefaultEnabled = true;
-            BtnSyncTarget.Image = Resources.PA;
+            //CommandBarButton BtnSyncTarget = new CommandBarButton("TwRobotstudioSyncTarget.SyncTarget", "Sync without path");
+            CommandBarButton BtnAutoRenameTargets = new CommandBarButton("Puime's Addin.Auto rename targets", "Auto rename targets");
+            BtnAutoRenameTargets.DefaultEnabled = true;
+            BtnAutoRenameTargets.Image = Resources.BT_rename;
             //BtnSyncTarget.LargeImage = Properties.Resources.icon_32;
-            //BtnSyncTarget.ExecuteCommand += BtnSyncTarget_ExecuteCommand;
+            BtnAutoRenameTargets.ExecuteCommand += btnRT_ExecuteCommand;
             //Add button to top. 
-            cbcc.Insert(0, BtnSyncTarget);
+            //cbcc.Insert(0, BtnSyncTarget);
+            cbcc.Insert(16, BtnAutoRenameTargets);
             //
 
+            // Add context menu button to part datatype
+            CommandBarContextPopup ctx2Popup = UIEnvironment.GetContextMenu(typeof(Part));
+            CommandBarControlCollection cbcc2 = ctx2Popup.Controls;
+            // Create button object
+            CommandBarButton BtnJoinParts = new CommandBarButton("Puime's Addin.Join parts", "Join Parts");
+            BtnJoinParts.DefaultEnabled = true;
+            BtnJoinParts.Image = Resources.BT_joinparts;
+            BtnJoinParts.ExecuteCommand += btnJP_ExecuteCommand;
+            //Add button to the memu. 
+            cbcc2.Insert(15, BtnJoinParts);
 
         }
 
