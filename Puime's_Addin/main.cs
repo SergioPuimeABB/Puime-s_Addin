@@ -31,7 +31,8 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 12/06/2025 - 16:36 ...", "Puime's Add-in"));
+            //Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 12/06/2025 - 16:36 ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4 beta 1 loaded ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -41,9 +42,7 @@ namespace Puime_s_Addin
             //
             //Mouse Right Click//
             //
-            // Solo funciona con los targets, ver para añadirlo a otros objetos.
             // Ver cómo hacer el menú desplegable.
-            // Ver cómo posicionarlo en el lugar correcto.
             //
 
             // Add context menu button to target datatype
@@ -170,11 +169,11 @@ namespace Puime_s_Addin
             btnCZ.UpdateCommandUI += btnCZ_UpdateCommandUI;
             btnCZ.ExecuteCommand += btnCZ_ExecuteCommand;
 
-            btnWS = new CommandBarButton("PuimesAddin Main window size", "Main window Size");
-            //btnWS.Image = Resources.BT_camera;
-            galleryPA.GalleryControls.Add(btnWS);
-            btnWS.UpdateCommandUI += btnWS_UpdateCommandUI;
-            btnWS.ExecuteCommand += btnWS_ExecuteCommand;
+            //btnWS = new CommandBarButton("PuimesAddin Main window size", "Main window Size");
+            ////btnWS.Image = Resources.BT_camera;
+            //galleryPA.GalleryControls.Add(btnWS);
+            //btnWS.UpdateCommandUI += btnWS_UpdateCommandUI;
+            //btnWS.ExecuteCommand += btnWS_ExecuteCommand;
 
             //
             // TO DO

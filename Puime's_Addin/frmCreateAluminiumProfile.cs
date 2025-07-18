@@ -308,47 +308,47 @@ namespace Puime_s_Addin
                 switch (comboBoxReference.SelectedItem)
                 {
                     case "20 x 20":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
                         sProfileName = "Aluminum profile 20x20";
                         nProfiles = 1;
                         //Matrix4 PosOrient = new Matrix4(value.x +10,value.y +10,value.z, value2);
                         break;
                     case "30 x 30":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30B.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30B.rslib", true, null, true);
                         sProfileName = "Aluminum profile 30x30";
                         nProfiles = 2;
                         break;
                     case "40 x 40":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40B.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40B.rslib", true, null, true);
                         sProfileName = "Aluminum profile 40x40";
                         nProfiles = 2;
                         break;
                     case "50 x 50":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50B.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50B.rslib", true, null, true);
                         sProfileName = "Aluminum profile 50x50";
                         nProfiles = 2;
                         break;
                     case "60 x 60":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60C.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60C.rslib", true, null, true);
                         sProfileName = "Aluminum profile 60x60";
                         nProfiles = 3;
                         break;
                     case "80 x 80":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80C.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80C.rslib", true, null, true);
                         sProfileName = "Aluminum profile 80x80";
                         nProfiles = 3;
                         break;
                     case "90 x 90":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90C.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90C.rslib", true, null, true);
                         sProfileName = "Aluminum profile 90x90";
                         nProfiles = 3;
                         break;
