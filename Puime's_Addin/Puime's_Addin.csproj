@@ -228,7 +228,6 @@
     <None Include="Resources\less.png" />
     <None Include="Resources\menos.png" />
     <None Include="Resources\mas.png" />
-    <None Include="Resources\BT_camera.png" />
     <None Include="Resources\BT_cadexport.png" />
     <None Include="Resources\Alum_Prof_100_65.png" />
     <None Include="Resources\Alum_Prof_80_65.png" />
@@ -239,8 +238,10 @@
     <None Include="Resources\Alum_Prof_30_65.png" />
     <None Include="Resources\Alum_Prof_20_65.png" />
     <None Include="Resources\Alum_Prof_20_65_b.png" />
+    <None Include="Resources\BT_move.png" />
+    <None Include="Resources\BT_move2.png" />
+    <None Include="Resources\BT_camera.png" />
     <Content Include="Resources\BT_textcreator.png" />
-    <None Include="Resources\move.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -248,7 +249,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\ProgramData\ABB\DistributionPackages\PuimesAddin-2.0\RobotStudio\Add-In"</PostBuildEvent>
+    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Users\esu01142\AppData\Local\ABB\DistributionPackages2\PuimesAddin-4.0\RobotStudio\Add-In"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

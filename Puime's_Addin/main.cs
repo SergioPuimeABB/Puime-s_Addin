@@ -22,17 +22,17 @@ namespace Puime_s_Addin
         private static CommandBarButton btnCM; // Create Markups
         private static CommandBarButton btnRT; // Rename Targets
         private static CommandBarButton btnJP; // Join Parts
-        private static CommandBarButton btnTC; // Text Creator
+        //private static CommandBarButton btnTC; // Text Creator
         private static CommandBarButton btnMP; // Auto move parameters
         private static CommandBarButton btnCZ; // Camera zoom
-        private static CommandBarButton btnCD; // CAD Export 
+        //private static CommandBarButton btnCD; // CAD Export 
         private static CommandBarButton btnAP; // Create Aluminum Profile
-        private static CommandBarButton btnWS; // Window Size
+        //private static CommandBarButton btnWS; // Window Size
 
         public static void AddinMain()
         {
-            //Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 12/06/2025 - 16:36 ...", "Puime's Add-in"));
-            Logger.AddMessage(new LogMessage("Puime's addin v4 beta 1 loaded ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 08/10/2025 - 10:46 ...", "Puime's Add-in"));
+            //Logger.AddMessage(new LogMessage("Puime's addin v4 beta 1 loaded ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -158,7 +158,7 @@ namespace Puime_s_Addin
             btnJP.ExecuteCommand += btnJP_ExecuteCommand;
 
             btnMP = new CommandBarButton("Auto move parameters", "Auto move parameters");
-            btnMP.Image = Resources.BT_move;
+            btnMP.Image = Resources.BT_move2;
             galleryPA.GalleryControls.Add(btnMP);
             btnMP.UpdateCommandUI += btnMP_UpdateCommandUI;
             btnMP.ExecuteCommand += btnMP_ExecuteCommand;
