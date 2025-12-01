@@ -164,9 +164,6 @@
     <None Include="Resources\BT_raiser.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\PA.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\BT_box_65.png" />
   </ItemGroup>
   <ItemGroup>
@@ -224,6 +221,7 @@
     <None Include="Resources\BT_joinparts.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\PA.png" />
     <None Include="Resources\more.png" />
     <None Include="Resources\less.png" />
     <None Include="Resources\menos.png" />
@@ -249,7 +247,8 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Users\esu01142\AppData\Local\ABB\DistributionPackages2\PuimesAddin-4.0\RobotStudio\Add-In"</PostBuildEvent>
+    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Users\esu01142\AppData\Local\ABB\DistributionPackages2\PuimesAddin-4.0\RobotStudio\Add-In"
+</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

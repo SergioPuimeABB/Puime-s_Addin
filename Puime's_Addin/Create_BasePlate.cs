@@ -1,13 +1,13 @@
 ﻿
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Puime_s_Addin
 {
@@ -99,10 +99,10 @@ namespace Puime_s_Addin
             }
             #endregion try
 
-            catch (Exception execption)
+            catch (Exception exception)
             {
                 Project.UndoContext.CancelUndoStep(CancelUndoStepType.Rollback);
-                Logger.AddMessage(new LogMessage(execption.Message.ToString()));
+                Logger.AddMessage(new LogMessage(exception.Message.ToString()));
                 throw;
             }
             finally
@@ -114,13 +114,28 @@ namespace Puime_s_Addin
 
         public static void BasePlate(string name, string type, double xpos, double ypos, double orientation, double height)
         {
-                switch (type)
+
+            string WorkingDirectoryBasePlate;
+            string DirectoryPath1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\";
+            string currentDirectoryPathBasePlate = DirectoryPath1 + DirectoryPath2;
+
+            if (Directory.Exists(currentDirectoryPathBasePlate))
+            {
+                WorkingDirectoryBasePlate = currentDirectoryPathBasePlate;
+            }
+            else
+            {
+                WorkingDirectoryBasePlate = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\";
+            }
+
+            switch (type)
                 {
                     #region Type A
                     case "TypeA":
 
-                        // Checks if the raiser allready exists
-                        var allreadyexists = false;
+                        // Checks if the raiser already exists
+                        var alreadyexistsA = false;
                         Station stn2 = Station.ActiveStation;
                         if (stn2 == null) return;
 
@@ -129,14 +144,14 @@ namespace Puime_s_Addin
                             bool rai = item.DisplayName == "ABB_BasePlate_" + name;
                             if (rai)
                             {
-                                MessageBox.Show("Base Plate " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                allreadyexists = true;
+                                MessageBox.Show("Base Plate " + name + " already exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                alreadyexistsA = true;
                             }
                         }
 
-                        if (allreadyexists)
+                        if (alreadyexistsA)
                         {
-                            allreadyexists = false;
+                            alreadyexistsA = false;
                             break;
                         }
 
@@ -149,9 +164,9 @@ namespace Puime_s_Addin
 
 
                         // checks if the height is in the allowed range
-                        var a = height == 60 || height == 70 || height == 80 || height == 90 || height == 100;
+                         var a = height == 60 || height == 70 || height == 80 || height == 90 || height == 100;
 
-                        if (a) // if heght is in the allowed range, creates the raiser 
+                        if (a) // if height is in the allowed range, creates the raiser 
                         {
                             Station station = Project.ActiveProject as Station;
 
@@ -161,19 +176,19 @@ namespace Puime_s_Addin
                         switch (height)
                         {
                             case 60:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA70.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA60.rslib", true, null, false);
                                 break;
                             case 70:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA70.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA70.rslib", true, null, false);
                                 break;
                             case 80:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA80.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA80.rslib", true, null, false);
                                 break;
                             case 90:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA90.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA90.rslib", true, null, false);
                                 break;
                             case 100:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeA100.rslib", true, null, false);
+                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA100.rslib", true, null, false);
                                 break;
                             default:
                                 break;
@@ -187,7 +202,6 @@ namespace Puime_s_Addin
                             myGCGroup.Name = "ABB_BasePlate_" + name;
                             station.GraphicComponents.Add(myGCGroup);
                             myGCGroup.GraphicComponents.Add(myPart1);
-                            //myGCGroup.Color = Color.FromArgb(255, 255, 128, 0);
 
                             // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
                             myGCGroup.Transform.X = xpos / 1000;
@@ -195,9 +209,9 @@ namespace Puime_s_Addin
                             myGCGroup.Transform.RZ = orientation;
                         }
 
-                        else // if heght isn't in the allowed range
+                        else // if height isn't in the allowed range
                         {
-                            MessageBox.Show(name + "\n\n" + "Position must be betwen 60 mm and 100 mm" + "\n" + "In 10 mm increment." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show(name + "\n\n" + "Position must be between 60 mm and 100 mm" + "\n" + "In 10 mm increment." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             break;
                         }
 
@@ -208,8 +222,8 @@ namespace Puime_s_Addin
                 #region Type B
                 case "TypeB":
 
-                    // Checks if the raiser allready exists
-                    var allreadyexistsb = false;
+                    // Checks if the raiser already exists
+                    var alreadyExistsB = false;
                     Station stn2b = Station.ActiveStation;
                     if (stn2b == null) return;
 
@@ -218,14 +232,14 @@ namespace Puime_s_Addin
                         bool rai = item.DisplayName == "ABB_BasePlate_" + name;
                         if (rai)
                         {
-                            MessageBox.Show("Base Plate " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            allreadyexistsb = true;
+                            MessageBox.Show("Base Plate " + name + " already exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alreadyExistsB = true;
                         }
                     }
 
-                    if (allreadyexistsb)
+                    if (alreadyExistsB)
                     {
-                        allreadyexistsb = false; 
+                        alreadyExistsB = false; 
                         break;
                     }
 
@@ -240,15 +254,15 @@ namespace Puime_s_Addin
                     // checks if the height is in the allowed range
                     var b = height == 50;
 
-                    if (b) // if heght is in the allowed range, creates the raiser 
+                    if (b) // if height is in the allowed range, creates the raiser 
                     {
                         Station station = Project.ActiveProject as Station;
 
-                        // Import the BasePlateTypeA library                                                                                                             
-                        GraphicComponentLibrary BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeB50.rslib", true, null, false);
+                        // Import the BasePlateTypeB library                                                                                                             
+                        GraphicComponentLibrary BasePlateTypeBLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeB50.rslib", true, null, false);
 
-                        var myPart1 = BasePlateTypeALib.RootComponent.CopyInstance();
-                        myPart1.Name = "BasePlateTypeA";
+                        var myPart1 = BasePlateTypeBLib.RootComponent.CopyInstance();
+                        myPart1.Name = "BasePlateTypeB";
                         myPart1.DisconnectFromLibrary();
 
                         GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
@@ -257,7 +271,7 @@ namespace Puime_s_Addin
                         myGCGroup.GraphicComponents.Add(myPart1);
                         //myGCGroup.Color = Color.FromArgb(255, 255, 128, 0);
 
-                        // Transform the position of the part to the values of the pos_control values. So the part origin is allways in the corner of the box.
+                        // Transform the position of the part to the values of the pos_control values. So the part origin is always in the corner of the box.
                         myGCGroup.Transform.X = xpos / 1000;
                         myGCGroup.Transform.Y = ypos / 1000;
                         myGCGroup.Transform.RZ = orientation;
@@ -276,8 +290,8 @@ namespace Puime_s_Addin
                 #region Type C
                 case "TypeC":
 
-                    // Checks if the raiser allready exists
-                    var allreadyexistsc = false;
+                    // Checks if the raiser already exists
+                    var alreadyExistsC = false;
                     Station stn2c = Station.ActiveStation;
                     if (stn2c == null) return;
 
@@ -286,14 +300,14 @@ namespace Puime_s_Addin
                         bool rai = item.DisplayName == "ABB_BasePlate_" + name;
                         if (rai)
                         {
-                            MessageBox.Show("Base Plate " + name + " allready exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            allreadyexistsc = true;
+                            MessageBox.Show("Base Plate " + name + " already exist." + "\n\n" + "Delete it or change it's name.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            alreadyExistsC = true;
                         }
                     }
 
-                    if (allreadyexistsc)
+                    if (alreadyExistsC)
                     {
-                        allreadyexistsc = false;
+                        alreadyExistsC = false;
                         break;
                     }
 
@@ -308,36 +322,36 @@ namespace Puime_s_Addin
                     // checks if the height is in the allowed range
                     var c = height == 60 || height == 70 || height == 80 || height == 90 || height == 100;
 
-                    if (c) // if heght is in the allowed range, creates the raiser 
+                    if (c) // if height is in the allowed range, creates the raiser 
                     {
                         Station station = Project.ActiveProject as Station;
 
                         //Load the base plate based on the height
-                        GraphicComponentLibrary BasePlateTypeALib = new GraphicComponentLibrary();
+                        GraphicComponentLibrary BasePlateTypeCLib = new GraphicComponentLibrary();
 
                         switch (height)
                         {
                             case 60:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC60.rslib", true, null, false);
+                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC60.rslib", true, null, false);
                                 break;
                             case 70:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC70.rslib", true, null, false);
+                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC70.rslib", true, null, false);
                                 break;
                             case 80:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC80.rslib", true, null, false);
+                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC80.rslib", true, null, false);
                                 break;
                             case 90:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC90.rslib", true, null, false);
+                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC90.rslib", true, null, false);
                                 break;
                             case 100:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\BasePlateTypeC100.rslib", true, null, false);
+                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC100.rslib", true, null, false);
                                 break;
                             default:
                                 break;
                         }
 
-                        var myPart1 = BasePlateTypeALib.RootComponent.CopyInstance();
-                        myPart1.Name = "BasePlateTypeA";
+                        var myPart1 = BasePlateTypeCLib.RootComponent.CopyInstance();
+                        myPart1.Name = "BasePlateTypeC";
                         myPart1.DisconnectFromLibrary();
 
                         GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
@@ -354,7 +368,7 @@ namespace Puime_s_Addin
 
                     else // if heght isn't in the allowed range
                     {
-                        MessageBox.Show(name + "\n\n" + "Position must be betwen 60 mm and 100 mm" + "\n" + "In 10 mm increment." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(name + "\n\n" + "Position must be between 60 mm and 100 mm" + "\n" + "In 10 mm increment." + "\n\n" + "Actual position is " + height.ToString() + "mm.", "Puime's Addin - Create ABB Base plate", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
 

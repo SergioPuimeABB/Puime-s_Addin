@@ -1,12 +1,14 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using ABB.Robotics.Math;
+﻿using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using PuimesAddin.Properties;
+using RobotStudio.API.Internal.ExtensionManagement;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Puime_s_Addin
 {
@@ -109,6 +111,22 @@ namespace Puime_s_Addin
             #region Create ABB_Box
             Project.UndoContext.BeginUndoStep("Create ABB Box");
 
+            string WorkingDirectory;
+            string DirectoryPath1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\";
+            string currentDirectoryPath = DirectoryPath1 + DirectoryPath2;
+            
+            if (Directory.Exists(currentDirectoryPath))
+            {
+                WorkingDirectory = currentDirectoryPath;
+            }
+            else
+            {
+                WorkingDirectory = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\";
+            }
+
+
+
             try
             {
                 Vector3 value = positionControlPC.Value;
@@ -130,7 +148,7 @@ namespace Puime_s_Addin
                 #region Create Box
                 Vector3 vect_position = new Vector3(0, 0, 0);
                 Vector3 vect_orientation = new Vector3(0, 0, 0); //uses 0,0,0 as origin to later transform the position to the pos_control values,
-                                                                 //so the part origin is allways in the corner of the box.
+                                                                 //so the part origin is always in the corner of the box.
                 Matrix4 matrix_origo = new Matrix4(vect_position, vect_orientation);
                 Vector3 size = new Vector3(Xvalue/1000, Yvalue/1000, Zvalue/1000);
 
@@ -210,12 +228,12 @@ namespace Puime_s_Addin
                 myFace5.Visible = true;
 
                 // Set the material for each face of the box
-                Bitmap bmp0 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\top.jpg");
-                Bitmap bmp1 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\bottom.jpg");
-                Bitmap bmp2 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\long_side.jpg");
-                Bitmap bmp3 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\short_side2.jpg");
-                Bitmap bmp4 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\long_side2.jpg");
-                Bitmap bmp5 = new Bitmap("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\short_side.jpg");
+                Bitmap bmp0 = new Bitmap(WorkingDirectory + "top.jpg");
+                Bitmap bmp1 = new Bitmap(WorkingDirectory + "bottom.jpg");
+                Bitmap bmp2 = new Bitmap(WorkingDirectory + "long_side.jpg");
+                Bitmap bmp3 = new Bitmap(WorkingDirectory + "short_side2.jpg");
+                Bitmap bmp4 = new Bitmap(WorkingDirectory + "long_side2.jpg");
+                Bitmap bmp5 = new Bitmap(WorkingDirectory + "short_side.jpg");
                 Texture texture0 = new Texture(bmp0);
                 Texture texture1 = new Texture(bmp1);
                 Texture texture2 = new Texture(bmp2);
@@ -228,6 +246,13 @@ namespace Puime_s_Addin
                 Material material3 = new Material(texture3);
                 Material material4 = new Material(texture4);
                 Material material5 = new Material(texture5);
+                // BlendMode set to Modulate to show the texture with the material color and to be able to set obect opacity
+                material0.BlendMode = BlendMode.Modulate;
+                material1.BlendMode = BlendMode.Modulate;
+                material2.BlendMode = BlendMode.Modulate;
+                material3.BlendMode = BlendMode.Modulate;
+                material4.BlendMode = BlendMode.Modulate;
+                material5.BlendMode = BlendMode.Modulate;
                 myFace0.SetMaterial(material0);
                 myFace1.SetMaterial(material1);
                 myFace2.SetMaterial(material2);

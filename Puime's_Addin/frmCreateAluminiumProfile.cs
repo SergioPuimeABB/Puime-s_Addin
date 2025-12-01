@@ -1,27 +1,30 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-using ABB.Robotics.Controllers.RapidDomain;
+﻿using ABB.Robotics.Controllers.RapidDomain;
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using PuimesAddin.Properties;
-using static System.Collections.Specialized.BitVector32;
-using System.ComponentModel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using System.Diagnostics;
+using RobotStudio.API.Internal;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
+using System.Windows.Forms;
+using static System.Collections.Specialized.BitVector32;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
 
 namespace Puime_s_Addin
 {
     public partial class FrmCreateAluminiumProfile : ToolControlBase
     {
-        private Container components;
         private PictureBox pictureBoxModel;
         private Label labelReference;
+        private Label labelDetails;
         private ComboBox comboBoxReference;
         private PositionControl positionControlPC;
         private OrientationControl orientationControlOC;
@@ -30,6 +33,10 @@ namespace Puime_s_Addin
         private Button buttonClose;
         private NumericTextBox numericTextBoxLength;
         private TemporaryGraphic previewBox;
+
+
+        private IContainer componentsB;
+        private ErrorProvider errorProviderNumTextBoxValidation;
 
         public FrmCreateAluminiumProfile()
         {
@@ -56,24 +63,6 @@ namespace Puime_s_Addin
             #endregion add toolwindow and elements
         }
 
-
-        // Modify Local Origin - SDK Help->Code Sampes->Geometry->Modifying Local Origin
-
-        //  Implement with ApplyLocal
-
-        //private static List<Part> GetCADFromStation()
-        //{
-        //    List<Part> partCollection = new List<Part>();
-        //    Station station = Project.ActiveProject as Station;
-        //    foreach (GraphicComponent component in station.GraphicComponents)
-        //    {
-        //        if (component is Part)
-        //        {
-        //            partCollection.Add((Part)component);
-        //        }
-        //    }
-        //    return partCollection;
-        //}
 
         private static Transform GetRefCoordSysTransforms(Part part)
         {
@@ -149,18 +138,6 @@ namespace Puime_s_Addin
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         private void frmCreateAluminiumProfile_Activate(object sender, EventArgs e)
         {
         }
@@ -170,13 +147,94 @@ namespace Puime_s_Addin
             CloseTool();
         }
 
-        //Enable the create button if the lenght values diferent from 0
+        //Enable the create button if the length values different from 0 and don't exceed the max value from the selected profile size
         private void size_TextChanged(object sender, EventArgs e)
         {
-            var bl = (numericTextBoxLength.Value != 0);
-            buttonCreate.Enabled = bl;
+            switch(comboBoxReference.SelectedItem)
+                {
+                    case "20 x 20":
+                    var bl2 = (numericTextBoxLength.Value);
+                    if (bl2 != 0 & bl2 < 3001 & bl2 > 0)
+                        {
+                            buttonCreate.Enabled = true;
+                        }
+                        else
+                        {
+                            buttonCreate.Enabled = false;
+                        }
+                    break;
+                case "30 x 30":
+                    var bl3 = (numericTextBoxLength.Value);
+                    if (bl3 != 0 & bl3 < 5601 & bl3 > 0)
+                        {
+                            buttonCreate.Enabled = true;
+                        }
+                        else
+                        {
+                            buttonCreate.Enabled = false;
+                        }
+                    break;
+                case "40 x 40":
+                    var bl4 = (numericTextBoxLength.Value);
+                    if (bl4 != 0 & bl4 < 6001 & bl4 > 0)
+                        {
+                            buttonCreate.Enabled = true;
+                        }
+                        else
+                        {
+                            buttonCreate.Enabled = false;
+                        }
+                    break;
+                case "50 x 50":
+                    var bl5 = (numericTextBoxLength.Value);
+                    if (bl5 != 0 & bl5 < 6001 & bl5 > 0)
+                        {
+                            buttonCreate.Enabled = true;
+                        }
+                        else
+                        {
+                            buttonCreate.Enabled = false;
+                        }
+                    break;
+                case "60 x 60":
+                    var bl6 = (numericTextBoxLength.Value);
+                    if (bl6 != 0 & bl6 < 6001 & bl6 > 0)
+                        {
+                            buttonCreate.Enabled = true;
+                        }
+                        else
+                        {
+                            buttonCreate.Enabled = false;
+                        }
+                    break;
+                case "80 x 80":
+                    var bl8 = (numericTextBoxLength.Value);
+                    if (bl8 != 0 & bl8 < 6001 & bl8 > 0)
+                        {
+                            buttonCreate.Enabled = true;
+                        }
+                        else
+                        {
+                            buttonCreate.Enabled = false;
+                        }
+                    break;
+                case "90 x 90":
+                    var bl9 = (numericTextBoxLength.Value);
+                    if (bl9 != 0 & bl9 < 5601 & bl9 > 0)
+                    {
+                        buttonCreate.Enabled = true;
+                    }
+                    else
+                    {
+                        buttonCreate.Enabled = false;
+                    }
+                    break;
+                default:
+                    break;
+                }
 
-            //CreateAluminiumProfile(preview: true);
+
+                
 
             ValidateToolControl();
         }
@@ -188,12 +246,9 @@ namespace Puime_s_Addin
 
         private void CleanValues()
         {
-            //comboBoxReference.SelectedIndex = 0;
             positionControlPC.Value = new Vector3(0, 0, 0);
             orientationControlOC.Value = new Vector3(0, 0, 0);
             numericTextBoxLength.Value = 0;
-            //numericTextBoxWidth.Value = 0;
-            //numericTextBoxHeight.Value = 0;
         }
 
         public void btn_close_clicked(object sender, EventArgs e)
@@ -209,7 +264,6 @@ namespace Puime_s_Addin
                 try
                 {
                     CreateAluminiumProfile(preview: false);
-                    //CreateABBBox(preview: false);
                 }
                 finally
                 {
@@ -217,15 +271,6 @@ namespace Puime_s_Addin
                 }
             }
         }
-
-
- 
-
-
-
-
-
-
 
 
         private void CreateAluminiumProfile(bool preview)
@@ -237,6 +282,19 @@ namespace Puime_s_Addin
                 //Station stn = Station.ActiveStation;
                 //if (stn == null) return;
 
+                string WorkingDirectory;
+                string DirectoryPath1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\";
+                string currentDirectoryPath = DirectoryPath1 + DirectoryPath2;
+
+                if (Directory.Exists(currentDirectoryPath))
+                {
+                    WorkingDirectory = currentDirectoryPath;
+                }
+                else
+                {
+                    WorkingDirectory = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\";
+                }
 
                 double Xvalue = 0;
                 double Yvalue = 0;
@@ -277,22 +335,16 @@ namespace Puime_s_Addin
                 Matrix4 PosOrientCorner = new Matrix4(valueCorner, value2);
                 Matrix4 PosOrient = new Matrix4(value, value2);
 
-                //Vector3 value3 = new Vector3(positionControlPC.Value.x - (Zvalue / 2), positionControlPC.Value.y, positionControlPC.Value.z);
-
                 Vector3 size = new Vector3(Xvalue / 1000, Yvalue / 1000, Zvalue / 1000);
-
 
                 Station station = Project.ActiveProject as Station;
                 if (station == null) return;
 
-                
-                // TODO: Ver una forma de crear el preview en el medio del tubo. Ahora lo crea en la esquina.
                 if (preview)
                 {
                     previewBox = station.TemporaryGraphics.DrawBox(PosOrient, size, Color.FromArgb(128, Color.Gray)); 
                     return;
                 }
-
 
                 //
                 // Import the Profile library
@@ -308,47 +360,46 @@ namespace Puime_s_Addin
                 switch (comboBoxReference.SelectedItem)
                 {
                     case "20 x 20":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_20x20.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load( WorkingDirectory + "BaseProfile_20x20.rslib", true, null, true);
                         sProfileName = "Aluminum profile 20x20";
                         nProfiles = 1;
-                        //Matrix4 PosOrient = new Matrix4(value.x +10,value.y +10,value.z, value2);
                         break;
                     case "30 x 30":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_30x30B.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_30x30A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_30x30B.rslib", true, null, true);
                         sProfileName = "Aluminum profile 30x30";
                         nProfiles = 2;
                         break;
                     case "40 x 40":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_40x40B.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_40x40A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_40x40B.rslib", true, null, true);
                         sProfileName = "Aluminum profile 40x40";
                         nProfiles = 2;
                         break;
                     case "50 x 50":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_50x50B.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_50x50A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_50x50B.rslib", true, null, true);
                         sProfileName = "Aluminum profile 50x50";
                         nProfiles = 2;
                         break;
                     case "60 x 60":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_60x60C.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_60x60A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_60x60B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_60x60C.rslib", true, null, true);
                         sProfileName = "Aluminum profile 60x60";
                         nProfiles = 3;
                         break;
                     case "80 x 80":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_80x80C.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_80x80A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_80x80B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_80x80C.rslib", true, null, true);
                         sProfileName = "Aluminum profile 80x80";
                         nProfiles = 3;
                         break;
                     case "90 x 90":
-                        ProfileLib = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load("C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\BaseProfile_90x90C.rslib", true, null, true);
+                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_90x90A.rslib", true, null, true);
+                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_90x90B.rslib", true, null, true);
+                        ProfileLib3 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_90x90C.rslib", true, null, true);
                         sProfileName = "Aluminum profile 90x90";
                         nProfiles = 3;
                         break;
@@ -356,10 +407,7 @@ namespace Puime_s_Addin
                         break;
                 }
 
-
                 GraphicComponentLibrary sProfile = new GraphicComponentLibrary();
-
-                string st_count;
 
                 Part part = new Part(); //First step
                 Part part2 = new Part(); //Second step
@@ -373,23 +421,19 @@ namespace Puime_s_Addin
                     {
                         case 0:
                             sProfile = ProfileLib;
-                            st_count = "A";
                             if (nProfiles == 1) i = 3; 
                             break;
                         case 1:
                             sProfile = ProfileLib2;
-                            st_count = "B";
                             if (nProfiles == 2) i = 3;
                             break;
                         case 2:
                             sProfile = ProfileLib3;
-                            st_count = "C";
                             if (nProfiles == 3) i = 3;
                             break;
                         default:
                             break;
                     }
-
                     
                     Part myPart = sProfile.RootComponent.CopyInstance() as Part;
                     myPart.DisconnectFromLibrary();
@@ -421,7 +465,6 @@ namespace Puime_s_Addin
                             part.Bodies.Add(bbody);
 
                             //Copy the body 3 times and rotate it to make a square.
-
                             Body bbodycopy2 = (Body)bbody.Copy();
                             bbodycopy2.Name = "Body2";
                             bbodycopy2.Transform.RZ = Globals.DegToRad(90);
@@ -462,8 +505,6 @@ namespace Puime_s_Addin
                             }
 
                         }
-
-                        //CleanValues();
 
                     }
 
@@ -522,8 +563,6 @@ namespace Puime_s_Addin
                         part4.Transform.RY = orientationControlOC.Value.y;
                         part4.Transform.RZ = orientationControlOC.Value.z;
 
-                        //part4.Transform.Matrix = PosOrientCorner;
-
                         station.GraphicComponents.Remove(part);
                         station.GraphicComponents.Remove(part2);
                         station.GraphicComponents.Remove(part3);
@@ -579,13 +618,6 @@ namespace Puime_s_Addin
                         break;
                 }
 
-
-
-                
-
-
-
-
             }// End try
 
             catch (Exception execption)
@@ -604,13 +636,10 @@ namespace Puime_s_Addin
         protected override bool ValidateToolControl()
         {
             double value = numericTextBoxLength.Value;
-            //double value2 = numericTextBoxWidth.Value;
-            //double value3 = numericTextBoxHeight.Value;
-            bool flag = value > 0.0 && value <= 100000000.0;
+            bool flag = value > 0.0 && value <= 10000.0;
             UpdatePreview(valid: flag);
             return flag;
         }
-
 
         private void UpdatePreview(bool valid)
         {
@@ -621,9 +650,7 @@ namespace Puime_s_Addin
             }
             if (valid)
             {
-
                 CreateAluminiumProfile(preview: true);
-                //CreateABBBox(preview: true);
             }
         }
 
@@ -634,7 +661,7 @@ namespace Puime_s_Addin
 
 
 
-
+    
 
 
 
@@ -648,182 +675,218 @@ namespace Puime_s_Addin
         /// </summary>
         private void InitializeComponent()
         {
-            //components = new System.ComponentModel.Container();
-            pictureBoxModel = new System.Windows.Forms.PictureBox();
-            labelReference = new System.Windows.Forms.Label();
-            comboBoxReference = new System.Windows.Forms.ComboBox();
-            positionControlPC = new ABB.Robotics.RobotStudio.Stations.Forms.PositionControl();
-            orientationControlOC = new ABB.Robotics.RobotStudio.Stations.Forms.OrientationControl();
-            buttonClear = new System.Windows.Forms.Button();
-            buttonCreate = new System.Windows.Forms.Button();
-            buttonClose = new System.Windows.Forms.Button();
-            numericTextBoxLength = new ABB.Robotics.RobotStudio.Stations.Forms.NumericTextBox();
-            ((System.ComponentModel.ISupportInitialize)(pictureBoxModel)).BeginInit();
-            SuspendLayout();
+            int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 25;
+
+            this.componentsB = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(Puime_s_Addin.FrmCreateAluminiumProfile));
+
+            this.pictureBoxModel = new System.Windows.Forms.PictureBox();
+            this.labelReference = new System.Windows.Forms.Label();
+            this.labelDetails = new System.Windows.Forms.Label();
+            this.comboBoxReference = new System.Windows.Forms.ComboBox();
+            this.positionControlPC = new ABB.Robotics.RobotStudio.Stations.Forms.PositionControl();
+            this.orientationControlOC = new ABB.Robotics.RobotStudio.Stations.Forms.OrientationControl();
+            this.buttonClear = new System.Windows.Forms.Button();
+            this.buttonCreate = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.numericTextBoxLength = new ABB.Robotics.RobotStudio.Stations.Forms.NumericTextBox();
+
+            this.errorProviderNumTextBoxValidation = new System.Windows.Forms.ErrorProvider(this.componentsB);
+            //((System.ComponentModel.ISupportInitialize)this.pictureBoxModel).BeginInit();
+            base.SuspendLayout();
+
+
             // 
             // pictureBoxModel
             // 
-            pictureBoxModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            pictureBoxModel.Image = global::PuimesAddin.Properties.Resources.Alum_Prof_20_65;
-            pictureBoxModel.Location = new System.Drawing.Point(8, 8);
-            pictureBoxModel.Name = "pictureBoxModel";
-            pictureBoxModel.Size = new System.Drawing.Size(65, 65);
-            pictureBoxModel.TabIndex = 0;
-            pictureBoxModel.TabStop = false;
+            componentResourceManager.ApplyResources(this.pictureBoxModel, "pictureBox");
+            this.pictureBoxModel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxModel.Image = global::PuimesAddin.Properties.Resources.Alum_Prof_20_65;
+            this.pictureBoxModel.Location = new System.Drawing.Point(8, 8);
+            this.pictureBoxModel.Name = "pictureBoxModel";
+            this.pictureBoxModel.Size = new System.Drawing.Size(65, 65);
+            //this.pictureBoxModel.TabIndex = 0;
+            this.pictureBoxModel.TabStop = false;
             // 
             // labelReference
             // 
-            labelReference.Location = new System.Drawing.Point(79, 30);
-            labelReference.Name = "labelReference";
-            labelReference.Size = new System.Drawing.Size(100, 15);
-            labelReference.TabIndex = 1;
-            labelReference.Text = "Model";
+            componentResourceManager.ApplyResources(this.labelReference, "labelReference");
+            this.labelReference.Location = new System.Drawing.Point(79, 30);
+            this.labelReference.Name = "labelReference";
+            this.labelReference.Size = new System.Drawing.Size(100, 15);
+            this.labelReference.TabIndex = 1;
+            this.labelReference.Text = "Model";
             // 
             // comboBoxReference
             // 
-            comboBoxReference.Items.AddRange(new object[] {
+            componentResourceManager.ApplyResources(this.comboBoxReference, "comboBoxReference");
+            this.comboBoxReference.Items.AddRange(new object[] {
             "20 x 20",
             "30 x 30",
             "40 x 40",
             "50 x 50",
             "60 x 60",
             "80 x 80",
-            "90 x 90",});
-            comboBoxReference.Location = new System.Drawing.Point(80, 52);
-            comboBoxReference.Name = "comboBoxReference";
-            comboBoxReference.Size = new System.Drawing.Size(133, 21);
-            comboBoxReference.TabIndex = 0;
-            comboBoxReference.SelectedIndex = 0;
-            comboBoxReference.SelectedIndexChanged += new System.EventHandler(comboBoxReference_SelectedIndexChanged);
+            "90 x 90"});
+            this.comboBoxReference.Location = new System.Drawing.Point(80, 52);
+            this.comboBoxReference.Name = "comboBoxReference";
+            this.comboBoxReference.Size = new System.Drawing.Size(tw_width - 65, 21);
+            this.comboBoxReference.Sorted = true;
+            this.comboBoxReference.TabIndex = 0;
+            this.comboBoxReference.SelectedIndex = 0;
+            this.comboBoxReference.SelectedIndexChanged += new System.EventHandler(this.comboBoxReference_SelectedIndexChanged);
+
             // 
             // positionControlPC
             // 
-            positionControlPC.AccessibleName = "Corner Point";
-            positionControlPC.ErrorProviderControl = null;
-            positionControlPC.ExpressionErrorString = "Bad Expression";
-            positionControlPC.LabelQuantity = ABB.Robotics.RobotStudio.BuiltinQuantity.Length;
-            positionControlPC.LabelText = "Corner Point";
-            positionControlPC.Location = new System.Drawing.Point(8, 85);
-            positionControlPC.MaxValueErrorString = "Value exceeds maximum";
-            positionControlPC.MinValueErrorString = "Value is below minimum";
-            positionControlPC.Name = "positionControlPC";
-            positionControlPC.NumTextBoxes = 3;
-            positionControlPC.ReadOnly = false;
-            positionControlPC.RefCoordSys = null;
-            positionControlPC.ShowLabel = true;
-            positionControlPC.Size = new System.Drawing.Size(200, 34);
-            positionControlPC.TabIndex = 1;
-            positionControlPC.Text = "Position Control";
-            positionControlPC.VerticalLayout = false;
+            componentResourceManager.ApplyResources(this.positionControlPC, "positionControlPC");
+            this.positionControlPC.AccessibleName = "Corner Point";
+            this.positionControlPC.ErrorProviderControl = null;
+            this.positionControlPC.ExpressionErrorString = "Bad Expression";
+            this.positionControlPC.LabelQuantity = ABB.Robotics.RobotStudio.BuiltinQuantity.Length;
+            this.positionControlPC.LabelText = "Corner Point";
+            this.positionControlPC.Location = new System.Drawing.Point(8, 85);
+            this.positionControlPC.MaxValueErrorString = "Value exceeds maximum";
+            this.positionControlPC.MinValueErrorString = "Value is below minimum";
+            this.positionControlPC.Name = "positionControlPC";
+            this.positionControlPC.NumTextBoxes = 3;
+            this.positionControlPC.ReadOnly = false;
+            this.positionControlPC.RefCoordSys = null;
+            this.positionControlPC.ShowLabel = true;
+            this.positionControlPC.Size = new System.Drawing.Size(tw_width +7, 34);
+            this.positionControlPC.TabIndex = 1;
+            this.positionControlPC.Text = "Position Control";
+            this.positionControlPC.VerticalLayout = false;
             // 
             // orientationControlOC
             // 
-            orientationControlOC.AccessibleName = "Orientation";
-            orientationControlOC.EnableModeChange = true;
-            orientationControlOC.ErrorProviderControl = null;
-            orientationControlOC.ExpressionErrorString = "Bad Expression";
-            orientationControlOC.LabelQuantity = ABB.Robotics.RobotStudio.BuiltinQuantity.Angle;
-            orientationControlOC.LabelText = "Orientation";
-            orientationControlOC.Location = new System.Drawing.Point(8, 125);
-            orientationControlOC.MaxValueErrorString = "Value exceeds maximum";
-            orientationControlOC.MinValueErrorString = "Value is below minimum";
-            orientationControlOC.Name = "orientationControlOC";
-            orientationControlOC.NumTextBoxes = 3;
-            orientationControlOC.QuaternionMode = false;
-            orientationControlOC.ReadOnly = false;
-            orientationControlOC.ShowLabel = true;
-            orientationControlOC.Size = new System.Drawing.Size(200, 34);
-            orientationControlOC.TabIndex = 2;
-            orientationControlOC.Text = "positionControl1";
-            orientationControlOC.VerticalLayout = false;
+            componentResourceManager.ApplyResources(this.orientationControlOC, "orientationControlOC");
+            this.orientationControlOC.AccessibleName = "Orientation";
+            this.orientationControlOC.EnableModeChange = true;
+            this.orientationControlOC.ErrorProviderControl = null;
+            this.orientationControlOC.ExpressionErrorString = "Bad Expression";
+            this.orientationControlOC.LabelQuantity = ABB.Robotics.RobotStudio.BuiltinQuantity.Angle;
+            this.orientationControlOC.LabelText = "Orientation";
+            this.orientationControlOC.Location = new System.Drawing.Point(8, 125);
+            this.orientationControlOC.MaxValueErrorString = "Value exceeds maximum";
+            this.orientationControlOC.MinValueErrorString = "Value is below minimum";
+            this.orientationControlOC.Name = "orientationControlOC";
+            this.orientationControlOC.NumTextBoxes = 3;
+            this.orientationControlOC.QuaternionMode = false;
+            this.orientationControlOC.ReadOnly = false;
+            this.orientationControlOC.ShowLabel = true;
+            this.orientationControlOC.Size = new System.Drawing.Size(tw_width + 7, 34);
+            this.orientationControlOC.TabIndex = 2;
+            this.orientationControlOC.Text = "positionControl1";
+            this.orientationControlOC.VerticalLayout = false;
+            // 
+            // numericTextBoxLength
+            //
+            componentResourceManager.ApplyResources(this.numericTextBoxLength, "numericTextBoxLength");
+            this.numericTextBoxLength.AccessibleName = "Length (mm)";
+            this.numericTextBoxLength.ErrorProviderControl = null;
+            this.numericTextBoxLength.ExpressionErrorString = "Bad Expression";
+            this.numericTextBoxLength.LabelText = "Length (mm)";
+            this.numericTextBoxLength.Location = new System.Drawing.Point(8, 165);
+            this.numericTextBoxLength.MaxValue = 1000000.0;
+            this.numericTextBoxLength.MaxValueErrorString = "Value exceeds maximum";
+            this.numericTextBoxLength.MinValue = 0;
+            this.numericTextBoxLength.MinValueErrorString = "Value is below minimum";
+            this.numericTextBoxLength.Name = "numericTextBoxLength";
+            this.numericTextBoxLength.Quantity = ABB.Robotics.RobotStudio.BuiltinQuantity.None;
+            this.numericTextBoxLength.ReadOnly = false;
+            this.numericTextBoxLength.ShowLabel = true;
+            this.numericTextBoxLength.Size = new System.Drawing.Size(tw_width + 7, 34);
+            this.numericTextBoxLength.StepSize = 1D;
+            this.numericTextBoxLength.TabIndex = 3;
+            this.numericTextBoxLength.Text = "numericTextBox1";
+            this.numericTextBoxLength.UserEdited = false;
+            this.numericTextBoxLength.Value = 0D;
+            this.numericTextBoxLength.ValueChanged += new System.EventHandler(this.size_TextChanged);
+            // 
+            // labelDetails
+            // 
+            componentResourceManager.ApplyResources(this.labelDetails, "labelDetails");
+            this.labelDetails.Location = new System.Drawing.Point(8, 245);
+            this.labelDetails.Name = "labelDetails";
+            this.labelDetails.Size = new System.Drawing.Size(300, 15);
+            //this.labelDetails.TabIndex = 1;
+            this.labelDetails.Text = "Aluminum profile 20x20 - Max length = 3000 mm";
             // 
             // buttonClear
             // 
-            buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonClear.Location = new System.Drawing.Point(40, 295);
-            buttonClear.Name = "buttonClear";
-            buttonClear.Size = new System.Drawing.Size(53, 25);
-            buttonClear.TabIndex = 6;
-            buttonClear.Text = "Clear";
-            buttonClear.UseVisualStyleBackColor = true;
-            buttonClear.Click += new EventHandler(btn_clear_clicked);
+            componentResourceManager.ApplyResources(this.buttonClear, "buttonClear");
+            this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClear.Location = new System.Drawing.Point(tw_width - 158, 295);
+            this.buttonClear.Name = "buttonClear";
+            this.buttonClear.Size = new System.Drawing.Size(53, 25);
+            this.buttonClear.TabIndex = 6;
+            this.buttonClear.Text = "Clear";
+            this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Click += new System.EventHandler(this.btn_clear_clicked);
             // 
             // buttonCreate
             // 
-            buttonCreate.Enabled = false;
-            buttonCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonCreate.Location = new System.Drawing.Point(100, 295);
-            buttonCreate.Name = "buttonCreate";
-            buttonCreate.Size = new System.Drawing.Size(53, 25);
-            buttonCreate.TabIndex = 7;
-            buttonCreate.Text = "Create";
-            buttonCreate.UseVisualStyleBackColor = true;
-            buttonCreate.Click += new EventHandler(btn_create_clicked);
+            componentResourceManager.ApplyResources(this.buttonCreate, "buttonCreate");
+            this.buttonCreate.Enabled = false;
+            this.buttonCreate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonCreate.Location = new System.Drawing.Point(tw_width - 98, 295);
+            this.buttonCreate.Name = "buttonCreate";
+            this.buttonCreate.Size = new System.Drawing.Size(53, 25);
+            this.buttonCreate.TabIndex = 7;
+            this.buttonCreate.Text = "Create";
+            this.buttonCreate.UseVisualStyleBackColor = true;
+            this.buttonCreate.Click += new System.EventHandler(this.btn_create_clicked);
             // 
             // buttonClose
             // 
-            buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            buttonClose.Location = new System.Drawing.Point(160, 295);
-            buttonClose.Name = "buttonClose";
-            buttonClose.Size = new System.Drawing.Size(53, 25);
-            buttonClose.TabIndex = 8;
-            buttonClose.Text = "Close";
-            buttonClose.UseVisualStyleBackColor = true;
-            buttonClose.Click += new EventHandler(btn_close_clicked);
-            // 
-            // numericTextBoxLength
-            // 
-            numericTextBoxLength.AccessibleName = "Length (mm)";
-            numericTextBoxLength.ErrorProviderControl = null;
-            numericTextBoxLength.ExpressionErrorString = "Bad Expression";
-            numericTextBoxLength.LabelText = "Length (mm)";
-            numericTextBoxLength.Location = new System.Drawing.Point(8, 165);
-            numericTextBoxLength.MaxValue = 1000000000D;
-            numericTextBoxLength.MaxValueErrorString = "Value exceeds maximum";
-            numericTextBoxLength.MinValue = -1000000000D;
-            numericTextBoxLength.MinValueErrorString = "Value is below minimum";
-            numericTextBoxLength.Name = "numericTextBoxLength";
-            numericTextBoxLength.Quantity = ABB.Robotics.RobotStudio.BuiltinQuantity.None;
-            numericTextBoxLength.ReadOnly = false;
-            numericTextBoxLength.ShowLabel = true;
-            numericTextBoxLength.Size = new System.Drawing.Size(200, 34);
-            numericTextBoxLength.StepSize = 1D;
-            numericTextBoxLength.TabIndex = 3;
-            numericTextBoxLength.Text = "numericTextBox1";
-            numericTextBoxLength.UserEdited = false;
-            numericTextBoxLength.Value = 0D;
-            numericTextBoxLength.ValueChanged += new EventHandler(size_TextChanged);
-            // 
-            // frmCreateAluminiumProfile
-            // 
-            AdjustableHeight = true;
-            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            AutoScroll = true;
-            AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            Caption = "Create Aluminum Profile";
-            Controls.Add(pictureBoxModel);
-            Controls.Add(labelReference);
-            Controls.Add(comboBoxReference);
-            Controls.Add(positionControlPC);
-            Controls.Add(orientationControlOC);
-            Controls.Add(buttonClear);
-            Controls.Add(buttonCreate);
-            Controls.Add(buttonClose);
-            Controls.Add(numericTextBoxLength);
-            Name = "frmCreateAluminiumProfile";
-            Size = new System.Drawing.Size(228, 339);
+            componentResourceManager.ApplyResources(this.buttonClose, "buttonClose");
+            this.buttonClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonClose.Location = new System.Drawing.Point(tw_width - 38, 295);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(53, 25);
+            this.buttonClose.TabIndex = 8;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonClose.Click += new System.EventHandler(this.btn_close_clicked);
 
+            // 
+            // FrmCreateAluminiumProfile
+            // 
+            componentResourceManager.ApplyResources(this, "$this");
+            //base.Padding = new Padding(DpiSupport.Adjust(2));
+            //base.FlowDirection = FlowDirection.RightToLeft;
+            base.AutoScroll = true;
+            base.AutoSize = true;
+            base.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            //base.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            base.AdjustableHeight = true;
+            base.Caption = "Create Aluminum Profile";
+            base.Controls.Add(this.pictureBoxModel);
+            base.Controls.Add(this.labelReference);
+            base.Controls.Add(this.comboBoxReference);
+            base.Controls.Add(this.positionControlPC);
+            base.Controls.Add(this.orientationControlOC);
+            base.Controls.Add(this.buttonClear);
+            base.Controls.Add(this.buttonCreate);
+            base.Controls.Add(this.buttonClose);
+            base.Controls.Add(this.numericTextBoxLength);
+            base.Controls.Add(this.labelDetails);
+            base.Name = "FrmCreateAluminumProfile";
+            //base.Size = new System.Drawing.Size(330, 339);
+            //base.Size = new System.Drawing.Size(tw_width, 600);
+            //base.ShowClearButton = true;
+            //base.ShowCloseButton = true;
+            //base.ShowCreateButton = true;
+            base.Apply += new System.EventHandler(this.btn_create_clicked);
+            base.Deactivate += new System.EventHandler(this.CreateAluminiumProfile_Desactivate);
+            ((System.ComponentModel.ISupportInitialize)this.errorProviderNumTextBoxValidation).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxModel)).EndInit();
+            //pictureBoxModel.ResumeLayout(false);
+            base.ResumeLayout(false);
+            base.PerformLayout();
 
-            //base.Size = new Size(tw_width, 330);
-            base.Apply += new System.EventHandler(btn_create_clicked);
-            base.Deactivate += new System.EventHandler(CreateAluminiumProfile_Desactivate);
-            pictureBoxModel.ResumeLayout(false);
-            ResumeLayout(false);
-            PerformLayout();
-
-            ((System.ComponentModel.ISupportInitialize)(pictureBoxModel)).EndInit();
-            //ResumeLayout(false);
 
         }
 
@@ -835,24 +898,31 @@ namespace Puime_s_Addin
             {
                 case "20 x 20":
                     pictureBoxModel.Image = Resources.Alum_Prof_20_65;
+                    labelDetails.Text = "Aluminum profile 20x20 - Max length = 3000 mm";
                     break;
                 case "30 x 30":
                     pictureBoxModel.Image = Resources.Alum_Prof_30_65;
+                    labelDetails.Text = "Aluminum profile 30x30 - Max length = 5600 mm";
                     break;
                 case "40 x 40":
                     pictureBoxModel.Image = Resources.Alum_Prof_40_65;
+                    labelDetails.Text = "Aluminum profile 40x40 - Max length = 6000 mm";
                     break;
                 case "50 x 50":
                     pictureBoxModel.Image = Resources.Alum_Prof_50_65;
+                    labelDetails.Text = "Aluminum profile 50x50 - Max length = 6000 mm";
                     break;
                 case "60 x 60":
                     pictureBoxModel.Image = Resources.Alum_Prof_60_65;
+                    labelDetails.Text = "Aluminum profile 60x60 - Max length = 6000 mm";
                     break;
                 case "80 x 80":
                     pictureBoxModel.Image = Resources.Alum_Prof_80_65;
+                    labelDetails.Text = "Aluminum profile 80x80 - Max length = 6000 mm";
                     break;
                 case "90 x 90":
                     pictureBoxModel.Image = Resources.Alum_Prof_90_65;
+                    labelDetails.Text = "Aluminum profile 90x90 - Max length = 5600 mm";
                     break;
                 default:
                     break;

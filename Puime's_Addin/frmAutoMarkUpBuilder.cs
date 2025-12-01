@@ -60,7 +60,7 @@ namespace Puime_s_Addin
         {
             if (_firstClick | positionControlPos.Focused)
             {
-                Logger.AddMessage(new LogMessage("Pick targets", "Puime's Addin - Auto markup creator"));
+                Logger.AddMessage(new LogMessage("Click points in the graphic window", "Puime's Addin - Auto markup creator"));
                 GraphicPicker.GraphicPick += new GraphicPickEventHandler(GraphicPicker_GraphicPick);
             }
         }
@@ -410,7 +410,7 @@ namespace Puime_s_Addin
                      "Klammer",
                      "TrimClip Plastic",
                      "Plastic Nut"});
-            comboBoxClipStandard.SelectedItem = "0";
+            comboBoxClipStandard.SelectedItem = "Snap";
             comboBoxClipStandard.TabIndex = 7;
             comboBoxClipStandard.SelectedIndexChanged += new EventHandler(ClipValueChanged);
 
@@ -485,6 +485,7 @@ namespace Puime_s_Addin
             positionControlPos.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
+            ClipValueChanged(null,null);
         }
 
 

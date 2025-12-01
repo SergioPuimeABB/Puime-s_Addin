@@ -2,6 +2,8 @@
 {
     partial class FrmCreateAluminiumProfile
     {
+        private System.ComponentModel.IContainer components;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>

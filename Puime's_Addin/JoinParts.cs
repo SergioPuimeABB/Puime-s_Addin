@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -83,7 +84,7 @@ namespace Puime_s_Addin
 
                 else
                 {
-                    MessageBox.Show("Please, select a Part.");
+                    MessageBox.Show("Please, select a Part.", "Joint parts - Puime's Addin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
 
                 #endregion SelectParts

@@ -35,6 +35,9 @@ namespace Puime_s_Addin
                 {
                     Logger.AddMessage(new LogMessage(SelectedPath.Name.ToString() + " Selected", "Puime's Add-in"));
 
+
+                    // this foreach will rename the targets found in the selected path
+                    // it has to be like this, because the GetTargetsfromPath is an IEnumerable that yield return the renamed targets one by one
                     foreach (var item in GetTargetsfromPath(SelectedPath))
                     {
 
@@ -45,7 +48,8 @@ namespace Puime_s_Addin
 
                 else
                 {
-                    MessageBox.Show("Please, select a Path.");
+                    //MessageBox.Show("Please, select a Path.");
+                    MessageBox.Show("Please, select a Path.", "Auto rename targets - Puime's Addin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch

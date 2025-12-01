@@ -4,7 +4,9 @@ using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using PuimesAddin;
 using PuimesAddin.Properties;
+using System;
 using System.Drawing;
+using System.IO;
 
 namespace Puime_s_Addin
 {
@@ -31,8 +33,9 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 08/10/2025 - 10:46 ...", "Puime's Add-in"));
-            //Logger.AddMessage(new LogMessage("Puime's addin v4 beta 1 loaded ...", "Puime's Add-in"));
+            //Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 28/11/2025 - 9:40 ...", "Puime's Add-in"));
+
+            Logger.AddMessage(new LogMessage("Puime's addin v4 loaded ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
