@@ -57,14 +57,17 @@ It’ll reset the RS floor size to match the floor and hides all the targets/fra
 
  
 * **Auto markup creator.** ![Auto markup creator](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/08.png) Designed to help in the clips naming of the clipping applications. It creates a markup each time you click in the graphic window. The markup can be customized in name, color, start number, increments and you can select the standard clipping color.
+
 ![Auto markup creator](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/10.png) 
 
 * **Aluminum profile creator.** ![Aluminum profile creator](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/11.png) Creates aluminum square profiles with custom length and selected shape. 
+
 ![Aluminum profile creator](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/12.png) 
 
 * **Auto rename targets.** ![Auto rename targets](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/13.png)
 Whit a path selected; it’ll rename the “Target_xxx” target names to “pxxx” in that path.
 You can use right click mouse button to display this tool if one Path is selected.
+
 ![Auto rename targets](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/14.png) 
  
 * **Join parts.** ![Join parts](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/15.png)
@@ -73,10 +76,12 @@ You can use right click mouse button to display this tool if one or more Parts a
 
 * **Auto move parameters.** ![Auto move parameters](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/16.png) 
 Assign preset move parameters to the selected move instruction. When you open the tool, it opens a window with different move parameters. If a move instruction is selected in the tree, you can assign the desired parameters to the move instruction.
+
 ![Auto move parameters](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/17.png) 
 
 * **Zoom view.** ![Zoom view](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/18.png) 
 Displays a window to zoom more or less with a custom zoom factor.
+
 ![Zoom view](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/10.png) 
 
 
@@ -86,22 +91,24 @@ Displays a window to zoom more or less with a custom zoom factor.
 **Version History.**
 
 **# 4.0 (2025 Dec)**
-•	Adapted to be able to works in RS2024 and RS2025. The RS2025 DistributionPackages can be at different folder.
-•	Aluminum profile creator tool added.
-•	Auto move parameters tool added.
-•	Zoom view tool added.
-•	ABB Box creator tool. Now you can change the opacity in the “ Graphic Appearance “.
-•	Auto rename targets tool added to the right click mouse button.
-•	Auto rename targets tool. This tool only renames the first time that it finds a target. If the same target is in another place of the path, this time the target will not be renamed, and it will be at an useless state. If you need to use the target more than once, please, rename it before.
-•	Join parts tool added to the right click mouse button.
-•	Join parts tool. This tool will only works if the selected parts have bodies.
+
+- Adapted to be able to works in RS2024 and RS2025. The RS2025 DistributionPackages can be at different folder.
+- Aluminum profile creator tool added.
+- Auto move parameters tool added.
+- Zoom view tool added.
+- ABB Box creator tool. Now you can change the opacity in the “ Graphic Appearance “.
+- Auto rename targets tool added to the right click mouse button.
+- Auto rename targets tool. This tool only renames the first time that it finds a target. If the same target is in another place of the path, this time the target will not be renamed, and it will be at an useless state. If you need to use the target more than once, please, rename it before.
+- Join parts tool added to the right click mouse button.
+- Join parts tool. This tool will only works if the selected parts have bodies.
 
 **# 3.0 (2023 Nov)**
-•	Floor Creator changes the floor color that creates.
-•	ABB Raiser creator creates a different color raiser.
-•	ABB Base plate creator tool added.
-•	Auto rename targets tool added.
-•	Join parts tool added.
+
+- Floor Creator changes the floor color that creates.
+- ABB Raiser creator creates a different color raiser.
+- ABB Base plate creator tool added.
+- Auto rename targets tool added.
+- Join parts tool added.
 
 **# 2.0 (2021 Aug)**
 
