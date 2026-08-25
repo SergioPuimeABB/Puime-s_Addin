@@ -1,13 +1,13 @@
  ![Add-in](https://github.com/SergioPuimeABB/Puime-s_Addin/blob/master/Puime's_Addin/Screenshots/000.png)
 # Puime's Addin
-###### Version 4.0
+###### Version 2026.0
 
 
 **Overview.** 
 The Puime’s Addin is a RobotStudio add-in coded by Sergio Puime (sergio.puime@es.abb.com) that extends RobotStudio with some useful tools. Use the add-in to copy objects position, to create a station floor, ABB boxes, ABB raisers, auto markups and aluminum profiles. It has some useful helpers like Auto rename targets, Join parts, Auto move parameters and Zoom view.
 
 **Installation.**
-From the Add-Ins tab in RobotStudio, click on “Install Package” and select the PuimesAddin-4.0.rspak file. This will add an item in the “Installed Packages” section. You’ll need to restart RobotStudio in order to finish the installation.
+From the Add-Ins tab in RobotStudio, click on “Install Package” and select the PuimesAddin-2026.0.rspak file. This will add an item in the “Installed Packages” section. You’ll need to restart RobotStudio in order to finish the installation.
 
 **How it works.**
 After the installation, a new ribbon group will be added at the Create group in the Modeling ribbon tab.
@@ -89,6 +89,10 @@ Displays a window to zoom more or less with a custom zoom factor.
 # 
 
 **Version History.**
+
+**# 2026.0 (2026 Aug)**
+-	No new features, only RobotStudio 2026 compatibility update.
+
 
 **# 4.0 (2025 Dec)**
 
