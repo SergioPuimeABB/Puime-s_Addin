@@ -390,7 +390,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmAutoMoveParam";
-            this.Text = "Auto move parameters - Puime\'s Addin";
+            this.Text = "Auto move parameters - Puime's Addin";
             this.TopMost = true;
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

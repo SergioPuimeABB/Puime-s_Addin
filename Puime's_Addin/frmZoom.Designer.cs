@@ -93,7 +93,7 @@ namespace PuimesAddin
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmZoom";
-            this.Text = "Zoom view - Puime\'s Addin";
+            this.Text = "Zoom view - Puime's Addin";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.nUD_ZoomFactor)).EndInit();
             this.ResumeLayout(false);

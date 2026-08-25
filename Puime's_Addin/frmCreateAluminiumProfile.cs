@@ -1,25 +1,20 @@
-﻿using ABB.Robotics.Controllers.RapidDomain;
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Environment;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using PuimesAddin.Properties;
-using RobotStudio.API.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
-using static System.Collections.Specialized.BitVector32;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
+    [System.Runtime.Versioning.SupportedOSPlatform("windows7.0")]
     public partial class FrmCreateAluminiumProfile : ToolControlBase
     {
         private PictureBox pictureBoxModel;
@@ -164,6 +159,10 @@ namespace Puime_s_Addin
                         }
                     break;
                 case "30 x 30":
+                case "30 x 30A":
+                case "30x30A":
+                case "30 x 30B":
+                case "30x30B":
                     var bl3 = (numericTextBoxLength.Value);
                     if (bl3 != 0 & bl3 < 5601 & bl3 > 0)
                         {
@@ -232,10 +231,6 @@ namespace Puime_s_Addin
                 default:
                     break;
                 }
-
-
-                
-
             ValidateToolControl();
         }
 
@@ -256,45 +251,32 @@ namespace Puime_s_Addin
             CloseTool();
         }
 
-        private void btn_create_clicked(object sender, EventArgs e)
+        private async void btn_create_clicked(object sender, EventArgs e)
         {
             if (ValidateToolControl())
             {
-                Project.UndoContext.BeginUndoStep();
                 try
                 {
-                    CreateAluminiumProfile(preview: false);
+                    await CreateAluminiumProfileAsync(preview: false);
                 }
-                finally
+                catch (Exception ex)
                 {
-                    Project.UndoContext.EndUndoStep();
+                    Logger.AddMessage(new LogMessage($"[CreateAluminiumProfile ERROR] {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}", "Puime's Add-in"));
                 }
             }
         }
 
-
         private void CreateAluminiumProfile(bool preview)
         {
+            _ = CreateAluminiumProfileAsync(preview);
+        }
+
+        private async System.Threading.Tasks.Task CreateAluminiumProfileAsync(bool preview)
+        {
             #region try
-            Project.UndoContext.BeginUndoStep("CreateAluminiumProfile");
-            try
-            {
-                //Station stn = Station.ActiveStation;
-                //if (stn == null) return;
-
-                string WorkingDirectory;
-                string DirectoryPath1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-                string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\";
-                string currentDirectoryPath = DirectoryPath1 + DirectoryPath2;
-
-                if (Directory.Exists(currentDirectoryPath))
-                {
-                    WorkingDirectory = currentDirectoryPath;
-                }
-                else
-                {
-                    WorkingDirectory = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\";
-                }
+                string localAppDataBasePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string localAppDataRelativePath = "\\ABB\\DistributionPackages2\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Library\\AlumProfiles\\";
+                string WorkingDirectory = localAppDataBasePath + localAppDataRelativePath;
 
                 double Xvalue = 0;
                 double Yvalue = 0;
@@ -326,7 +308,6 @@ namespace Puime_s_Addin
                     default:
                         break;
                 }
-
                 
                 Vector3 valueCorner = new Vector3 (positionControlPC.Value.x - ((Xvalue/2)/1000), positionControlPC.Value.y - ((Yvalue / 2) / 1000), positionControlPC.Value.z);
                 Vector3 value = new Vector3 (positionControlPC.Value.x, positionControlPC.Value.y, positionControlPC.Value.z);
@@ -338,7 +319,8 @@ namespace Puime_s_Addin
                 Vector3 size = new Vector3(Xvalue / 1000, Yvalue / 1000, Zvalue / 1000);
 
                 Station station = Project.ActiveProject as Station;
-                if (station == null) return;
+                if (station == null) 
+                    return;
 
                 if (preview)
                 {
@@ -349,7 +331,6 @@ namespace Puime_s_Addin
                 //
                 // Import the Profile library
                 //
-
                 GraphicComponentLibrary ProfileLib = new GraphicComponentLibrary(); //First part
                 GraphicComponentLibrary ProfileLib2 = new GraphicComponentLibrary(); //Second part
                 GraphicComponentLibrary ProfileLib3 = new GraphicComponentLibrary(); //Third part
@@ -360,88 +341,281 @@ namespace Puime_s_Addin
                 switch (comboBoxReference.SelectedItem)
                 {
                     case "20 x 20":
-                        ProfileLib = GraphicComponentLibrary.Load( WorkingDirectory + "BaseProfile_20x20.rslib", true, null, true);
+                    {
+                        string p20 = Path.Combine(WorkingDirectory, "BaseProfile_20x20.rslib");
+                        if (!File.Exists(p20))
+                            throw new InvalidOperationException($"Profile file not found: {p20}");
+
+                        ProfileLib = await GraphicComponentLibrary.LoadAsync(p20, true, null, true);
+                        if (ProfileLib?.RootComponent is not Part)
+                            throw new InvalidOperationException($"Profile root component is not a Part (file: {p20}, type: {ProfileLib?.RootComponent?.GetType().FullName ?? "null"}).");
+
                         sProfileName = "Aluminum profile 20x20";
                         nProfiles = 1;
                         break;
+                    }
                     case "30 x 30":
-                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_30x30A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_30x30B.rslib", true, null, true);
+                    {
+                        string p30A = Path.Combine(WorkingDirectory, "BaseProfile_30x30A.rslib");
+                        string p30B = Path.Combine(WorkingDirectory, "BaseProfile_30x30B.rslib");
+
+                        if (!File.Exists(p30A))
+                            throw new InvalidOperationException($"Profile file not found: {p30A}");
+                        if (!File.Exists(p30B))
+                            throw new InvalidOperationException($"Profile file not found: {p30B}");
+
+                        ProfileLib  = await GraphicComponentLibrary.LoadAsync(p30A, true, null, true);
+
+                        ////
+                        //// Warm-up: first CopyInstance() initializes the internal ACIS geometry definition.
+                        //// The SDK requires this call before the actual CopyInstance() in the foreach.
+                        ////
+                        var root = ProfileLib?.RootComponent as Part;
+                            string rootTypeName = root?.CopyInstance()?.GetType().FullName ?? "null";
+
+
+                        ProfileLib2 = await GraphicComponentLibrary.LoadAsync(p30B, true, null, true);
+
+                        if (ProfileLib?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p30A}, type: {ProfileLib?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib2?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p30B}, type: {ProfileLib2?.RootComponent?.GetType().FullName ?? "null"}).");
+
                         sProfileName = "Aluminum profile 30x30";
                         nProfiles = 2;
                         break;
+                    }
                     case "40 x 40":
-                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_40x40A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_40x40B.rslib", true, null, true);
+                    {
+                        string p40A = Path.Combine(WorkingDirectory, "BaseProfile_40x40A.rslib");
+                        string p40B = Path.Combine(WorkingDirectory, "BaseProfile_40x40B.rslib");
+
+                        if (!File.Exists(p40A))
+                            throw new InvalidOperationException($"Profile file not found: {p40A}");
+                        if (!File.Exists(p40B))
+                            throw new InvalidOperationException($"Profile file not found: {p40B}");
+
+                        ProfileLib = await GraphicComponentLibrary.LoadAsync(p40A, true, null, true);
+
+                        ////
+                        //// Warm-up: first CopyInstance() initializes the internal ACIS geometry definition.
+                        //// The SDK requires this call before the actual CopyInstance() in the foreach.
+                        ////
+                        var root = ProfileLib?.RootComponent as Part;
+                            string rootTypeName = root?.CopyInstance()?.GetType().FullName ?? "null";
+
+                        ProfileLib2 = await GraphicComponentLibrary.LoadAsync(p40B, true, null, true);
+
+                        if (ProfileLib?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p40A}, type: {ProfileLib?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib2?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p40B}, type: {ProfileLib2?.RootComponent?.GetType().FullName ?? "null"}).");
+
                         sProfileName = "Aluminum profile 40x40";
                         nProfiles = 2;
                         break;
+                    }
                     case "50 x 50":
-                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_50x50A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_50x50B.rslib", true, null, true);
+                    {
+                        string p50A = Path.Combine(WorkingDirectory, "BaseProfile_50x50A.rslib");
+                        string p50B = Path.Combine(WorkingDirectory, "BaseProfile_50x50B.rslib");
+
+                        if (!File.Exists(p50A))
+                            throw new InvalidOperationException($"Profile file not found: {p50A}");
+                        if (!File.Exists(p50B))
+                            throw new InvalidOperationException($"Profile file not found: {p50B}");
+
+                        ProfileLib = await GraphicComponentLibrary.LoadAsync(p50A, true, null, true);
+
+                        ////
+                        //// Warm-up: first CopyInstance() initializes the internal ACIS geometry definition.
+                        //// The SDK requires this call before the actual CopyInstance() in the foreach.
+                        ////
+                        var root = ProfileLib?.RootComponent as Part;
+                        string rootTypeName = root?.CopyInstance()?.GetType().FullName ?? "null";
+
+                        ProfileLib2 = await GraphicComponentLibrary.LoadAsync(p50B, true, null, true);
+
+                        if (ProfileLib?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p50A}, type: {ProfileLib?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib2?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p50B}, type: {ProfileLib2?.RootComponent?.GetType().FullName ?? "null"}).");
+
                         sProfileName = "Aluminum profile 50x50";
                         nProfiles = 2;
                         break;
+                    }
                     case "60 x 60":
-                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_60x60A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_60x60B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_60x60C.rslib", true, null, true);
+                    {
+                        string p60A = Path.Combine(WorkingDirectory, "BaseProfile_60x60A.rslib");
+                        string p60B = Path.Combine(WorkingDirectory, "BaseProfile_60x60B.rslib");
+                        string p60C = Path.Combine(WorkingDirectory, "BaseProfile_60x60C.rslib");
+
+                        if (!File.Exists(p60A))
+                            throw new InvalidOperationException($"Profile file not found: {p60A}");
+                        if (!File.Exists(p60B))
+                            throw new InvalidOperationException($"Profile file not found: {p60B}");
+                        if (!File.Exists(p60C))
+                            throw new InvalidOperationException($"Profile file not found: {p60C}");
+
+                        ProfileLib = await GraphicComponentLibrary.LoadAsync(p60A, true, null, true);
+                        
+                        ////
+                        //// Warm-up: first CopyInstance() initializes the internal ACIS geometry definition.
+                        //// The SDK requires this call before the actual CopyInstance() in the foreach.
+                        ////
+                        var root = ProfileLib?.RootComponent as Part;
+                            string rootTypeName = root?.CopyInstance()?.GetType().FullName ?? "null";
+
+                        ProfileLib2 = await GraphicComponentLibrary.LoadAsync(p60B, true, null, true);
+                            var root2 = ProfileLib2?.RootComponent as Part;
+                            string rootTypeName2 = root2?.CopyInstance()?.GetType().FullName ?? "null";
+
+                        ProfileLib3 = await GraphicComponentLibrary.LoadAsync(p60C, true, null, true);
+                            var root3 = ProfileLib3?.RootComponent as Part;
+                            string rootTypeName3 = root3?.CopyInstance()?.GetType().FullName ?? "null";
+
+
+                        if (ProfileLib?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p60A}, type: {ProfileLib?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib2?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p60B}, type: {ProfileLib2?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib3?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p60C}, type: {ProfileLib3?.RootComponent?.GetType().FullName ?? "null"}).");
+
                         sProfileName = "Aluminum profile 60x60";
                         nProfiles = 3;
                         break;
+                    }
                     case "80 x 80":
-                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_80x80A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_80x80B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_80x80C.rslib", true, null, true);
+                    {
+                        string p80A = Path.Combine(WorkingDirectory, "BaseProfile_80x80A.rslib");
+                        string p80B = Path.Combine(WorkingDirectory, "BaseProfile_80x80B.rslib");
+                        string p80C = Path.Combine(WorkingDirectory, "BaseProfile_80x80C.rslib");
+
+                        if (!File.Exists(p80A))
+                            throw new InvalidOperationException($"Profile file not found: {p80A}");
+                        if (!File.Exists(p80B))
+                            throw new InvalidOperationException($"Profile file not found: {p80B}");
+                        if (!File.Exists(p80C))
+                            throw new InvalidOperationException($"Profile file not found: {p80C}");
+
+                        ProfileLib = await GraphicComponentLibrary.LoadAsync(p80A, true, null, true);
+                        ////
+                        //// Warm-up: first CopyInstance() initializes the internal ACIS geometry definition.
+                        //// The SDK requires this call before the actual CopyInstance() in the foreach.
+                        ////
+                        var root = ProfileLib?.RootComponent as Part;
+                            string rootTypeName = root?.CopyInstance()?.GetType().FullName ?? "null";
+                        
+                        ProfileLib2 = await GraphicComponentLibrary.LoadAsync(p80B, true, null, true);
+                            var root2 = ProfileLib2?.RootComponent as Part;
+                            string rootTypeName2 = root2?.CopyInstance()?.GetType().FullName ?? "null";
+                        
+                        ProfileLib3 = await GraphicComponentLibrary.LoadAsync(p80C, true, null, true);
+                            var root3 = ProfileLib3?.RootComponent as Part;
+                            string rootTypeName3 = root3?.CopyInstance()?.GetType().FullName ?? "null";
+
+                        if (ProfileLib?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p80A}, type: {ProfileLib?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib2?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p80B}, type: {ProfileLib2?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib3?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p80C}, type: {ProfileLib3?.RootComponent?.GetType().FullName ?? "null"}).");
+
                         sProfileName = "Aluminum profile 80x80";
                         nProfiles = 3;
                         break;
+                    }
                     case "90 x 90":
-                        ProfileLib = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_90x90A.rslib", true, null, true);
-                        ProfileLib2 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_90x90B.rslib", true, null, true);
-                        ProfileLib3 = GraphicComponentLibrary.Load(WorkingDirectory + "BaseProfile_90x90C.rslib", true, null, true);
+                    {
+                        string p90A = Path.Combine(WorkingDirectory, "BaseProfile_90x90A.rslib");
+                        string p90B = Path.Combine(WorkingDirectory, "BaseProfile_90x90B.rslib");
+                        string p90C = Path.Combine(WorkingDirectory, "BaseProfile_90x90C.rslib");
+
+                        if (!File.Exists(p90A))
+                            throw new InvalidOperationException($"Profile file not found: {p90A}");
+                        if (!File.Exists(p90B))
+                            throw new InvalidOperationException($"Profile file not found: {p90B}");
+                        if (!File.Exists(p90C))
+                            throw new InvalidOperationException($"Profile file not found: {p90C}");
+
+                        ProfileLib = await GraphicComponentLibrary.LoadAsync(p90A, true, null, true);
+                        ////
+                        //// Warm-up: first CopyInstance() initializes the internal ACIS geometry definition.
+                        //// The SDK requires this call before the actual CopyInstance() in the foreach.
+                        ////
+                        var root = ProfileLib?.RootComponent as Part;
+                            string rootTypeName = root?.CopyInstance()?.GetType().FullName ?? "null";
+
+                        ProfileLib2 = await GraphicComponentLibrary.LoadAsync(p90B, true, null, true);
+                            var root2 = ProfileLib2?.RootComponent as Part;
+                            string rootTypeName2 = root2?.CopyInstance()?.GetType().FullName ?? "null";
+                        
+                        ProfileLib3 = await GraphicComponentLibrary.LoadAsync(p90C, true, null, true);
+                            var root3 = ProfileLib3?.RootComponent as Part;
+                            string rootTypeName3 = root3?.CopyInstance()?.GetType().FullName ?? "null";
+
+                        if (ProfileLib?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p90A}, type: {ProfileLib?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib2?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p90B}, type: {ProfileLib2?.RootComponent?.GetType().FullName ?? "null"}).");
+                        if (ProfileLib3?.RootComponent is not Part)
+                            throw new InvalidOperationException(
+                                $"Profile root component is not a Part (file: {p90C}, type: {ProfileLib3?.RootComponent?.GetType().FullName ?? "null"}).");
+
                         sProfileName = "Aluminum profile 90x90";
                         nProfiles = 3;
                         break;
+                    }
                     default:
                         break;
                 }
 
-                GraphicComponentLibrary sProfile = new GraphicComponentLibrary();
+                // Open undo step AFTER all async library loading is done
+            Project.UndoContext.BeginUndoStep("CreateAluminiumProfile");
+            try
+            {
+                var profileLibraries = new List<GraphicComponentLibrary>();
+
+                if (ProfileLib != null)
+                    profileLibraries.Add(ProfileLib);
+
+                if (nProfiles >= 2 && ProfileLib2 != null)
+                    profileLibraries.Add(ProfileLib2);
+
+                if (nProfiles >= 3 && ProfileLib3 != null)
+                    profileLibraries.Add(ProfileLib3);
 
                 Part part = new Part(); //First step
                 Part part2 = new Part(); //Second step
                 Part part3 = new Part(); //Final step
                 Part part4 = new Part(); //First cut
                 Part part5 = new Part(); //Second cut
-                
-                for (int i = 0; i < 3; i++)
+                foreach (var sProfile in profileLibraries)
                 {
-                    switch (i)
-                    {
-                        case 0:
-                            sProfile = ProfileLib;
-                            if (nProfiles == 1) i = 3; 
-                            break;
-                        case 1:
-                            sProfile = ProfileLib2;
-                            if (nProfiles == 2) i = 3;
-                            break;
-                        case 2:
-                            sProfile = ProfileLib3;
-                            if (nProfiles == 3) i = 3;
-                            break;
-                        default:
-                            break;
-                    }
-                    
-                    Part myPart = sProfile.RootComponent.CopyInstance() as Part;
-                    myPart.DisconnectFromLibrary();
-                    sProfile.Close();
+                    var rootPart = sProfile.RootComponent as Part
+                        ?? throw new InvalidOperationException(
+                            $"RootComponent de '{sProfile.Name}' no es Part " +
+                            $"(tipo: {sProfile.RootComponent?.GetType().FullName ?? "null"}).");
 
                     Wire MyWire2 = null;
 
-                    foreach (var item in myPart.Bodies)
+                    foreach (var item in rootPart.Bodies)
                     {
                         Body MyBody = item as Body;
                         if (MyBody != null)
@@ -454,17 +628,16 @@ namespace Puime_s_Addin
 
                     SweepOptions sweepOptions = new SweepOptions();
                     sweepOptions.MakeSolid = true;
-                    
+
                     Body[] bodyarray = Body.Extrude(MyWire2, projection, alongWire, sweepOptions);
                     if (bodyarray.Length != 0)
                     {
-                        //Fist step
+                        // Fist step
                         foreach (Body bbody in bodyarray)
                         {
                             bbody.Name = "Body1";
                             part.Bodies.Add(bbody);
 
-                            //Copy the body 3 times and rotate it to make a square.
                             Body bbodycopy2 = (Body)bbody.Copy();
                             bbodycopy2.Name = "Body2";
                             bbodycopy2.Transform.RZ = Globals.DegToRad(90);
@@ -481,7 +654,6 @@ namespace Puime_s_Addin
                             part.Bodies.Add(bbodycopy4);
 
                             // Second step
-                            // Join all the four rotated parts in one
                             Body[] b1 = bbody.Join(bbodycopy2, false);
                             foreach (Body b11 in b1)
                             {
@@ -495,7 +667,7 @@ namespace Puime_s_Addin
                                 b12.Name = "Body";
                                 part2.Bodies.Add(b12);
                             }
-                            
+
                             Body[] b7 = b1[0].Join(b2[0], false);
                             foreach (Body b in b7)
                             {
@@ -503,12 +675,14 @@ namespace Puime_s_Addin
                                 b.Color = Color.FromArgb(224, 224, 224);
                                 part3.Bodies.Add(b);
                             }
-
                         }
-
                     }
-
                 }
+
+                // Close libraries after all CopyInstance() calls are done
+                ProfileLib?.Close();
+                if (nProfiles >= 2) ProfileLib2?.Close();
+                if (nProfiles >= 3) ProfileLib3?.Close();
 
                 switch (nProfiles)
                 {
@@ -604,8 +778,6 @@ namespace Puime_s_Addin
                         part5.Transform.RY = orientationControlOC.Value.y;
                         part5.Transform.RZ = orientationControlOC.Value.z;
 
-                        //part4.Transform.Matrix = PosOrientCorner;
-
                         station.GraphicComponents.Remove(part);
                         station.GraphicComponents.Remove(part2);
                         station.GraphicComponents.Remove(part3);
@@ -659,14 +831,6 @@ namespace Puime_s_Addin
             UpdatePreview(valid: false);
         }
 
-
-
-    
-
-
-
-
-
         #region Windows Form Designer generated code
 
         /// <summary>
@@ -678,7 +842,7 @@ namespace Puime_s_Addin
             int tw_width = UIEnvironment.Windows["ObjectBrowser"].Control.Size.Width - 25;
 
             this.componentsB = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(Puime_s_Addin.FrmCreateAluminiumProfile));
+            System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(PuimesAddin.FrmCreateAluminiumProfile));
 
             this.pictureBoxModel = new System.Windows.Forms.PictureBox();
             this.labelReference = new System.Windows.Forms.Label();

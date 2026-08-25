@@ -1,4 +1,4 @@
-﻿
+
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
@@ -8,19 +8,21 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using RapidTask = ABB.Robotics.Controllers.RapidDomain.Task;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
+    [System.Runtime.Versioning.SupportedOSPlatform("windows7.0")]
     class Create_BasePlate
     {
-        public static void Create_ABB_BasePlate()
+        public static async System.Threading.Tasks.Task Create_ABB_BasePlate()
         {
             #region try
-            Project.UndoContext.BeginUndoStep("RotateBasedOnAxis");
+            Project.UndoContext.BeginUndoStep("Create ABB BasePlate");
             try
             {
                 Station stn = Station.ActiveStation;
-                if (stn == null) return;
+                    if (stn == null) return;
 
                 var StationBasePlates = new List<BasePlate_constructor>(); // List to store all the baseplates to create
 
@@ -94,7 +96,7 @@ namespace Puime_s_Addin
 
                 foreach (var item in StationBasePlates)
                 {
-                    BasePlate(item.Name, item.Type, item.Xpos, item.Ypos, item.Orientation, item.Zpos);
+                    await BasePlate(item.Name, item.Type, item.Xpos, item.Ypos, item.Orientation, item.Zpos);
                 }
             }
             #endregion try
@@ -112,12 +114,12 @@ namespace Puime_s_Addin
 
         }
 
-        public static void BasePlate(string name, string type, double xpos, double ypos, double orientation, double height)
+        public static async System.Threading.Tasks.Task BasePlate(string name, string type, double xpos, double ypos, double orientation, double height)
         {
 
             string WorkingDirectoryBasePlate;
             string DirectoryPath1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\";
+            string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Library\\BasePlates\\";
             string currentDirectoryPathBasePlate = DirectoryPath1 + DirectoryPath2;
 
             if (Directory.Exists(currentDirectoryPathBasePlate))
@@ -126,7 +128,7 @@ namespace Puime_s_Addin
             }
             else
             {
-                WorkingDirectoryBasePlate = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\BasePlates\\";
+                WorkingDirectoryBasePlate = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Library\\BasePlates\\";
             }
 
             switch (type)
@@ -163,42 +165,46 @@ namespace Puime_s_Addin
                         }
 
 
+                        // Eliminate the height decimals
+                        int heightInt = (int)height;
+
                         // checks if the height is in the allowed range
-                         var a = height == 60 || height == 70 || height == 80 || height == 90 || height == 100;
+                        var a = height == 60 || height == 70 || height == 80 || height == 90 || height == 100;
 
                         if (a) // if height is in the allowed range, creates the raiser 
                         {
                             Station station = Project.ActiveProject as Station;
 
                         //Load the base plate based on the height
-                        GraphicComponentLibrary BasePlateTypeALib = new GraphicComponentLibrary();
+                        GraphicComponentLibrary BasePlateTypeALib = new();
 
                         switch (height)
                         {
                             case 60:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA60.rslib", true, null, false);
+                                BasePlateTypeALib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeA60.rslib", true, null, false);
                                 break;
                             case 70:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA70.rslib", true, null, false);
+                                BasePlateTypeALib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeA70.rslib", true, null, false);
                                 break;
                             case 80:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA80.rslib", true, null, false);
+                                BasePlateTypeALib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeA80.rslib", true, null, false);
                                 break;
                             case 90:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA90.rslib", true, null, false);
+                                BasePlateTypeALib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeA90.rslib", true, null, false);
                                 break;
                             case 100:
-                                BasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA100.rslib", true, null, false);
+                                BasePlateTypeALib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeA100.rslib", true, null, false);
                                 break;
                             default:
                                 break;
                         }
 
-                        var myPart1 = BasePlateTypeALib.RootComponent.CopyInstance();
+                        GraphicComponent myPart1 = BasePlateTypeALib.RootComponent.CopyInstance();
+                        //var myPart1 = BasePlateTypeALib.RootComponent.CopyInstance();
                         myPart1.Name = "BasePlateTypeA";
                         myPart1.DisconnectFromLibrary();
 
-                        GraphicComponentGroup myGCGroup = new GraphicComponentGroup();
+                        GraphicComponentGroup myGCGroup = new();
                             myGCGroup.Name = "ABB_BasePlate_" + name;
                             station.GraphicComponents.Add(myGCGroup);
                             myGCGroup.GraphicComponents.Add(myPart1);
@@ -259,8 +265,9 @@ namespace Puime_s_Addin
                         Station station = Project.ActiveProject as Station;
 
                         // Import the BasePlateTypeB library                                                                                                             
-                        GraphicComponentLibrary BasePlateTypeBLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeB50.rslib", true, null, false);
+                        GraphicComponentLibrary BasePlateTypeBLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeB50.rslib", true, null, false);
 
+                        BasePlateTypeBLib.RootComponent.CopyInstance();
                         var myPart1 = BasePlateTypeBLib.RootComponent.CopyInstance();
                         myPart1.Name = "BasePlateTypeB";
                         myPart1.DisconnectFromLibrary();
@@ -332,24 +339,25 @@ namespace Puime_s_Addin
                         switch (height)
                         {
                             case 60:
-                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC60.rslib", true, null, false);
+                                BasePlateTypeCLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeC60.rslib", true, null, false);
                                 break;
                             case 70:
-                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC70.rslib", true, null, false);
+                                BasePlateTypeCLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeC70.rslib", true, null, false);
                                 break;
                             case 80:
-                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC80.rslib", true, null, false);
+                                BasePlateTypeCLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeC80.rslib", true, null, false);
                                 break;
                             case 90:
-                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC90.rslib", true, null, false);
+                                BasePlateTypeCLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeC90.rslib", true, null, false);
                                 break;
                             case 100:
-                                BasePlateTypeCLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC100.rslib", true, null, false);
+                                BasePlateTypeCLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeC100.rslib", true, null, false);
                                 break;
                             default:
                                 break;
                         }
 
+                        BasePlateTypeCLib.RootComponent.CopyInstance();
                         var myPart1 = BasePlateTypeCLib.RootComponent.CopyInstance();
                         myPart1.Name = "BasePlateTypeC";
                         myPart1.DisconnectFromLibrary();

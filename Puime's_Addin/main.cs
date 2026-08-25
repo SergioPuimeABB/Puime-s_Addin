@@ -8,8 +8,9 @@ using System;
 using System.Drawing;
 using System.IO;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
+    [System.Runtime.Versioning.SupportedOSPlatform("windows7.0")]
     public class main
     {
 
@@ -33,9 +34,9 @@ namespace Puime_s_Addin
 
         public static void AddinMain()
         {
-            //Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 28/11/2025 - 9:40 ...", "Puime's Add-in"));
+            //Logger.AddMessage(new LogMessage("Puime's addin v4b loaded 24/08/2026 - 13:03 ...", "Puime's Add-in"));
 
-            Logger.AddMessage(new LogMessage("Puime's addin v4 loaded ...", "Puime's Add-in"));
+            Logger.AddMessage(new LogMessage("Puime's addin 2026.0 loaded ...", "Puime's Add-in"));
 
             if (rgPA == null)
             {
@@ -86,10 +87,10 @@ namespace Puime_s_Addin
             galleryPA.GalleryItemSize = new Size(96, 96);
             galleryPA.Image = Resources.PA;
             galleryPA.HelpText = "Puime's Addin.";
-            
+
             CommandBarHeader control = new CommandBarHeader("Copy & set position");
             galleryPA.GalleryControls.Add(control);
-            
+
             btnCP = new CommandBarButton("PuimesAddin Copy position", "Copy position");
             btnCP.Image = Resources.BT_copy;
             galleryPA.GalleryControls.Add(btnCP);
@@ -101,7 +102,7 @@ namespace Puime_s_Addin
             galleryPA.GalleryControls.Add(btnSP);
             btnSP.UpdateCommandUI += btnSP_UpdateCommandUI;
             btnSP.ExecuteCommand += btnSP_ExecuteCommand;
-            
+
             CommandBarHeader control2 = new CommandBarHeader("Creators");
             galleryPA.GalleryControls.Add(control2);
 
@@ -198,6 +199,7 @@ namespace Puime_s_Addin
             UIEnvironment.RibbonTabs["Modeling"].Groups[0].Controls.Insert(7, galleryPA);
         }
 
+
         private static void btnCP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
         {
             e.Enabled = Project.ActiveProject is Station;
@@ -244,9 +246,9 @@ namespace Puime_s_Addin
         {
             e.Enabled = Project.ActiveProject is Station;
         }
-        static void btnCR_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        private static async void btnCR_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            Create_Raiser.Create_ABB_Raiser();
+            await Create_Raiser.Create_ABB_Raiser();
         }
 
         private static void btnCBP_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)
@@ -254,9 +256,9 @@ namespace Puime_s_Addin
             e.Enabled = Project.ActiveProject is Station;
         }
 
-        static void btnCBP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
+        static async void btnCBP_ExecuteCommand(object sender, ExecuteCommandEventArgs e)
         {
-            Create_BasePlate.Create_ABB_BasePlate();
+            await Create_BasePlate.Create_ABB_BasePlate();
         }
 
         private static void btnCM_UpdateCommandUI(object sender, UpdateCommandUIEventArgs e)

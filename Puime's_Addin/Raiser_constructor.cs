@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
     public class Raiser_constructor
     {

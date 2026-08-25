@@ -10,7 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
     public partial class frmCreateBoxBuilder : ToolControlBase
     {
@@ -113,7 +113,7 @@ namespace Puime_s_Addin
 
             string WorkingDirectory;
             string DirectoryPath1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\";
+            string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Textures\\";
             string currentDirectoryPath = DirectoryPath1 + DirectoryPath2;
             
             if (Directory.Exists(currentDirectoryPath))
@@ -122,7 +122,7 @@ namespace Puime_s_Addin
             }
             else
             {
-                WorkingDirectory = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Textures\\";
+                WorkingDirectory = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Textures\\";
             }
 
 
@@ -228,18 +228,12 @@ namespace Puime_s_Addin
                 myFace5.Visible = true;
 
                 // Set the material for each face of the box
-                Bitmap bmp0 = new Bitmap(WorkingDirectory + "top.jpg");
-                Bitmap bmp1 = new Bitmap(WorkingDirectory + "bottom.jpg");
-                Bitmap bmp2 = new Bitmap(WorkingDirectory + "long_side.jpg");
-                Bitmap bmp3 = new Bitmap(WorkingDirectory + "short_side2.jpg");
-                Bitmap bmp4 = new Bitmap(WorkingDirectory + "long_side2.jpg");
-                Bitmap bmp5 = new Bitmap(WorkingDirectory + "short_side.jpg");
-                Texture texture0 = new Texture(bmp0);
-                Texture texture1 = new Texture(bmp1);
-                Texture texture2 = new Texture(bmp2);
-                Texture texture3 = new Texture(bmp3);
-                Texture texture4 = new Texture(bmp4);
-                Texture texture5 = new Texture(bmp5);
+                Texture texture0 = new Texture(WorkingDirectory + "top.jpg");
+                Texture texture1 = new Texture(WorkingDirectory + "bottom.jpg");
+                Texture texture2 = new Texture(WorkingDirectory + "long_side.jpg");
+                Texture texture3 = new Texture(WorkingDirectory + "short_side2.jpg");
+                Texture texture4 = new Texture(WorkingDirectory + "long_side2.jpg");
+                Texture texture5 = new Texture(WorkingDirectory + "short_side.jpg");
                 Material material0 = new Material(texture0);
                 Material material1 = new Material(texture1);
                 Material material2 = new Material(texture2);

@@ -1,6 +1,6 @@
 ﻿using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio;
-using Puime_s_Addin;
+using PuimesAddin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +12,7 @@ using RobotStudio.API.Internal;
 
 namespace PuimesAddin
 {
+    [System.Runtime.Versioning.SupportedOSPlatform("windows7.0")]
     internal class CADExport
     {
         public static void ExportCADmain()
@@ -29,8 +30,8 @@ namespace PuimesAddin
                 Logger.AddMessage(new LogMessage("Station :" + stn.ToString(), "Puime's Add-in"));
                
                 //GraphicConverter converter = new GraphicConverter();
-                DxfDwgConverter converter = new DxfDwgConverter();
-                converter.GetExportExtensions(stn);
+                //xfDwgConverter converter = new DxfDwgConverter();
+                //converter.GetExportExtensions(stn);
 
 
 

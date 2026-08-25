@@ -5,7 +5,7 @@ using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
 
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
     public class Copy_Position
     {

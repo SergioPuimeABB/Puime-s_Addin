@@ -92,6 +92,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace PuimesAddin
 {
+    [System.Runtime.Versioning.SupportedOSPlatform("windows7.0")]
     internal class TextCreator
     {
 
@@ -113,7 +114,7 @@ namespace PuimesAddin
                 //Bitmap bmp = new Bitmap(400, 400);
                 //GraphicsPath gp = new GraphicsPath();
                 //using (Graphics g = Graphics.FromImage(bmp))
-                using (Font f = new Font("Tahoma", 40f))
+                using (System.Drawing.Font f = new System.Drawing.Font("Tahoma", 40f))
 
                 {
                     foreach (char c in text)

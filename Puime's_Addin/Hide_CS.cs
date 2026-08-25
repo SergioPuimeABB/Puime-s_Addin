@@ -1,7 +1,7 @@
 ﻿using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Environment;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
     public class Hide_CS
     {

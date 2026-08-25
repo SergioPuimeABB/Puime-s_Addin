@@ -1,4 +1,4 @@
-﻿using ABB.Robotics.Controllers.RapidDomain;
+using ABB.Robotics.Controllers.RapidDomain;
 using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
@@ -8,16 +8,19 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using RapidTask = ABB.Robotics.Controllers.RapidDomain.Task;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
+    [System.Runtime.Versioning.SupportedOSPlatform("windows7.0")]
     class Create_Raiser
     {
-        public static void Create_ABB_Raiser()
+        public static async System.Threading.Tasks.Task Create_ABB_Raiser()
         {
             #region try
-            Project.UndoContext.BeginUndoStep("RotateBasedOnAxis");
+            Project.UndoContext.BeginUndoStep("Create ABB Raiser");
             try
             {
                 Station stn = Station.ActiveStation;
@@ -95,7 +98,7 @@ namespace Puime_s_Addin
               
                 foreach (var item in StationRaisers)
                 {
-                    Raiser(item.Name, item.Type, item.Xpos, item.Ypos, item.Orientation, item.Zpos);
+                    await Raiser(item.Name, item.Type, item.Xpos, item.Ypos, item.Orientation, item.Zpos);
                 }
             }
             #endregion try
@@ -113,7 +116,7 @@ namespace Puime_s_Addin
 
         }
 
-        public static void Raiser(string name, string type, double xpos, double ypos, double orientation, double height)
+        public static async System.Threading.Tasks.Task Raiser(string name, string type, double xpos, double ypos, double orientation, double height)
         {
 
             // Eliminate the height decimals
@@ -123,8 +126,8 @@ namespace Puime_s_Addin
             string WorkingDirectoryBasePlate;
             string WorkingDirectoryTopPlate;
             string DirectoryPath1 = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\Raisers\\BasePlate\\";
-            string DirectoryPath3 = "\\ABB\\DistributionPackages2\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\Raisers\\TopPlate\\";
+            string DirectoryPath2 = "\\ABB\\DistributionPackages2\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Library\\Raisers\\BasePlate\\";
+            string DirectoryPath3 = "\\ABB\\DistributionPackages2\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Library\\Raisers\\TopPlate\\";
             string currentDirectoryPathBasePlate = DirectoryPath1 + DirectoryPath2;
             string currentDirectoryPathTopPlate = DirectoryPath1 + DirectoryPath3;
             
@@ -139,8 +142,8 @@ namespace Puime_s_Addin
             else
             {
                 //Logger.AddMessage($"Directory {currentDirectoryPathBasePlate} does not exist!");
-                WorkingDirectoryBasePlate = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\Raisers\\BasePlate\\";
-                WorkingDirectoryTopPlate = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-4.0\\RobotStudio\\Add-In\\Library\\Raisers\\TopPlate\\";
+                WorkingDirectoryBasePlate = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Library\\Raisers\\BasePlate\\";
+                WorkingDirectoryTopPlate = "C:\\ProgramData\\ABB\\DistributionPackages\\PuimesAddin-2026.0\\RobotStudio\\Add-In\\Library\\Raisers\\TopPlate\\";
             }
 
 
@@ -208,7 +211,7 @@ namespace Puime_s_Addin
                             Station station = Project.ActiveProject as Station;
 
                             // Import the BasePlateTypeA library                                                                                                             
-                            GraphicComponentLibrary RaiserBasePlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeA.rslib", true, null, false);
+                            GraphicComponentLibrary RaiserBasePlateTypeALib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeA.rslib", true, null, false);//.ConfigureAwait(false);
 
                             Part myPart1 = RaiserBasePlateTypeALib.RootComponent.CopyInstance() as Part;
                             myPart1.Name = "BasePlateTypeA";
@@ -227,7 +230,7 @@ namespace Puime_s_Addin
                             myPart3.Bodies.Add(b1);
 
                             // Import the TopPlateTypeA library
-                            GraphicComponentLibrary TopPlateTypeALib = GraphicComponentLibrary.Load(WorkingDirectoryTopPlate + "TopPlateTypeA.rslib", true, null, false);
+                            GraphicComponentLibrary TopPlateTypeALib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryTopPlate + "TopPlateTypeA.rslib", true, null, false);//.ConfigureAwait(false);
                             Part myPart2 = TopPlateTypeALib.RootComponent.CopyInstance() as Part;
                             myPart2.Name = "TopPlateTypeA";
                             myPart2.DisconnectFromLibrary();
@@ -300,10 +303,14 @@ namespace Puime_s_Addin
                             Station station = Project.ActiveProject as Station;
 
                             // Import the BasePlateTypeB library
-                            GraphicComponentLibrary BasePlateTypeBLib = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeB.rslib", true, null, false);
+                            GraphicComponentLibrary BasePlateTypeBLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeB.rslib", true, null, false);//.ConfigureAwait(false);
                             Part myPart1 = BasePlateTypeBLib.RootComponent.CopyInstance() as Part;
                             myPart1.Name = "BasePlateTypeB";
                             myPart1.DisconnectFromLibrary();
+
+
+
+
 
                             // Create the raiser middle cylinder.
                             Part myPart3 = new Part();
@@ -318,7 +325,7 @@ namespace Puime_s_Addin
                             myPart3.Bodies.Add(b1);
 
                             // Import the TopPlateTypeB library
-                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load(WorkingDirectoryTopPlate + "TopPlateTypeB.rslib", true, null, false);
+                            GraphicComponentLibrary TopPlateTypeBLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryTopPlate + "TopPlateTypeB.rslib", true, null, false);//.ConfigureAwait(false);
                             Part myPart2 = TopPlateTypeBLib.RootComponent.CopyInstance() as Part;
                             myPart2.Name = "TopPlateTypeB";
                             myPart2.DisconnectFromLibrary();
@@ -397,7 +404,7 @@ namespace Puime_s_Addin
                             {
                                 case "300": case "400": case "500": case "600": case "700": case "800": case "900": case "1000":
                                     // Import the BasePlateTypeC library for 300-100 height
-                                    GraphicComponentLibrary BasePlateTypeBLiba = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC_300-1000.rslib", true, null, false);
+                                    GraphicComponentLibrary BasePlateTypeBLiba = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeC_300-1000.rslib", true, null, false);//.ConfigureAwait(false);
                                     Part myParta = BasePlateTypeBLiba.RootComponent.CopyInstance() as Part;
                                     myParta.Name = "BasePlateTypeC";
                                     myParta.DisconnectFromLibrary();
@@ -406,7 +413,7 @@ namespace Puime_s_Addin
 
                                 case "1100": case "1200": case "1300": case "1400": case "1500":
                                     // Import the BasePlateTypeC library for 1100-1500 height
-                                    GraphicComponentLibrary BasePlateTypeBLibb = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC_1000-1500.rslib", true, null, false);
+                                    GraphicComponentLibrary BasePlateTypeBLibb = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeC_1000-1500.rslib", true, null, false);//.ConfigureAwait(false);
                                     Part myPartb = BasePlateTypeBLibb.RootComponent.CopyInstance() as Part;
                                     myPartb.Name = "BasePlateTypeC";
                                     myPartb.DisconnectFromLibrary();
@@ -415,7 +422,7 @@ namespace Puime_s_Addin
 
                                 case "1600": case "1700": case "1800": case "1900": case "2000":
                                     // Import the BasePlateTypeC library for 1600-2000 height
-                                    GraphicComponentLibrary BasePlateTypeBLibc = GraphicComponentLibrary.Load(WorkingDirectoryBasePlate + "BasePlateTypeC_1600-2000.rslib", true, null, false);
+                                    GraphicComponentLibrary BasePlateTypeBLibc = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryBasePlate + "BasePlateTypeC_1600-2000.rslib", true, null, false);//.ConfigureAwait(false);
                                     Part myPartc = BasePlateTypeBLibc.RootComponent.CopyInstance() as Part;
                                     myPartc.Name = "BasePlateTypeC";
                                     myPartc.DisconnectFromLibrary();
@@ -440,7 +447,7 @@ namespace Puime_s_Addin
                             myPart3.Bodies.Add(b1);
 
                             // Import the TopPlateTypeC library
-                            GraphicComponentLibrary TopPlateTypeBLib = GraphicComponentLibrary.Load(WorkingDirectoryTopPlate + "TopPlateTypeC.rslib", true, null, false);
+                            GraphicComponentLibrary TopPlateTypeBLib = await GraphicComponentLibrary.LoadAsync(WorkingDirectoryTopPlate + "TopPlateTypeC.rslib", true, null, false);//.ConfigureAwait(false);
                             Part myPart2 = TopPlateTypeBLib.RootComponent.CopyInstance() as Part;
                             myPart2.Name = "TopPlateTypeC";
                             myPart2.DisconnectFromLibrary();

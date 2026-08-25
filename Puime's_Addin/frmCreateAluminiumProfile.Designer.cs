@@ -1,8 +1,8 @@
-﻿namespace Puime_s_Addin
+﻿namespace PuimesAddin
 {
     partial class FrmCreateAluminiumProfile
     {
-        private System.ComponentModel.IContainer components;
+        //private System.ComponentModel.IContainer components;
 
         /// <summary>
         /// Required designer variable.

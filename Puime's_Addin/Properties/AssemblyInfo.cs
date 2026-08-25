@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Puime_s_Addin")]
+[assembly: AssemblyTitle("PuimesAddin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ABB")]
-[assembly: AssemblyProduct("Puime_s_Addin")]
-[assembly: AssemblyCopyright("Copyright © ABB 2023")]
+[assembly: AssemblyProduct("PuimesAddin")]
+[assembly: AssemblyCopyright("Copyright © ABB 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0")]
-[assembly: AssemblyFileVersion("3.0")]
+[assembly: AssemblyVersion("2026.0")]
+[assembly: AssemblyFileVersion("2026.0")]

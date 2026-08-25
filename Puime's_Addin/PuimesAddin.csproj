@@ -1,18 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{26C08F38-877E-49F6-A950-70C61D2543AD}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PuimesAddin</RootNamespace>
     <AssemblyName>PuimesAddin</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <LangVersion>latest</LangVersion>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +20,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <StartAction>Program</StartAction>
-    <StartProgram>$(ProgramFiles)\ABB Industrial IT\Robotics IT\RobotStudio 6.06\Bin\RobotStudio.exe</StartProgram>
+    <StartProgram>C:\Program Files (x86)\ABB\RobotStudio 2026\Bin\RobotStudio.exe</StartProgram>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,87 +31,60 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <StartAction>Program</StartAction>
-    <StartProgram>$(ProgramFiles)\ABB Industrial IT\Robotics IT\RobotStudio 6.06\Bin\RobotStudio.exe</StartProgram>
+    <StartProgram>C:\Program Files (x86)\ABB\RobotStudio 2026\Bin\RobotStudio.exe</StartProgram>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ABB.Robotics.Controllers.PC">
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.Controllers.PC.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.Controllers.PC.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.Math">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.Math.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.Math.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.RobotStudio.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.RobotStudio.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Controllers">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.RobotStudio.Controllers.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.RobotStudio.Controllers.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Documents">
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.RobotStudio.Documents.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.RobotStudio.Documents.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Environment">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.RobotStudio.Environment.dll</HintPath>
-      <Private>False</Private>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.RobotStudio.Environment.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Stations">
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.RobotStudio.Stations.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.RobotStudio.Stations.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.Stations.Forms">
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.RobotStudio.Stations.Forms.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.RobotStudio.Stations.Forms.dll</HintPath>
     </Reference>
     <Reference Include="ABB.Robotics.RobotStudio.UI">
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\ABB.Robotics.RobotStudio.UI.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\ABB.Robotics.RobotStudio.UI.dll</HintPath>
     </Reference>
     <Reference Include="RobotStudio.Resources">
-      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2023 SDK\RobotStudio.Resources.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\ABB\SDK\RobotStudio 2026 SDK\RobotStudio.Resources.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Design" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
+    </ItemGroup>
   <ItemGroup>
     <Compile Include="Array.cs" />
     <Compile Include="AutoMoveParam.cs" />
     <Compile Include="BasePlate_constructor.cs" />
     <Compile Include="CADExport.cs" />
     <Compile Include="Create_BasePlate.cs" />
-    <Compile Include="frmCreateAluminiumProfile.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="frmCreateAluminiumProfile.cs" />
     <Compile Include="frmCreateAluminiumProfile.Designer.cs">
       <DependentUpon>frmCreateAluminiumProfile.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCreateTextBuilder.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="frmAutoMarkUpBuilder.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="frmAutoMoveParam.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="frmCreateTextBuilder.cs" />
+    <Compile Include="frmAutoMarkUpBuilder.cs" />
+    <Compile Include="frmAutoMoveParam.cs" />
     <Compile Include="frmAutoMoveParam.Designer.cs">
       <DependentUpon>frmAutoMoveParam.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmCreateBoxBuilder.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="frmMainWindowSize.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="frmZoom.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="frmCreateBoxBuilder.cs" />
+    <Compile Include="frmMainWindowSize.cs" />
+    <Compile Include="frmZoom.cs" />
     <Compile Include="frmZoom.Designer.cs">
       <DependentUpon>frmZoom.cs</DependentUpon>
     </Compile>
@@ -128,23 +99,31 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Create_Raiser.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Raiser_constructor.cs" />
     <Compile Include="JoinParts.cs" />
     <Compile Include="RenameMoveTargets.cs" />
     <Compile Include="TextCreator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Puime_s_Addin.rsaddin">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmAutoMarkUpBuilder.resx" />
     <EmbeddedResource Include="frmAutoMoveParam.resx">
       <DependentUpon>frmAutoMoveParam.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCreateAluminiumProfile.resx">
       <DependentUpon>frmCreateAluminiumProfile.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCreateBoxBuilder.resx" />
     <EmbeddedResource Include="frmZoom.resx">
       <DependentUpon>frmZoom.cs</DependentUpon>
     </EmbeddedResource>
@@ -241,20 +220,26 @@
     <None Include="Resources\BT_camera.png" />
     <Content Include="Resources\BT_textcreator.png" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>xcopy  /y "$(TargetPath)" "C:\Users\esu01142\AppData\Local\ABB\DistributionPackages2\PuimesAddin-4.0\RobotStudio\Add-In"
-</PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.Controllers.PC.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.Math.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.RobotStudio.Controllers.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.RobotStudio.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.RobotStudio.Documents.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.RobotStudio.Environment.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.RobotStudio.Stations.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.RobotStudio.Stations.Forms.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\ABB.Robotics.RobotStudio.UI.dll" />
+    <Analyzer Include="C:\Program Files %28x86%29\ABB\SDK\RobotStudio 2024 SDK\RobotStudio.Resources.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="xcopy /y &quot;$(TargetPath)&quot; &quot;C:\Users\esu01142\AppData\Local\ABB\DistributionPackages2\PuimesAddin-2026.0\RobotStudio\Add-In\&quot;" />
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

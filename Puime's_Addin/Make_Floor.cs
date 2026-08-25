@@ -5,7 +5,7 @@ using ABB.Robotics.Math;
 using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
     public class Make_Floor
     {

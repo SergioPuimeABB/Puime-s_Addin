@@ -10,7 +10,7 @@ using ABB.Robotics.RobotStudio.Stations;
 using ABB.Robotics.RobotStudio.Stations.Forms;
 using PuimesAddin.Properties;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
     public class frmCreateTextBuilder : ToolControlBase
     {

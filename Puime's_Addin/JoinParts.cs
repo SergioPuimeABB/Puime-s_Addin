@@ -10,7 +10,7 @@ using ABB.Robotics.RobotStudio;
 using ABB.Robotics.RobotStudio.Stations;
 using RobotStudio.API.Internal;
 
-namespace Puime_s_Addin
+namespace PuimesAddin
 {
     class JoinParts
     {
